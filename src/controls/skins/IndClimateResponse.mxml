@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 12.03.13 - NE - Created -->
+<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" 
+		xmlns:mx="library://ns.adobe.com/flex/mx" 
+		updateComplete="updateComp()"
+		creationComplete="createComp()">
+	<!-- host component -->
+	<fx:Metadata>
+		[HostComponent("controls.IndClimateResponse")]
+	</fx:Metadata>
+	<fx:Script>
+		<![CDATA[
+			
+			import mx.core.FlexGlobals;
+			
+			import spark.components.Label;
+			
+			private function createComp():void {
+				
+			}
+									
+			private function updateComp():void {
+			
+			}
+			
+			private function roundValues(fieldValue:String,decPlaces:Number):String {
+				var outputValue:String;
+				
+				outputValue = ((Number(fieldValue)).toFixed(decPlaces)).toString()
+					
+				if (decPlaces == 0 && outputValue.split('.') != null) {
+					outputValue = outputValue.split('.')[0];
+				}
+				
+				return outputValue;
+			}
+			
+			private function convertToFah(celsiusValue:String):String {
+				var outputFah = '';
+				
+				outputFah = ((Number(celsiusValue)*1.8) + 32).toString();
+				
+				return outputFah;
+			}
+			
+			private function convertToInchesFromMM(mmValue:String):String {
+				var outputInches = '';
+				
+				outputInches = ((Number(mmValue)/2.54)/10).toString();
+				
+				return outputInches;
+			}
+			
+			
+		]]>
+	</fx:Script>
+	
+	<s:states>
+		<s:State name="normal" />
+		<s:State name="hovered" />
+		<s:State name="selected" />
+		<s:State name="disabled"/>
+	</s:states>
+	
+	<s:BorderContainer id="indClimateContainer" width="100%" borderColor="0xFFFFFF">
+		<s:layout>
+			<s:VerticalLayout
+				paddingLeft="2" paddingRight="2" 
+				paddingTop="20" paddingBottom="20"/>
+		</s:layout>
+		
+		<s:VGroup textAlign="center">
+			
+			<s:HGroup textAlign="center" height="100%" width="100%">
+				<s:Label textAlign="left" text="Canadian Centre for Climate Modeling &amp; analysis: CGCM3.1({hostComponent.modelNumber})" fontWeight="bold" width="70%" />
+				<s:Label textAlign="right" text="FishVis GCM code: {hostComponent.modelNumber.toLowerCase()}" width="30%" />
+			</s:HGroup>
+			
+			<mx:HRule width="100%" chromeColor="0xFFFFFF" />
+			
+			<s:HGroup horizontalAlign="center" fontWeight="bold" textAlign="center" height="100%" width="100%">
+				<s:Label width="200" />
+				<s:Label width="120" text="Late 20th Century (1961-2000)" />
+				<s:Label width="120" text="Mid 21st Century (2046-2065)" />
+				<s:Label width="120" text="Late 21st Century (2081-2100)" />
+			</s:HGroup>
+			
+			<mx:HRule width="100%"/>
+			
+			<s:HGroup horizontalAlign="center" textAlign="center" paddingTop="2" height="100%" width="100%">
+				<s:Label width="200" text="Mean annual air temperature" textAlign="left" />
+				<s:HGroup width="120" horizontalAlign="center" >
+					<s:Label text="{roundValues(convertToFah(hostComponent.dataObj['T61'+hostComponent.modelNumber]),2)}&#xB0;F"/>
+				</s:HGroup>
+				<s:HGroup width="120" horizontalAlign="center" >
+					<s:Label text="{roundValues(convertToFah(hostComponent.dataObj['T46'+hostComponent.modelNumber]),2)}&#xB0;F" />
+				</s:HGroup>
+				<s:HGroup width="120" horizontalAlign="center" >
+					<s:Label text="{roundValues(convertToFah(hostComponent.dataObj['T81'+hostComponent.modelNumber]),2)}&#xB0;F" />
+				</s:HGroup>
+			</s:HGroup>
+			
+			<mx:HRule width="100%"/>
+			
+			<s:HGroup horizontalAlign="center" textAlign="center" paddingTop="2" height="100%" width="100%">
+				<s:Label width="200" text="Mean annual precipitaion (inches)" textAlign="left" />
+				<s:HGroup width="120" horizontalAlign="center" >
+					<s:Label text="{roundValues(convertToInchesFromMM(hostComponent.dataObj['P61'+hostComponent.modelNumber]),2)}" />
+				</s:HGroup>
+				<s:HGroup width="120" horizontalAlign="center" >
+					<s:Label text="{roundValues(convertToInchesFromMM(hostComponent.dataObj['P46'+hostComponent.modelNumber]),2)}" />
+				</s:HGroup>
+				<s:HGroup width="120" horizontalAlign="center" >
+					<s:Label text="{roundValues(convertToInchesFromMM(hostComponent.dataObj['P81'+hostComponent.modelNumber]),2)}" />
+				</s:HGroup>
+			</s:HGroup>
+			
+			<mx:HRule width="100%"/>
+			
+		</s:VGroup>
+	</s:BorderContainer>
+	
+</s:SparkSkin>

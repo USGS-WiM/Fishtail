@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 12.03.13 - NE - Created -->
+<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" 
+		xmlns:mx="library://ns.adobe.com/flex/mx" 
+		updateComplete="updateComp()"
+		creationComplete="createComp()">
+	<!-- host component -->
+	<fx:Metadata>
+		[HostComponent("controls.IndFishResponseHUC")]
+	</fx:Metadata>
+	<fx:Script>
+		<![CDATA[
+			
+			import mx.core.FlexGlobals;
+			
+			import spark.components.Label;
+			
+			private var indSpeciesSingleTooltip:String = "<p><b>Probability of occurrence:</b> The likelihood that a fish thermal group or species will be present (values range from 0 to 1, where 0.00 = highly unlikely to be present, 1.00 = highly likely to be present)</p><br/><p><b>Change in probability of occurrence:</b> The difference in probability of occurrence between a future time period and the present (positive values indicate more likely to be present in the future, negative values indicate less likely to be present in the future)</p><br/><p><b>Miles of fish occurrence:</b> Number of stream miles where this fish species is likely to be present.</p><br/><p><b>Miles lost:</b>  Number of stream miles where this fish species is likely to be present in the Late 20th century (present day) but absent in a future time period</p><br/><p><b>Miles gained:</b> Number of stream miles where this fish species is likely to be absent in the Late 20th century (present day) but present in a future time period</p><br/><p><b>Miles unchanged:</b> Number of stream miles where this fish species is maintain its present day status (present or absent) in a future time period</p><br/><p><b>Miles lost or gained:</b> Number of stream miles where the status of this fish species is likely to change in a future time period (present-to-absent and absent-to-present)</p><br/><p><b>Miles of fish occurrence (percent):</b> Percent of total stream miles where this fish species is likely to be present.</p><br/><p><b>Miles lost (percent):</b> Percent of total stream miles where this fish species is likely to be present in the Late 20th century (present day) but absent in a future time period</p><br/><p><b>Miles gained (percent):</b> Percent of total stream miles where this fish species is likely to be absent in the Late 20th century (present day) but present in a future time period</p><br/><p><b>Miles unchanged (percent):</b> Percent of total stream miles where this fish species is maintain its present day status (present or absent) in a future time period</p><br/><p><b>Miles lost or gained (percent):</b> Percent of total stream miles where the status of this fish species is likely to change in a future time period (present-to-absent and absent-to-present)";
+			
+			
+			private function createComp():void {
+				hostComponent.indFishResponseContainer = indFishResponseContainer;
+			}
+									
+			private function updateComp():void {
+				/*var tempObj:Object = hostComponent.dataObj;
+				
+				if (tempObj[hostComponent.speciesNumber+"A"] != null && tempObj[hostComponent.speciesNumber+"A"] == "P") {
+					currentEllipse.visible = true;
+				}
+				
+				if (tempObj[hostComponent.speciesNumber+"A46"] != null && tempObj[hostComponent.speciesNumber+"A46"] == "P") {
+					f1Ellipse.visible = true;
+				}
+				
+				if (tempObj[hostComponent.speciesNumber+"A81"] != null && tempObj[hostComponent.speciesNumber+"A81"] == "P") {
+					f2Ellipse.visible = true;
+				} */
+			}
+			
+			protected function back_clickHandler(event:MouseEvent):void
+			{
+				var thisContainer:DisplayObject = this.parent.parent;
+				thisContainer.visible = false;
+			}
+			
+			private function roundValues(fieldValue:String,decPlaces:Number):String {
+				var outputValue:String;
+				
+				outputValue = ((Number(fieldValue)).toFixed(decPlaces)).toString()
+					
+				if (decPlaces == 0 && outputValue.split('.') != null) {
+					outputValue = outputValue.split('.')[0];
+				}
+				
+				return outputValue;
+			}
+			
+			private function onMouseOver(event:MouseEvent):void {
+				event.currentTarget.setStyle("backgroundColor", "0xAAAAAA");
+			}
+			
+			private function onMouseOut(event:MouseEvent):void {
+				event.currentTarget.setStyle("backgroundColor", "0xFFFFFF");
+			}
+			
+			
+		]]>
+	</fx:Script>
+	
+	<s:states>
+		<s:State name="normal" />
+		<s:State name="hovered" />
+		<s:State name="selected" />
+		<s:State name="disabled"/>
+	</s:states>
+	
+	<s:BorderContainer id="indFishResponseContainer" width="100%" borderColor="0xFFFFFF">
+		<s:layout>
+			<s:VerticalLayout
+				paddingLeft="2" paddingRight="2" 
+				paddingTop="2" paddingBottom="0"/>
+		</s:layout>
+		<s:HGroup verticalAlign="middle">
+			<s:Image source="./assets/images/backArrow_15px.png" click="back_clickHandler(event)"/>
+			<s:Label text="BACK TO ALL SPECIES" height="100%" paddingTop="3" paddingLeft="3" paddingRight="3" click="back_clickHandler(event)"  mouseOver="onMouseOver(event)" mouseOut="onMouseOut(event)"/>
+		</s:HGroup>
+		
+		<mx:HBox width="100%" backgroundColor="0xDDDDDD" verticalAlign="middle" paddingBottom="5" paddingLeft="5" paddingRight="5" paddingTop="5">
+			<s:Label text="{hostComponent.speciesName}:" fontWeight="bold"/>
+			<s:Label text="{hostComponent.tempClass}-water species" color="{hostComponent.tempClassColor}" fontSize="9" />
+			<mx:Image source="./assets/images/help_tip.png" width="100%" toolTip="{indSpeciesSingleTooltip}" horizontalAlign="right" />
+		</mx:HBox>
+		<s:VGroup textAlign="center">
+			<s:HGroup horizontalAlign="center" fontWeight="bold" textAlign="center" height="100%" width="100%">
+				<s:Label width="140" />
+				<s:Label width="120" text="Late 20th Century (present day)" />
+				<s:Label width="120" text="Mid 21st Century (2046-2065)" />
+				<s:Label width="120" text="Late 21st Century (2081-2100)" />
+			</s:HGroup>
+			
+			<mx:HRule width="100%"/>
+			
+			<s:HGroup horizontalAlign="center" textAlign="center" paddingTop="2" height="100%" width="100%">
+				<s:Label width="140" text="Probability of occurrence (length-weighted)" textAlign="left" />
+				<s:HGroup width="120" horizontalAlign="center" >
+					<s:Label text="{roundValues(hostComponent.dataObj['WSL'+hostComponent.speciesNumber+'AP'],2)}" />
+				</s:HGroup>
+				<s:HGroup width="120" horizontalAlign="center" >
+					<s:Label text="{roundValues(hostComponent.dataObj['WSL'+hostComponent.speciesNumber+'AP46'],2)}" />
+				</s:HGroup>
+				<s:HGroup width="120" horizontalAlign="center" >
+					<s:Label text="{roundValues(hostComponent.dataObj['WSL'+hostComponent.speciesNumber+'AP81'],2)}" />
+				</s:HGroup>
+			</s:HGroup>
+			
+			<mx:HRule width="100%"/>
+			
+			<s:HGroup horizontalAlign="center" textAlign="center" paddingTop="2" height="100%" width="100%">
+				<s:Label width="140" text="Change in probability of occurrence (length-weighted)" textAlign="left" />
+				<s:HGroup width="120" horizontalAlign="center" >
+					<s:Label text="--" />
+				</s:HGroup>
+				<s:HGroup width="120" horizontalAlign="center" >
+					<s:Label text="{roundValues((Number(hostComponent.dataObj['WSL'+hostComponent.speciesNumber+'AP'])-Number(hostComponent.dataObj['WSL'+hostComponent.speciesNumber+'AP46'])).toString(),2)}" />
+				</s:HGroup>
+				<s:HGroup width="120" horizontalAlign="center" >
+					<s:Label text="{roundValues((Number(hostComponent.dataObj['WSL'+hostComponent.speciesNumber+'AP'])-Number(hostComponent.dataObj['WSL'+hostComponent.speciesNumber+'AP81'])).toString(),2)}" />
+				</s:HGroup>
+			</s:HGroup>
+			
+			<mx:HRule width="100%"/>
+			
+			<s:HGroup horizontalAlign="center" textAlign="center" paddingTop="2" height="100%" width="100%">
+				<s:Label width="140" text="Miles of fish occurrence" textAlign="left" />
+				<s:HGroup width="120" horizontalAlign="center" >
+					<s:Label text="{roundValues(hostComponent.dataObj['M'+hostComponent.speciesNumber+'PPPA46'],0)}" />
+				</s:HGroup>
+				<s:HGroup width="120" horizontalAlign="center" >
+					<s:Label text="{roundValues(hostComponent.dataObj['M'+hostComponent.speciesNumber+'PPAP46'],0)}" />
+				</s:HGroup>
+				<s:HGroup width="120" horizontalAlign="center" >
+					<s:Label text="{roundValues(hostComponent.dataObj['M'+hostComponent.speciesNumber+'PPAP81'],0)}" />
+				</s:HGroup>
+			</s:HGroup>
+			
+			<mx:HRule width="100%"/>
+			
+			<s:HGroup horizontalAlign="center" textAlign="center" paddingTop="2" height="100%" width="100%">
+				<s:Label width="140" text="Miles lost" textAlign="left" />
+				<s:HGroup width="120" horizontalAlign="center" >
+					<s:Label text="--" />
+				</s:HGroup>
+				<s:HGroup width="120" horizontalAlign="center" >
+					<s:Label text="{roundValues(hostComponent.dataObj['M'+hostComponent.speciesNumber+'PA46'],0)}" />
+				</s:HGroup>
+				<s:HGroup width="120" horizontalAlign="center" >
+					<s:Label text="{roundValues(hostComponent.dataObj['M'+hostComponent.speciesNumber+'PA81'],0)}" />
+				</s:HGroup>
+			</s:HGroup>
+			
+			<mx:HRule width="100%"/>
+			
+			<s:HGroup horizontalAlign="center" textAlign="center" paddingTop="2" height="100%" width="100%">
+				<s:Label width="140" text="Miles gained" textAlign="left" />
+				<s:HGroup width="120" horizontalAlign="center" >
+					<s:Label text="--" />
+				</s:HGroup>
+				<s:HGroup width="120" horizontalAlign="center" >
+					<s:Label text="{roundValues(hostComponent.dataObj['M'+hostComponent.speciesNumber+'AP46'],0)}" />
+				</s:HGroup>
+				<s:HGroup width="120" horizontalAlign="center" >
+					<s:Label text="{roundValues(hostComponent.dataObj['M'+hostComponent.speciesNumber+'AP81'],0)}" />
+				</s:HGroup>
+			</s:HGroup>
+			
+			<mx:HRule width="100%"/>
+			
+			<s:HGroup horizontalAlign="center" textAlign="center" paddingTop="2" height="100%" width="100%">
+				<s:Label width="140" text="Miles unchanged" textAlign="left" />
+				<s:HGroup width="120" horizontalAlign="center" >
+					<s:Label text="--" />
+				</s:HGroup>
+				<s:HGroup width="120" horizontalAlign="center" >
+					<s:Label text="{roundValues(hostComponent.dataObj['M'+hostComponent.speciesNumber+'PP46'],0)}" />
+				</s:HGroup>
+				<s:HGroup width="120" horizontalAlign="center" >
+					<s:Label text="{roundValues(hostComponent.dataObj['M'+hostComponent.speciesNumber+'PP81'],0)}" />
+				</s:HGroup>
+			</s:HGroup>
+			
+			<mx:HRule width="100%"/>
+			
+			<s:HGroup horizontalAlign="center" textAlign="center" paddingTop="2" height="100%" width="100%">
+				<s:Label width="140" text="Miles lost or gained" textAlign="left" />
+				<s:HGroup width="120" horizontalAlign="center" >
+					<s:Label text="--" />
+				</s:HGroup>
+				<s:HGroup width="120" horizontalAlign="center" >
+					<s:Label text="{roundValues(hostComponent.dataObj['M'+hostComponent.speciesNumber+'PAAP46'],0)}" />
+				</s:HGroup>
+				<s:HGroup width="120" horizontalAlign="center" >
+					<s:Label text="{roundValues(hostComponent.dataObj['M'+hostComponent.speciesNumber+'PAAP81'],0)}" />
+				</s:HGroup>
+			</s:HGroup>
+			
+			<mx:HRule width="100%"/>
+			
+			<s:HGroup horizontalAlign="center" textAlign="center" paddingTop="2" height="100%" width="100%">
+				<s:Label width="140" text="Miles of fish occurrence (percent)" textAlign="left" />
+				<s:HGroup width="120" horizontalAlign="center" >
+					<s:Label text="{roundValues(hostComponent.dataObj['P'+hostComponent.speciesNumber+'PPPA46'],0)}%" />
+				</s:HGroup>
+				<s:HGroup width="120" horizontalAlign="center" >
+					<s:Label text="{roundValues(hostComponent.dataObj['P'+hostComponent.speciesNumber+'PPAP46'],0)}%" />
+				</s:HGroup>
+				<s:HGroup width="120" horizontalAlign="center" >
+					<s:Label text="{roundValues(hostComponent.dataObj['P'+hostComponent.speciesNumber+'PPAP81'],0)}%" />
+				</s:HGroup>
+			</s:HGroup>
+			
+			<mx:HRule width="100%"/>
+			
+			<s:HGroup horizontalAlign="center" textAlign="center" paddingTop="2" height="100%" width="100%">
+				<s:Label width="140" text="Miles lost (percent)" textAlign="left" />
+				<s:HGroup width="120" horizontalAlign="center" >
+					<s:Label text="--" />
+				</s:HGroup>
+				<s:HGroup width="120" horizontalAlign="center" >
+					<s:Label text="{roundValues(hostComponent.dataObj['P'+hostComponent.speciesNumber+'PA46'],0)}%" />
+				</s:HGroup>
+				<s:HGroup width="120" horizontalAlign="center" >
+					<s:Label text="{roundValues(hostComponent.dataObj['P'+hostComponent.speciesNumber+'PA81'],0)}%" />
+				</s:HGroup>
+			</s:HGroup>
+			
+			<mx:HRule width="100%"/>
+			
+			<s:HGroup horizontalAlign="center" textAlign="center" paddingTop="2" height="100%" width="100%">
+				<s:Label width="140" text="Miles gained (percent)" textAlign="left" />
+				<s:HGroup width="120" horizontalAlign="center" >
+					<s:Label text="--" />
+				</s:HGroup>
+				<s:HGroup width="120" horizontalAlign="center" >
+					<s:Label text="{roundValues(hostComponent.dataObj['P'+hostComponent.speciesNumber+'AP46'],0)}%" />
+				</s:HGroup>
+				<s:HGroup width="120" horizontalAlign="center" >
+					<s:Label text="{roundValues(hostComponent.dataObj['P'+hostComponent.speciesNumber+'AP81'],0)}%" />
+				</s:HGroup>
+			</s:HGroup>
+			
+			<mx:HRule width="100%"/>
+			
+			<s:HGroup horizontalAlign="center" textAlign="center" paddingTop="2" height="100%" width="100%">
+				<s:Label width="140" text="Miles unchanged (percent)" textAlign="left" />
+				<s:HGroup width="120" horizontalAlign="center" >
+					<s:Label text="--" />
+				</s:HGroup>
+				<s:HGroup width="120" horizontalAlign="center" >
+					<s:Label text="{roundValues(hostComponent.dataObj['P'+hostComponent.speciesNumber+'PP46'],0)}%" />
+				</s:HGroup>
+				<s:HGroup width="120" horizontalAlign="center" >
+					<s:Label text="{roundValues(hostComponent.dataObj['P'+hostComponent.speciesNumber+'PP81'],0)}%" />
+				</s:HGroup>
+			</s:HGroup>
+			
+			<mx:HRule width="100%"/>
+			
+			<s:HGroup horizontalAlign="center" textAlign="center" paddingTop="2" height="100%" width="100%">
+				<s:Label width="140" text="Miles lost or gained (percent)" textAlign="left" />
+				<s:HGroup width="120" horizontalAlign="center" >
+					<s:Label text="--" />
+				</s:HGroup>
+				<s:HGroup width="120" horizontalAlign="center" >
+					<s:Label text="{roundValues(hostComponent.dataObj['P'+hostComponent.speciesNumber+'PAAP46'],0)}%" />
+				</s:HGroup>
+				<s:HGroup width="120" horizontalAlign="center" >
+					<s:Label text="{roundValues(hostComponent.dataObj['P'+hostComponent.speciesNumber+'PAAP81'],0)}%" />
+				</s:HGroup>
+			</s:HGroup>
+			
+		</s:VGroup>
+	</s:BorderContainer>
+	
+</s:SparkSkin>

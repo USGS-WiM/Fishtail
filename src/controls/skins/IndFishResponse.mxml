@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 12.03.13 - NE - Created -->
+<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" 
+		xmlns:mx="library://ns.adobe.com/flex/mx" 
+		updateComplete="updateComp()"
+		creationComplete="createComp()">
+	<!-- host component -->
+	<fx:Metadata>
+		[HostComponent("controls.IndFishResponse")]
+	</fx:Metadata>
+	<fx:Script>
+		<![CDATA[
+			
+			import mx.core.FlexGlobals;
+			
+			import spark.components.Label;
+			
+			private var fishIndSpeciesSingleTooltip:String = "<p><b>Predicted occurrence:</b> Indicates whether a fish thermal group or species are present or absent (where predicted probability of occurrence > = 50%, species were classified as being present; otherwise species were classified as being absent)</p><p><b>Probability of occurrence:</b> The likelihood that a fish thermal group or species will be present (values range from 0 to 1, where 0.00 = highly unlikely to be present, 1.00 = highly likely to be present)</p><p><b>Change in probability of occurrence:</b> The difference in probability of occurrence between a future time period and the present (positive values indicate more likely to be present in the future, negative values indicate less likely to be present in the future)</p><p><b>Vulnerability:</b> Percent of Global Climate Models that indicate loss</p><p><b>Opportunity:</b> Percent of Global Climate Models that indicate gain</p><p><b>Sensitivity:</b> Percent of Global Climate Models that indicate a change, either loss or gain</p>";
+			
+			private function createComp():void {
+				hostComponent.indFishResponseContainer = indFishResponseContainer;
+			}
+									
+			private function updateComp():void {
+				var tempObj:Object = hostComponent.dataObj;
+				
+				if (tempObj[hostComponent.speciesNumber+"A"] != null && tempObj[hostComponent.speciesNumber+"A"] == "P") {
+					currentEllipse.visible = true;
+				}
+				
+				if (tempObj[hostComponent.speciesNumber+"A46"] != null && tempObj[hostComponent.speciesNumber+"A46"] == "P") {
+					f1Ellipse.visible = true;
+				}
+				
+				if (tempObj[hostComponent.speciesNumber+"A81"] != null && tempObj[hostComponent.speciesNumber+"A81"] == "P") {
+					f2Ellipse.visible = true;
+				}
+			}
+			
+			protected function back_clickHandler(event:MouseEvent):void
+			{
+				var thisContainer:DisplayObject = this.parent.parent;
+				thisContainer.visible = false;
+			}
+			
+			private function roundValues(fieldValue:String,decPlaces:Number):String {
+				var outputValue:String;
+				
+				outputValue = ((Number(fieldValue)).toFixed(decPlaces)).toString()
+					
+				if (decPlaces == 0 && outputValue.split('.') != null) {
+					outputValue = outputValue.split('.')[0];
+				}
+				
+				return outputValue;
+			}
+			
+			private function onMouseOver(event:MouseEvent):void {
+				event.currentTarget.setStyle("backgroundColor", "0xAAAAAA");
+			}
+			
+			private function onMouseOut(event:MouseEvent):void {
+				event.currentTarget.setStyle("backgroundColor", "0xFFFFFF");
+			}
+			
+			
+		]]>
+	</fx:Script>
+	
+	<s:states>
+		<s:State name="normal" />
+		<s:State name="hovered" />
+		<s:State name="selected" />
+		<s:State name="disabled"/>
+	</s:states>
+	
+	<s:BorderContainer id="indFishResponseContainer" width="100%" borderColor="0xFFFFFF">
+		<s:layout>
+			<s:VerticalLayout
+				paddingLeft="2" paddingRight="2" 
+				paddingTop="2" paddingBottom="0"/>
+		</s:layout>
+		<s:HGroup verticalAlign="middle">
+			<s:Image source="./assets/images/backArrow_15px.png" click="back_clickHandler(event)"/>
+			<s:Label text="BACK TO ALL SPECIES" height="100%" paddingTop="3" paddingLeft="3" paddingRight="3" click="back_clickHandler(event)"  mouseOver="onMouseOver(event)" mouseOut="onMouseOut(event)"/>
+		</s:HGroup>
+		
+		<mx:HBox width="100%" backgroundColor="0xDDDDDD" verticalAlign="middle" paddingBottom="5" paddingLeft="5" paddingRight="5" paddingTop="5">
+			<s:Label text="{hostComponent.speciesName}:" fontWeight="bold"/>
+			<s:Label text="{hostComponent.tempClass}-water species" color="{hostComponent.tempClassColor}" fontSize="9" />
+			<mx:Image source="./assets/images/help_tip.png" width="100%" toolTip="{fishIndSpeciesSingleTooltip}" horizontalAlign="right" />
+		</mx:HBox>
+		<s:VGroup textAlign="center">
+			<s:HGroup horizontalAlign="center" fontWeight="bold" textAlign="center" height="100%" width="100%">
+				<s:Label width="140" />
+				<s:Label width="120" text="Late 20th Century (1961-2000)" />
+				<s:Label width="120" text="Mid 21st Century (2046-2065)" />
+				<s:Label width="120" text="Late 21st Century (2081-2100)" />
+			</s:HGroup>
+			
+			<mx:HRule width="100%"/>
+			
+			<s:HGroup horizontalAlign="center" textAlign="center" paddingTop="2" height="100%" width="100%">
+				<s:Label width="140" text="Predicted occurrence" textAlign="left" />
+				<s:HGroup name="currentEllipse" width="120" horizontalAlign="center" >
+					<s:Ellipse id="currentEllipse" height="5" width="5" visible="false">
+						<s:stroke>
+							<s:SolidColorStroke color="0x000000" weight="1"/>
+						</s:stroke>
+						<s:fill>
+							<s:SolidColor color="0x000000" />
+						</s:fill>
+					</s:Ellipse>
+				</s:HGroup>
+				<s:HGroup name="f1Ellipse" width="120" horizontalAlign="center" >
+					<s:Ellipse id="f1Ellipse" height="5" width="5" visible="false">
+						<s:stroke>
+							<s:SolidColorStroke color="0x000000" weight="1"/>
+						</s:stroke>
+						<s:fill>
+							<s:SolidColor color="0x000000" />
+						</s:fill>
+					</s:Ellipse>
+				</s:HGroup>
+				<s:HGroup name="f2Ellipse" width="120" horizontalAlign="center" >
+					<s:Ellipse id="f2Ellipse" height="5" width="5" visible="false">
+						<s:stroke>
+							<s:SolidColorStroke color="0x000000" weight="1"/>
+						</s:stroke>
+						<s:fill>
+							<s:SolidColor color="0x000000" />
+						</s:fill>
+					</s:Ellipse>
+				</s:HGroup>
+			</s:HGroup>
+			
+			<mx:HRule width="100%"/>
+			
+			<s:HGroup horizontalAlign="center" textAlign="center" paddingTop="2" height="100%" width="100%">
+				<s:Label width="140" text="Probability of occurrence" textAlign="left" />
+				<s:HGroup width="120" horizontalAlign="center" >
+					<s:Label text="{roundValues(hostComponent.dataObj[hostComponent.speciesNumber+'AP'],2)}" />
+				</s:HGroup>
+				<s:HGroup width="120" horizontalAlign="center" >
+					<s:Label text="{roundValues(hostComponent.dataObj[hostComponent.speciesNumber+'AP46X'],2)}" />
+				</s:HGroup>
+				<s:HGroup width="120" horizontalAlign="center" >
+					<s:Label text="{roundValues(hostComponent.dataObj[hostComponent.speciesNumber+'AP81X'],2)}" />
+				</s:HGroup>
+			</s:HGroup>
+			
+			<mx:HRule width="100%"/>
+			
+			<s:HGroup horizontalAlign="center" textAlign="center" paddingTop="2" height="100%" width="100%">
+				<s:Label width="140" text="Change in probability of occurrence" textAlign="left" />
+				<s:HGroup width="120" horizontalAlign="center" >
+					<s:Label text="--" />
+				</s:HGroup>
+				<s:HGroup width="120" horizontalAlign="center" >
+					<s:Label text="{roundValues(hostComponent.dataObj[hostComponent.speciesNumber+'APCH46'],2)}" />
+				</s:HGroup>
+				<s:HGroup width="120" horizontalAlign="center" >
+					<s:Label text="{roundValues(hostComponent.dataObj[hostComponent.speciesNumber+'APCH81'],2)}" />
+				</s:HGroup>
+			</s:HGroup>
+			
+			<mx:HRule width="100%"/>
+			
+			<s:HGroup horizontalAlign="center" textAlign="center" paddingTop="2" height="100%" width="100%">
+				<s:Label width="140" text="Vulnerability" textAlign="left" />
+				<s:HGroup width="120" horizontalAlign="center" >
+					<s:Label text="--" />
+				</s:HGroup>
+				<s:HGroup width="120" horizontalAlign="center" >
+					<s:Label text="{roundValues(hostComponent.dataObj['V'+hostComponent.speciesNumber+'T20F1'],0)}%" />
+				</s:HGroup>
+				<s:HGroup width="120" horizontalAlign="center" >
+					<s:Label text="{roundValues(hostComponent.dataObj['V'+hostComponent.speciesNumber+'T20F2'],0)}%" />
+				</s:HGroup>
+			</s:HGroup>
+			
+			<mx:HRule width="100%"/>
+			
+			<s:HGroup horizontalAlign="center" textAlign="center" paddingTop="2" height="100%" width="100%">
+				<s:Label width="140" text="Opportunity" textAlign="left" />
+				<s:HGroup width="120" horizontalAlign="center" >
+					<s:Label text="--" />
+				</s:HGroup>
+				<s:HGroup width="120" horizontalAlign="center" >
+					<s:Label text="{roundValues(hostComponent.dataObj['O'+hostComponent.speciesNumber+'T20F1'],0)}%" />
+				</s:HGroup>
+				<s:HGroup width="120" horizontalAlign="center" >
+					<s:Label text="{roundValues(hostComponent.dataObj['O'+hostComponent.speciesNumber+'T20F2'],0)}%" />
+				</s:HGroup>
+			</s:HGroup>
+			
+			<mx:HRule width="100%"/>
+			
+			<s:HGroup horizontalAlign="center" textAlign="center" paddingTop="2" height="100%" width="100%">
+				<s:Label width="140" text="Sensitivity" textAlign="left" />
+				<s:HGroup width="120" horizontalAlign="center" >
+					<s:Label text="--" />
+				</s:HGroup>
+				<s:HGroup width="120" horizontalAlign="center" >
+					<s:Label text="{roundValues(hostComponent.dataObj['S'+hostComponent.speciesNumber+'T20F1'],0)}%" />
+				</s:HGroup>
+				<s:HGroup width="120" horizontalAlign="center" >
+					<s:Label text="{roundValues(hostComponent.dataObj['S'+hostComponent.speciesNumber+'T20F2'],0)}%" />
+				</s:HGroup>
+			</s:HGroup>
+			
+			<mx:HRule width="100%"/>
+			
+		</s:VGroup>
+	</s:BorderContainer>
+	
+</s:SparkSkin>

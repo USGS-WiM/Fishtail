@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 07.01.14 - NE - Created -->
+<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" 
+		xmlns:mx="library://ns.adobe.com/flex/mx">
+	<!-- host component -->
+	<fx:Metadata>
+		[HostComponent("controls.IndClimateModel")]
+	</fx:Metadata>
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			
+			import spark.components.Label;
+			
+			private var Models:ArrayCollection = new ArrayCollection([
+						{ 'ccc': 
+							{ 'originatingGroup': 'Canadian Centre for Climate Modelling & Analysis', 
+								'country': 'Canada',
+								'CMIP3': 'CGCM3.1(T47)',
+								'addInfo': {
+									'text': 'more information',
+									'link': 'http://www.ec.gc.ca/ccmac-cccma/'
+								}
+							},
+						't63': 
+							{ 'originatingGroup': 'Canadian Centre for Climate Modelling & Analysis', 
+								'country': 'Canada',
+								'CMIP3': 'CGCM3.1(T63)',
+								'addInfo': {
+									'text': 'more information',
+									'link': 'http://www.ec.gc.ca/ccmac-cccma/'
+								}
+							},
+						'mir': 
+							{ 'originatingGroup': 'Center for Climate System Research (The University of Tokyo), National Institute for Environmental Studies, and Frontier Research Center for Global Change (JAMSTEC)', 
+								'country': 'Japan',
+								'CMIP3': 'MIROC3.2(hires)',
+								'documentation' : {
+									'htmlLink': 'http://www-pcmdi.llnl.gov/ipcc/model_documentation/MIROC3.2_hires.htm',
+									'pdfLink': 'http://www-pcmdi.llnl.gov/ipcc/model_documentation/MIROC3.2_hires.pdf',
+									'docLink': 'http://www-pcmdi.llnl.gov/ipcc/model_documentation/MIROC3.2_hires.doc'
+								},
+								'addInfo': {
+									'text': 'more information',
+									'link': 'http://www-pcmdi.llnl.gov/ipcc/model_documentation/miroc3.2_info.htm'
+								}
+							},
+						'c30': 
+							{ 'originatingGroup': 'CSIRO Atmospheric Research', 
+								'country': 'Australia',
+								'CMIP3': 'CSIRO-Mk3.0',
+								'documentation' : {
+									'htmlLink': 'http://www-pcmdi.llnl.gov/ipcc/model_documentation/CSIRO-Mk3.0.htm',
+									'pdfLink': 'http://www-pcmdi.llnl.gov/ipcc/model_documentation/CSIRO-Mk3.0.pdf',
+									'docLink': 'http://www-pcmdi.llnl.gov/ipcc/model_documentation/CSIRO-Mk3.0.doc'
+								}
+							},
+						'c35': 
+							{ 'originatingGroup': 'CSIRO Atmospheric Research', 
+								'country': 'Australia',
+								'CMIP3': 'CSIRO-Mk3.5',
+								'documentation' : {
+									'htmlLink': 'http://www-pcmdi.llnl.gov/ipcc/model_documentation/CSIRO-Mk3.5.htm',
+									'pdfLink': 'http://www-pcmdi.llnl.gov/ipcc/model_documentation/CSIRO-Mk3.5.pdf',
+									'docLink': 'http://www-pcmdi.llnl.gov/ipcc/model_documentation/CSIRO-Mk3.5.doc'
+								}
+							},
+						'iap': 
+							{ 'originatingGroup': 'LASG / Institute of Atmospheric Physics', 
+								'country': 'China',
+								'CMIP3': 'FGOALS-g1.0',
+								'documentation' : {
+									'htmlLink': 'http://www-pcmdi.llnl.gov/ipcc/model_documentation/FGOALS-g1.0.htm',
+									'pdfLink': 'http://www-pcmdi.llnl.gov/ipcc/model_documentation/FGOALS-g1.0.pdf',
+									'docLink': 'http://www-pcmdi.llnl.gov/ipcc/model_documentation/FGOALS-g1.0.doc'
+								},
+								'addInfo': {
+									'text': 'known biases and improvements',
+									'link': 'http://www-pcmdi.llnl.gov/ipcc/model_documentation/more_info_iap_fgoals.pdf'
+								}
+							},
+						'mpi': 
+							{ 'originatingGroup': 'Max Planck Institute for Meteorology', 
+								'country': 'Germany',
+								'CMIP3': 'ECHAM5/MPI-OM',
+								'documentation' : {
+									'htmlLink': 'http://www-pcmdi.llnl.gov/ipcc/model_documentation/ECHAM5_MPI-OM.htm',
+									'pdfLink': 'http://www-pcmdi.llnl.gov/ipcc/model_documentation/ECHAM5_MPI-OM.pdf',
+									'docLink': 'http://www-pcmdi.llnl.gov/ipcc/model_documentation/ECHAM5_MPI-OM.doc'
+								}
+							},
+						'cnr': 
+							{ 'originatingGroup': 'Météo-France / Centre National de Recherches Météorologiques', 
+								'country': 'France',
+								'CMIP3': 'CNRM-CM3',
+								'documentation' : {
+									'htmlLink': 'http://www-pcmdi.llnl.gov/ipcc/model_documentation/CNRM-CM3.htm',
+									'pdfLink': 'http://www-pcmdi.llnl.gov/ipcc/model_documentation/CNRM-CM3.pdf',
+									'docLink': 'http://www-pcmdi.llnl.gov/ipcc/model_documentation/CNRM-CM3.doc'
+								},
+								'addInfo': {
+									'text': 'more information',
+									'link': 'http://www.cnrm.meteo.fr/scenario2004/indexenglish.html'
+								}
+							},
+						'miu': 
+							{ 'originatingGroup': 'Meteorological Institute of the University of Bonn, Meteorological Research Institute of KMA, and Model and Data group', 
+								'country': 'Germany / Korea',
+								'CMIP3': 'ECHO-G',
+								'documentation' : {
+									'htmlLink': 'http://www-pcmdi.llnl.gov/ipcc/model_documentation/ECHO-G.htm',
+									'pdfLink': 'http://www-pcmdi.llnl.gov/ipcc/model_documentation/ECHO-G.pdf',
+									'docLink': 'http://www-pcmdi.llnl.gov/ipcc/model_documentation/ECHO-G.doc'
+								}
+							},
+						'mri': 
+							{ 'originatingGroup': 'Meteorological Research Institute', 
+								'country': 'Japan',
+								'CMIP3': 'MRI-CGCM2.3.2',
+								'documentation' : {
+									'htmlLink': 'http://www-pcmdi.llnl.gov/ipcc/model_documentation/MRI-GCGM2.3.2.htm',
+									'pdfLink': 'http://www-pcmdi.llnl.gov/ipcc/model_documentation/MRI-GCGM2.3.2.pdf',
+									'docLink': 'http://www-pcmdi.llnl.gov/ipcc/model_documentation/MRI-GCGM2.3.2.doc'
+								},
+								'addInfo': {
+									'text': 'more information',
+									'link': 'http://www-pcmdi.llnl.gov/ipcc/model_documentation/Yukimoto_2005_Papers-submit.pdf'
+								}
+							},
+						'aom': 
+							{ 'originatingGroup': 'NASA / Goddard Institute for Space Studies', 
+								'country': 'USA',
+								'CMIP3': 'GISS-AOM',
+								'documentation' : {
+									'htmlLink': 'http://www-pcmdi.llnl.gov/ipcc/model_documentation/GISS-AOM.htm',
+									'pdfLink': 'http://www-pcmdi.llnl.gov/ipcc/model_documentation/GISS-AOM.pdf',
+									'docLink': 'http://www-pcmdi.llnl.gov/ipcc/model_documentation/GISS-AOM.doc'
+								}
+							},
+						'ger': 
+							{ 'originatingGroup': 'NASA / Goddard Institute for Space Studies', 
+								'country': 'USA',
+								'CMIP3': 'GISS-ER',
+								'documentation' : {
+									'htmlLink': 'http://www-pcmdi.llnl.gov/ipcc/model_documentation/GISS-ER.htm',
+									'pdfLink': 'http://www-pcmdi.llnl.gov/ipcc/model_documentation/GISS-ER.pdf',
+									'docLink': 'http://www-pcmdi.llnl.gov/ipcc/model_documentation/GISS-ER.doc'
+								}
+							},
+						'gfd': 
+							{ 'originatingGroup': 'US Dept. of Commerce / NOAA / Geophysical Fluid Dynamics Laboratory', 
+								'country': 'USA',
+								'CMIP3': 'GFDL-CM2.0',
+								'documentation' : {
+									'htmlLink': 'http://www-pcmdi.llnl.gov/ipcc/model_documentation/GFDL-cm2.htm',
+									'pdfLink': 'http://www-pcmdi.llnl.gov/ipcc/model_documentation/GFDL-cm2.pdf',
+									'docLink': 'http://www-pcmdi.llnl.gov/ipcc/model_documentation/GFDL-cm2.doc'
+								},
+								'addInfo': {
+									'text': 'model evolution',
+									'link': 'http://www-pcmdi.llnl.gov/ipcc/model_documentation/GFDL_model_evolution.pdf'
+								}
+							}
+						}]);
+			
+			private function createComp():void {
+				
+			}
+									
+			private function updateComp():void {
+				
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<s:states>
+		<s:State name="normal" />
+		<s:State name="hovered" />
+		<s:State name="selected" />
+		<s:State name="disabled"/>
+	</s:states>
+	
+	<s:BorderContainer width="100%" borderColor="0xFFFFFF">
+		<s:layout>
+			<s:HorizontalLayout verticalAlign="middle" paddingBottom="0" paddingTop="0" paddingLeft="0" paddingRight="0" />
+		</s:layout>
+		<s:HGroup horizontalAlign="center" textAlign="center" width="100%">
+			<!-- originating group -->
+			<s:Label width="300" text="{Models[0][hostComponent.modelNumber].originatingGroup}" textAlign="left" />
+			<!-- country -->
+			<s:Label width="70" text="{Models[0][hostComponent.modelNumber].country}" textAlign="center" />
+			<!-- model number -->
+			<s:Label width="60" text="{hostComponent.modelNumber}" textAlign="center" />
+			<!-- CMIP3 -->
+			<s:Label width="100" text="{Models[0][hostComponent.modelNumber].CMIP3}" textAlign="center" />
+			<!-- Documentation -->
+			<s:HGroup width="120" horizontalAlign="center" gap="0" visible="{Models[0][hostComponent.modelNumber]['documentation'] != null}" >
+				<s:Label text="html"
+						 color="blue"
+						 useHandCursor="true" buttonMode="true" mouseChildren="false" 
+						 click="navigateToURL(new URLRequest(Models[0][hostComponent.modelNumber]['documentation'].htmlLink))"/>
+				<s:Label text=", " />
+				<s:Label text="pdf" 
+						 color="blue"
+						 useHandCursor="true" buttonMode="true" mouseChildren="false" 
+						 click="navigateToURL(new URLRequest(Models[0][hostComponent.modelNumber]['documentation'].pdfLink))"/>
+				<s:Label text=", " />
+				<s:Label text="doc" 
+						 color="blue"
+						 useHandCursor="true" buttonMode="true" mouseChildren="false" 
+						 click="navigateToURL(new URLRequest(Models[0][hostComponent.modelNumber]['documentation'].docLink))"/>
+			</s:HGroup>
+			<!-- Additional information -->
+			<s:HGroup width="90" horizontalAlign="center" visible="{Models[0][hostComponent.modelNumber]['addInfo'] != null}" >
+				<s:Label width="90" text="{Models[0][hostComponent.modelNumber]['addInfo'].text}" 
+						 color="blue"
+						 useHandCursor="true" buttonMode="true" mouseChildren="false" 
+						 click="navigateToURL(new URLRequest(Models[0][hostComponent.modelNumber]['addInfo'].link))"/>
+			</s:HGroup>
+		</s:HGroup>
+	</s:BorderContainer>
+	
+</s:SparkSkin>

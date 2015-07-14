@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<!-- en_US_wimShared_IP -->
+<!-- Begin as FishVis Mapper. -->
+<!-- 06.14.12 - NE - Added stream temperature service URL. -->
+<!-- 02.23.12 - NE - Created. -->
+<!--
+*************************
+ ENGLISH RESOURCES
+************************* 
+ -->
+<resources>
+  <!-- Settings -->
+  
+  <!--  URLs -->
+  <resourceBundle name="urls">
+	<!-- FishVis and wim hosted resources -->
+  	<resource name="scenariosUrl" value="http://50.17.205.92/ArcGIS/rest/services/FishVis/scenarios/MapServer" />
+  	<resource name="scenariosSmallUrl" value="http://50.17.205.92/ArcGIS/rest/services/FishVis/scenarios_small_scale/MapServer" />
+  	<resource name="scenariosCatchmentsUrl" value="http://50.17.205.92/ArcGIS/rest/services/FishVis/scenarios_catchments/MapServer" />
+	<resource name="scenariosHUC12Url" value="http://50.17.205.92/arcgis/rest/services/FishVis/scenarios_huc12/MapServer" />
+	<resource name="streamsForQueryUrl" value="http://50.17.205.92/ArcGIS/rest/services/FishVis/streams_for_query/MapServer" />
+	<resource name="climateStreamflow" value="http://50.17.205.92/arcgis/rest/services/FishVis/climate_streamflow/MapServer" />
+	<resource name="climateStreamflowSmall" value="http://50.17.205.92/arcgis/rest/services/FishVis/climate_streamflow_small_scale/MapServer" />
+  	<resource name="fishVisSearch" value="http://50.17.205.92/ArcGIS/rest/services/FishVis/search/MapServer" />
+  	<resource name="supplementalLayersUrl" value="http://50.17.205.92/ArcGIS/rest/services/FishVis/supplementalLayers/MapServer" />
+  	<resource name="streamsCache" value="http://50.17.205.92/ArcGIS/rest/services/FishVis/streams_cache/MapServer" />
+  	<resource name="catchmentsCache" value="http://50.17.205.92/ArcGIS/rest/services/FishVis/catchments_cache/MapServer" />
+  	<resource name="roadStreamsCache" value="http://50.17.205.92/ArcGIS/rest/services/FishVis/roads_stream_crossing_cache/MapServer" />
+  	
+  	<!-- non wim hosted resources -->
+  	<resource name="padusUrl" value="http://dingo.gapanalysisprogram.com/ArcGIS/rest/services/PADUS/PADUS_owner_Name/MapServer/" />
+  	<resource name="landCover2006Url" value="http://raster.nationalmap.gov/arcgis/rest/services/LandCover/conus_01/MapServer" />
+  	<resource name="disturbanceUrl" value="http://gis1.usgs.gov/arcgis/rest/services/nfhap/nfhap_scores_tiled_huc12_PROD/MapServer/" />
+  </resourceBundle>
+  
+  <!-- UI graphics -->
+  <resourceBundle name="ui.graphics">
+    <resource name="headerLogo" value="assets/images/lcc-logo_banner.png" />
+    <resource name="wimLogo" value="assets/images/wim_logo_sm_4c.gif" />    
+  </resourceBundle>
+  
+  <!-- UI text -->
+  <resourceBundle name="ui.text">
+  	<!--  Application Titles -->
+  	<resource name="headerTitle" value="CCVIEWeR:"/>
+    <resource name="headerSubTitle" value="FishVis"/>
+    <!-- Component Text -->
+    <resource name="geocodeSearchButtonText" value="Find"/>
+    <resource name="geocodeSearchHintText" value="Type Address, Landmark, etc..." />
+    <resource name="headerFooterLinks" value="Links"/>
+  </resourceBundle>
+</resources>

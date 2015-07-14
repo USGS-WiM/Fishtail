@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 12.02.13 - NE - Created -->
+<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		xmlns:s="library://ns.adobe.com/flex/spark" 
+		xmlns:mx="library://ns.adobe.com/flex/mx" 
+		height="100%"
+	    creationComplete="createComp()">
+	<!-- host component -->
+	<fx:Metadata>
+		[HostComponent("controls.streamCatchInfoBar")]
+	</fx:Metadata>
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.ArrayCollection;
+			
+			import spark.components.Label;
+			
+			private var usStates:ArrayCollection = new ArrayCollection([
+				{ name: 'INDIANA', abbreviation: 'IN'},
+				{ name: 'IOWA', abbreviation: 'IA'},
+				{ name: 'MICHIGAN', abbreviation: 'MI'},
+				{ name: 'MINNESOTA', abbreviation: 'MN'},
+				{ name: 'NEW JERSEY', abbreviation: 'NJ'},
+				{ name: 'NEW YORK', abbreviation: 'NY'},
+				{ name: 'NORTH DAKOTA', abbreviation: 'ND'},
+				{ name: 'OHIO', abbreviation: 'OH'},
+				{ name: 'PENNSYLVANIA', abbreviation: 'PA'},
+				{ name: 'VERMONT', abbreviation: 'VT'},
+				{ name: 'WISCONSIN', abbreviation: 'WI'}
+			]);
+			
+			[Bindable]
+			private var state:String;
+			private var foundState:Boolean = false;
+			
+			private function createComp():void {
+				for (var i:int = 0; i < usStates.length; i++) {
+					if (foundState == false) {
+						if (usStates[i].abbreviation == hostComponent.dataObj.Statecode) {
+							state = usStates[i].name;
+							var siteStateArray:Array = state.split(" ");
+							var stateFixed:String = "";
+							for (var i:int = 0; i < siteStateArray.length; i++) {
+								if (i != 0) {
+									stateFixed += " ";
+								}
+								stateFixed += siteStateArray[i].charAt(0).toUpperCase() + siteStateArray[i].substr(1, siteStateArray[i].length-1).toLowerCase();
+							}
+							state = stateFixed;
+							foundState = true;
+						}
+					}
+				}
+			}
+									
+			private function updateComp():void {
+				
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<s:states>
+		<s:State name="normal" />
+		<s:State name="hovered" />
+		<s:State name="selected" />
+		<s:State name="disabled"/>
+	</s:states>
+	
+	<s:BorderContainer height="100%" borderWeight="0">
+		<s:layout>
+			<s:HorizontalLayout verticalAlign="middle"/>
+		</s:layout>
+		<mx:VBox id="streamInfoBox" color="black" backgroundColor="0xDDDDDD" horizontalScrollPolicy="off" borderStyle="solid"
+				 paddingBottom="10" paddingLeft="5" paddingRight="5" paddingTop="5" width="160" height="100%">
+			<s:VGroup fontSize="10">
+				<s:Label fontSize="12" fontWeight="bold" width="155" text="{(hostComponent.dataObj.GNIS_NAME == ' ' || hostComponent.dataObj.GNIS_NAME == '') ? hostComponent.dataObj.COMID : hostComponent.dataObj.GNIS_NAME}" />
+				<s:HGroup paddingTop="10" >
+					<!-- this may be more location info at some point -->
+					<s:Label text="{state}" />
+				</s:HGroup>
+				<s:VGroup>
+					<s:Label width="155" text="{hostComponent.dataObj.HUC_4_NAME}" />
+					<s:Label width="155" text="{hostComponent.dataObj.HU_10_NAME}" />
+				</s:VGroup>
+				<s:HGroup>
+					<s:Label text="Reach COMID: " />
+					<s:Label text="{hostComponent.dataObj.COMID}" />
+				</s:HGroup>
+				<s:VGroup paddingTop="10" visible="{hostComponent.dataObj.hasOwnProperty('Length_mi')}" includeInLayout="{hostComponent.dataObj.hasOwnProperty('Length_mi')}">
+					<s:Label text="Reach length: " />
+					<s:Label paddingLeft="5" text="  {Number(hostComponent.dataObj.Length_mi).toFixed(2)} miles" />
+				</s:VGroup>
+				<s:VGroup visible="{hostComponent.dataObj.hasOwnProperty('AreaL_sqmi')}" includeInLayout="{hostComponent.dataObj.hasOwnProperty('AreaL_sqmi')}">
+					<s:Label text="Local catchment area: " />
+					<s:Label paddingLeft="5" text="  {Number(hostComponent.dataObj.AreaL_sqmi).toFixed(2)} square miles" />
+				</s:VGroup>
+				<s:VGroup visible="{hostComponent.dataObj.hasOwnProperty('AreaN_sqmi')}" includeInLayout="{hostComponent.dataObj.hasOwnProperty('AreaN_sqmi')}">
+					<s:Label text="Network catchment area: " />
+					<s:Label paddingLeft="5" text="  {Number(hostComponent.dataObj.AreaN_sqmi).toFixed(2)} square miles" />
+				</s:VGroup>
+			</s:VGroup>
+		</mx:VBox>
+	</s:BorderContainer>
+	
+</s:SparkSkin>

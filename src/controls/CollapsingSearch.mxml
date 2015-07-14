@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 01.11.12 - NE - Changed clear hint function because it was still clearing even with the removal of the event listener. -->
+<!-- 09.20.11 - JB - Tweaked hint clear function, made search icon statically available -->
+<!-- 07.28.11 - JB - Added property to specify default collapsed state -->
+<!-- 03.30.11 - JB - Added property to set custom image -->
+<!-- 02.28.11 - JB - Cleared warnings -->
+<!-- 02.09.11 - JB - Fixed hint clearing to only execute once -->
+<!-- 02.09.11 - JB - Updated to allow search hint before first typing -->
+<!-- 08.30.10 - JB - Created, collapsing search UI -->
+<s:BorderContainer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		  xmlns:s="library://ns.adobe.com/flex/spark" 
+		  xmlns:mx="library://ns.adobe.com/flex/mx"
+		  creationComplete="initializeSearch()"
+		  height="{searchImage.height + 10}"
+		  minHeight="35">
+	
+	<s:layout>
+		<s:HorizontalLayout verticalAlign="middle"
+			paddingLeft="5" paddingRight="5" 
+			paddingTop="2" paddingBottom="2"/>
+	</s:layout>
+	
+	
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+
+	<fx:Script>
+		<![CDATA[
+			import flash.events.Event;
+			
+			import mx.effects.AnimateProperty;
+			import mx.effects.Parallel;
+			import mx.events.EffectEvent;
+			import mx.events.FlexEvent;
+			
+			
+			[Embed(source='assets/images/search.png')]
+			[Bindable]
+			public static var defualtSearchIcon:Class;
+			
+			private var _searchIcon:Class = defualtSearchIcon;
+			[Bindable]
+			public function get searchIcon():Class
+			{
+				return _searchIcon;
+			}
+
+			public function set searchIcon(value:Class):void
+			{
+				_searchIcon = value;
+			}
+
+			
+			private var _searchButtonText:String;
+			
+			[Bindable]
+			public function get searchButtonText():String {
+				return _searchButtonText;
+			}
+			public function set searchButtonText(value:String):void {
+				_searchButtonText = value;		
+			}
+			
+			
+			private var _startCollapsed:Boolean = true;
+			[Bindable]
+			public function get startCollapsed():Boolean {
+				return _startCollapsed;
+			}
+			public function set startCollapsed(value:Boolean):void {
+				_startCollapsed = value;
+			}
+			
+			
+			private var _searchFunction:Function;
+			
+			[Bindable]
+			public function get searchFunction():Function {
+				return _searchFunction;
+			}
+			public function set searchFunction(value:Function):void {
+				_searchFunction = value;		
+			}
+			
+			private var _searchHint:String;
+
+			[Bindable]
+			public function get searchHint():String
+			{
+				return _searchHint;
+			}
+			public function set searchHint(value:String):void
+			{
+				_searchHint = value;
+			}
+			
+			private function initializeSearch():void {
+				if (startCollapsed) {
+					collapseSearch();
+				}
+				width = NaN;
+			}
+			
+			
+			private function clearHint():void {	
+				if (searchValue.text == _searchHint) {
+					searchValue.text = "";
+					searchValue.setStyle("color","black");
+					searchValue.removeEventListener(MouseEvent.CLICK, clearHint);
+				}
+			}
+			
+			
+			public function collapseSearch():void {
+				
+				
+				var scaleSequence:Parallel = new Parallel();
+				var scaleXAnimation:AnimateProperty = new AnimateProperty();
+				var scaleYAnimation:AnimateProperty = new AnimateProperty();
+				scaleXAnimation.property = "scaleX";
+				scaleYAnimation.property = "scaleY";
+				
+				if (searchValue.scaleX > 0) {
+					
+					scaleXAnimation.fromValue = 1;
+					scaleXAnimation.toValue = 0;
+					
+					scaleYAnimation.fromValue = 1;
+					scaleYAnimation.toValue = 0;
+					scaleSequence.addEventListener(EffectEvent.EFFECT_END, function (event:EffectEvent):void {
+						width = searchImage.width + getStyle("paddingLeft") + getStyle("paddingRight") + 2;
+					});
+				} else {
+					scaleXAnimation.fromValue = 0;
+					scaleXAnimation.toValue = 1;
+					
+					scaleYAnimation.fromValue = 0;
+					scaleYAnimation.toValue = 1;		
+					scaleSequence.addEventListener(EffectEvent.EFFECT_START, function (event:EffectEvent):void {
+						width = NaN;
+					});					 				
+				}
+				
+				scaleSequence.targets = [dataLimit, searchValue, searchButton];
+				
+				scaleSequence.addChild(scaleXAnimation);
+				scaleSequence.addChild(scaleYAnimation);
+				scaleSequence.duration = 500;
+				scaleSequence.play();
+			}
+			
+		]]>
+	</fx:Script>
+	
+	<mx:Image id="searchImage" source="{searchIcon}" verticalAlign="middle" toolTip="Search map" click="collapseSearch()" />
+	<s:DropDownList id="dataLimit" color="black" selectedIndex="0">
+		<s:ArrayCollection>
+			<fx:String>Address</fx:String>
+			<fx:String>Waterbody</fx:String>
+		</s:ArrayCollection>
+	</s:DropDownList>
+	<mx:TextInput id="searchValue" color="0xCCCCCC" click="clearHint()" enter="searchFunction(searchValue.text,dataLimit.selectedIndex)" text="{searchHint}"/>	
+	<mx:Button id="searchButton" label="{searchButtonText}" color="white" click="searchFunction(searchValue.text,dataLimit.selectedIndex)"/>
+
+</s:BorderContainer>

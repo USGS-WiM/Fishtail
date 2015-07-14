@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 02.03.11 - JB - Created -->
+<s:BorderContainer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				   xmlns:s="library://ns.adobe.com/flex/spark" 
+				   xmlns:mx="library://ns.adobe.com/flex/mx"
+				   xmlns:wimControls="gov.usgs.wim.controls.*"
+				   width="100%" 
+				   height="100%" 
+				   backgroundColor="{color}"
+				   creationComplete="initializeLoadingScreen(event)" xmlns:controls="controls.*">
+	<fx:Script>
+		<![CDATA[
+			import mx.binding.utils.BindingUtils;
+			import mx.events.FlexEvent;
+
+			private var _color:uint;
+			private var _loadingScreenText:String;
+			private var _useGif:Boolean;
+			private var _gifUrl:String;
+			
+			[Bindable]
+			public function get color():uint
+			{
+				return _color;
+			}
+
+			public function set color(value:uint):void
+			{
+				_color = value;
+			}
+			
+			[Bindable]
+			public function get loadingScreenText():String
+			{
+				return _loadingScreenText;
+			}
+			
+			public function set loadingScreenText(value:String):void
+			{
+				_loadingScreenText = value;
+			}
+			
+			[Bindable]
+			public function get useGif():Boolean
+			{
+				return _useGif;
+			}
+			
+			public function set useGif(value:Boolean):void
+			{
+				_useGif = value;
+			}
+			
+			[Bindable]
+			public function get gifUrl():String
+			{
+				return _gifUrl;
+			}
+			
+			public function set gifUrl(value:String):void
+			{
+				_gifUrl = value;
+			}
+			
+			protected function initializeLoadingScreen(event:FlexEvent):void
+			{
+				BindingUtils.bindSetter( function(value:Boolean):void {
+					//Run animation only when visible
+					if (value) {						
+						textSequence.play();
+					} else {
+						textSequence.stop();
+					}
+				}, this , "visible");
+			}
+
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<s:Sequence id="textSequence" target="{loadingTextDark}"  duration="2500" repeatCount="0">			 
+			<mx:AnimateProperty id="textOpacityOut" property="alpha" fromValue="1.0" toValue="0.0" />
+			<mx:AnimateProperty id="textOpacityIn" property="alpha" fromValue="0.0" toValue="1.0" />
+		</s:Sequence>
+	</fx:Declarations>
+	<s:HGroup gap="5" horizontalAlign="center" verticalAlign="middle" width="100%" height="100%">
+		<controls:AnimatedGIF id="loadingGif" source="{(useGif == true) ? gifUrl : ''}" visible="{useGif}" includeInLayout="{useGif}" />
+		<s:Group fontSize="14" height="100%" >
+				<s:Label text="{loadingScreenText}" color="{color}" verticalAlign="middle"  width="100%" height="100%" />
+				<s:Label id="loadingTextDark" text="{loadingScreenText}" color="0x000000" verticalAlign="middle"  width="100%" height="100%" />
+		</s:Group>
+	</s:HGroup>
+	
+	
+</s:BorderContainer>

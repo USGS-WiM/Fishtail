@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<!-- Begin as FishVis Mapper. -->
+<!-- 06.14.12 - NE - Added stream temperature service URL. -->
+<!-- 02.23.12 - NE - Created. -->
+<!--
+*************************
+ ENGLISH RESOURCES
+************************* 
+ -->
+<resources>
+  <!-- Settings -->
+  
+  <!--  URLs -->
+  <resourceBundle name="urls">
+	<!-- FishVis and wim hosted resources -->
+  	<resource name="scenariosUrl" value="http://localhost:6080/ArcGIS/rest/services/FishVis/scenarios/MapServer" />
+  	<resource name="scenariosCatchmentsUrl" value="http://localhost:6080/ArcGIS/rest/services/FishVis/scenarios_catchments/MapServer" />
+	<resource name="scenariosHUC12Url" value="http://localhost:6080/arcgis/rest/services/FishVis/scenarios_huc12/MapServer" />
+	<resource name="streamTempUrl" value="http://137.227.233.147/ArcGIS/rest/services/FishVisMapper/stream_temperature/MapServer" />
+  	<resource name="streamsForQueryUrl" value="http://localhost:6080/ArcGIS/rest/services/FishVis/streams_for_query/MapServer" />
+  	<resource name="supplementalLayersUrl" value="http://localhost:6080/ArcGIS/rest/services/FishVis/supplementalLayers/MapServer" />
+  	<resource name="streamsCache" value="http://localhost:6080/ArcGIS/rest/services/FishVis/streams_cache/MapServer" />
+  	
+  	<!-- non wim hosted resources -->
+  	<resource name="padusUrl" value="http://dingo.gapanalysisprogram.com/ArcGIS/rest/services/PADUS/PADUS_owner_Name/MapServer/" />
+  	<resource name="landCover2006Url" value="http://raster.nationalmap.gov/ArcGIS/rest/services/TNM_LandCover/MapServer/" />
+  	<resource name="disturbanceUrl" value="http://gis1.usgs.gov/arcgis/rest/services/nfhap/nfhap_scores_tiled_huc12_PROD/MapServer/" />
+  </resourceBundle>
+  
+  <!-- UI graphics -->
+  <resourceBundle name="ui.graphics">
+    <resource name="headerLogo" value="assets/images/usgsLogoSm.jpg" />
+    <resource name="wimLogo" value="assets/images/wim_logo_sm_4c.gif" />    
+  </resourceBundle>
+  
+  <!-- UI text -->
+  <resourceBundle name="ui.text">
+  	<!--  Application Titles -->
+  	<resource name="headerTitle" value="CCVIEWeR:"/>
+    <resource name="headerSubTitle" value="FishVis"/>
+    <!-- Component Text -->
+    <resource name="geocodeSearchButtonText" value="Find"/>
+    <resource name="geocodeSearchHintText" value="Type Address, Landmark, etc..." />
+    <resource name="headerFooterLinks" value="USGS Links"/>
+  </resourceBundle>
+</resources>
