@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- 07.14.15 - NE - Spun off as FishTail. -->
+
 <!-- 06.19.12 - NE - Layered more info box so that it is always available to close when opened. -->
 <!-- 06.18.12 - NE - Added custom legend title. Updated toggle behavior for NHD lakes and streams when viewing fish or habitat results. -->
 <!-- 06.16.12 - NE - Added info in box linked for "?" in header. -->
@@ -599,7 +600,7 @@
 					   top="85" 
 					   right="5"	
 					   startCollapsed="false"	
-					   boxTitle="Explore FishVis"
+					   boxTitle="Explore FishTail"
 					   height="{FlexGlobals.topLevelApplication.height-200}">
 		<wimControls:contentGroup>
 			<s:VGroup>
@@ -648,6 +649,14 @@
 													   label="Stream reach" 
 													   value="reach" />
 											<mx:Image source="./assets/images/help_tip.png" toolTip="Reach - Length of stream uniform with respect to discharge, depth, area, and slope, as defined by the NHDPlus Version 1. This is the basic FishVis modeling unit." />
+										</s:HGroup>
+										<s:HGroup verticalAlign="middle">
+											<s:RadioButton group="{displayByOpt}"
+														   id="streamBuff" 
+														   selected="true"
+														   label="Stream buffers" 
+														   value="streambuff" />
+											<mx:Image source="./assets/images/help_tip.png" toolTip="Stream buffer - description" />
 										</s:HGroup>
 									</s:VGroup>
 									<s:HGroup color="0xa9d157" fontWeight="bold">
