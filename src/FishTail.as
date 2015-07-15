@@ -135,7 +135,7 @@ import spark.events.IndexChangeEvent;
 				scenarioCatchmentsLayerInfos = scenariosCatchments.layerInfos;
 				scenarioHUC12LayerInfos = scenariosHUC12.layerInfos;
 				
-				fishVisSearchLayerInfos = fishVisSearch.layerInfos;
+				//fishVisSearchLayerInfos = fishVisSearch.layerInfos;
 				
 				ToolTipManager.toolTipClass = HTMLToolTip;
 				ToolTipManager.hideDelay = Infinity;
@@ -146,7 +146,7 @@ import spark.events.IndexChangeEvent;
 				scenariosCatchments.addEventListener(FlexEvent.UPDATE_COMPLETE, getScenariosCatchmentsLayerInfos);
 				scenariosHUC12.addEventListener(FlexEvent.UPDATE_COMPLETE, getScenariosHUC12LayerInfos);
 				climateStreamflow.addEventListener(FlexEvent.UPDATE_COMPLETE, getClimateStreamflowLayerInfos);
-				fishVisSearch.addEventListener(FlexEvent.UPDATE_COMPLETE, getFishVisSearchLayerInfos);
+				//fishVisSearch.addEventListener(FlexEvent.UPDATE_COMPLETE, getFishVisSearchLayerInfos);
 			}
 
 			private function loadingScreenEnable():void {
@@ -187,9 +187,9 @@ import spark.events.IndexChangeEvent;
 
 			private function getFishVisSearchLayerInfos(event:FlexEvent):void {
 				if (fishVisSearchLayerInfos == null) {
-					fishVisSearchLayerInfos = fishVisSearch.layerInfos;
+					//fishVisSearchLayerInfos = fishVisSearch.layerInfos;
 				} else {
-					fishVisSearch.removeEventListener(FlexEvent.UPDATE_COMPLETE, getFishVisSearchLayerInfos);
+					//fishVisSearch.removeEventListener(FlexEvent.UPDATE_COMPLETE, getFishVisSearchLayerInfos);
 				}
 			}
 
@@ -836,320 +836,7 @@ import spark.events.IndexChangeEvent;
 				
 			}
 
-			private function searchResultUpdate(buttonLabel:String):void {
-				
-				if (buttonLabel == 'go') {
-					streamBufferToggle.selected = false;
-					nhdStreamsToggle.selected = false;
-					nhdLakesToggle.selected = false;
-				} else if (buttonLabel == 'clear') {
-					fishSampleLocationsToggle.selected = false;
-					streamBufferToggle.selected = false;
-					nhdStreamsToggle.selected = false;
-					nhdLakesToggle.selected = false; 
-					catchmentsToggle.selected = false;
-					huc12Toggle.selected = false;
-					padusToggle.selected = false;
-					landCoverToggle.selected = false;
-					disturbanceToggle.selected = false;
-					exportToCSV.visible = false;
-				}
-				
-				exportToCSV.removeEventListener(MouseEvent.CLICK, writeCSV);
-				
-				layerDef = "1 = 1";
-				
-				// Start build layer definition
-				
-				if (areaSelect.selectedIndex != -1 && areaSelect.selectedIndex == 1 && stateSelect.selectedIndex != -1) {
-					var values:Array = stateSelect.selectedItem.abbr.split(',');
-					layerDef += " AND (";
-					for (var i:int = 0; i < values.length; i++) {
-						var value:String = values[i];
-						if (i == 0) {
-							layerDef += "Statecode = '" + value + "'";
-						} else {
-							layerDef += " OR Statecode = '" +value + "'";
-						}
-					}
-					layerDef += ")";
-				} else if (areaSelect.selectedIndex != -1 && areaSelect.selectedIndex == 0 && hucSelect.selectedIndex != -1) {
-					layerDef += " AND HUC4 = '" + hucSelect.selectedItem.hucNumber + "'";
-				}
-				
-				// species/thermal guilds
-				if (late20thSpeciesSelect.selectedIndex != -1 && late20thPASelect.selectedIndex != -1) {
-					layerDef += " AND " + late20thSpeciesSelect.selectedItem.abbr + " = '" + late20thPASelect.selectedItem.cd + "'";
-				}
-				
-				// stream temperature
-				if (late20thCold.selected || late20thColdTransition.selected || late20thWarm.selected || late20thWarmTransition.selected) {
-					var start:Number = 0;
-					if (late20thCold.selected) {
-						layerDef += " AND (JULclass = 'cold'";
-						start++;
-					}
-					
-					if (late20thColdTransition.selected) {
-						if (start > 0) {
-							layerDef += " OR JULclass = 'cold transition'";
-						} else {
-							layerDef += " AND (JULclass = 'cold transition'";
-						}
-						start++;
-					}
-					
-					if (late20thWarm.selected) {
-						if (start > 0) {
-							layerDef += " OR JULclass = 'warm'";
-						} else {
-							layerDef += " AND (JULclass = 'warm'";
-						}
-						start++;
-					}
-					
-					if (late20thWarmTransition.selected) {
-						if (start > 0) {
-							layerDef += " OR JULclass = 'warm transition'";
-						} else {
-							layerDef += " AND (JULclass = 'warm transition'";
-						}
-						start++;
-					}
-					
-					if (start > 0) {
-						layerDef += ')';
-					}
-				}
-				
-				// stream size
-				if (headwaterSize.selected || smallSize.selected || mediumSize.selected || largeSize.selected) {
-					var start:Number = 0;
-					if (headwaterSize.selected) {
-						layerDef += " AND (A_SO_bin = 'head'";
-						start++;
-					}
-					
-					if (smallSize.selected) {
-						if (start > 0) {
-							layerDef += " OR A_SO_bin = 'small'";
-						} else {
-							layerDef += " AND (A_SO_bin = 'small'";
-						}
-						start++;
-					}
-					
-					if (mediumSize.selected) {
-						if (start > 0) {
-							layerDef += " OR A_SO_bin = 'medium'";
-						} else {
-							layerDef += " AND (A_SO_bin = 'medium'";
-						}
-						start++;
-					}
-					
-					if (largeSize.selected) {
-						if (start > 0) {
-							layerDef += " OR A_SO_bin = 'large'";
-						} else {
-							layerDef += " AND (A_SO_bin = 'large'";
-						}
-						start++;
-					}
-					
-					if (start > 0) {
-						layerDef += ')';
-					}
-				}
-				
-				// land use boxes
-				if (landUseCatchmentType.selectedIndex != -1 && landUseType.selectedIndex != -1 && landUseOperator.selectedIndex != -1 && landUsePct.text.length > 0) {
-					layerDef += " AND " + landUseType.selectedItem.cd + landUseCatchmentType.selectedItem.cd + " " + landUseOperator.selectedItem + " " + landUsePct.text;
-				}
-				
-				// land stewardship boxes
-				if (landStewardshipCatchmentType.selectedIndex != -1 && landStewardshipType.selectedIndex != -1 && landStewardshipOperator.selectedIndex != -1 && landStewardshipPct.text.length > 0) {
-					layerDef += " AND " + landStewardshipType.selectedItem.cd + landStewardshipCatchmentType.selectedItem.cd + " " + landStewardshipOperator.selectedItem + " " + landStewardshipPct.text;
-				}
-				
-				//human disturbance index
-				if (humanDist.selectedIndex != -1) {
-					layerDef += " AND CumDistI_1 = '" + humanDist.selectedItem.cd + "'";
-				}
-				
-				// species/thermal guilds
-				if (mid21stSpeciesSelect.selectedIndex != -1) {
-					layerDef += " AND " + mid21stSpeciesSelect.selectedItem.abbr + " = '" + mid21stPASelect.selectedItem.cd + "'";
-				}
-				
-				// stream temperature
-				if (mid21stCold.selected || mid21stColdTransition.selected || mid21stWarm.selected || mid21stWarmTransition.selected) {
-					var start:Number = 0;
-					if (mid21stCold.selected) {
-						layerDef += " AND (JLCLF1 = 'cold'";
-						start++;
-					}
-					
-					if (mid21stColdTransition.selected) {
-						if (start > 0) {
-							layerDef += " OR JLCLF1 = 'cold transition'";
-						} else {
-							layerDef += " AND (JLCLF1 = 'cold transition'";
-						}
-						start++;
-					}
-					
-					if (mid21stWarm.selected) {
-						if (start > 0) {
-							layerDef += " OR JLCLF1 = 'warm'";
-						} else {
-							layerDef += " AND (JLCLF1 = 'warm'";
-						}
-						start++;
-					}
-					
-					if (mid21stWarmTransition.selected) {
-						if (start > 0) {
-							layerDef += " OR JLCLF1 = 'warm transition'";
-						} else {
-							layerDef += " AND (JLCLF1 = 'warm transition'";
-						}
-						start++;
-					}
-					
-					if (start > 0) {
-						layerDef += ')';
-					}
-				}
-				
-				// species/thermal guilds
-				if (late21stSpeciesSelect.selectedIndex != -1) {
-					layerDef += " AND " + late21stSpeciesSelect.selectedItem.abbr + " = '" + late21stPASelect.selectedItem.cd + "'";
-				}
-				
-				// stream temperature
-				if (late21stCold.selected || late21stColdTransition.selected || late21stWarm.selected || late21stWarmTransition.selected) {
-					var start:Number = 0;
-					if (late21stCold.selected) {
-						layerDef += " AND (JLCLF2 = 'cold'";
-						start++;
-					}
-					
-					if (late21stColdTransition.selected) {
-						if (start > 0) {
-							layerDef += " OR JLCLF2 = 'cold transition'";
-						} else {
-							layerDef += " AND (JLCLF2 = 'cold transition'";
-						}
-						start++;
-					}
-					
-					if (late21stWarm.selected) {
-						if (start > 0) {
-							layerDef += " OR JLCLF2 = 'warm'";
-						} else {
-							layerDef += " AND (JLCLF2 = 'warm'";
-						}
-						start++;
-					}
-					
-					if (late21stWarmTransition.selected) {
-						if (start > 0) {
-							layerDef += " OR JLCLF2 = 'warm transition'";
-						} else {
-							layerDef += " AND (JLCLF2 = 'warm transition'";
-						}
-						start++;
-					}
-					
-					if (start > 0) {
-						layerDef += ')';
-					}
-				}
-				
-				
-				// Set visible layer and probably layer definition here
-				/*warningsTest.layerDefinitions =
-					[
-						"pp_short = 'FF' OR pp_short = 'FL' OR pp_short = 'FA'"
-					];*/
-				
-				if (layerDef != "1 = 1") {
-					if (buttonLabel == 'go') {
-						if (displayUnit.selectedItem == "stream reaches") {
-							fishVisSearch.visibleLayers = new ArrayCollection([0]);
-							fishVisSearch.layerDefinitions = [ layerDef, '' ];
-							fishVisSearch.refresh();
-						} else if (displayUnit.selectedItem == "catchments") {
-							fishVisSearch.visibleLayers = new ArrayCollection([1]);
-							fishVisSearch.layerDefinitions = [ '', layerDef];
-							fishVisSearch.refresh();
-						} else if (displayUnit.selectedItem == "HUCs") {
-							fishVisSearch.visibleLayers = new ArrayCollection();
-							fishVisSearch.refresh();
-						}
-					} else if (buttonLabel == 'clear') {
-						fishVisSearch.visibleLayers = new ArrayCollection();
-						fishVisSearch.refresh();
-						resultsCount.text = "0";
-					}
-					
-					searchLegend.aLegendService.send();
-					
-					if (buttonLabel == 'go' && layerDef != "1 = 1") {
-						var searchQuery:Query = new Query();
-					
-						searchQuery.where = layerDef;
-						
-						var searchQueryTask:QueryTask = new QueryTask();
-						searchQueryTask.disableClientCaching = true;
-						searchQueryTask.useAMF = false;
-						searchQueryTask.url = resourceManager.getString('urls', 'fishVisSearch')+"/0";
-						searchQueryTask.executeForCount(searchQuery, new AsyncResponder(searchResult, searchFault));
-					}
-				} else if (layerDef == "1 = 1") {
-					if (buttonLabel == 'go') {
-						Alert.show('You have not entered any search criteria. Please select at least one search term.');
-					} else if (buttonLabel == 'clear') {
-						fishVisSearch.visibleLayers = new ArrayCollection();
-						fishVisSearch.refresh();resultsCount.text = "0";
-					}
-				}
-				
-				function searchResult(count:Number, token:Object = null):void {
-					trace('search results #: ' + count);
-					resultsCount.text = addComma(count);
-					if (count == 0) {
-						Alert.show('No reaches or catchments met your search criteria.');
-					}/* else {
-						if (count > 25000) {
-							//Alert.show('Your search criteria have produced more than 25000 results. Please refine your search to make data available for exporting.');
-						} else {
-							exportToCSV.visible = true;
-						}
-					}*/
-				}
-				
-				function addComma(num:uint):String{
-					var str:String="";
-					while(num>0){
-						var tmp:uint=num%1000;
-						str=(num>999?","+(tmp<100?(tmp<10?"00":"0"):""):"")+tmp+str;
-						num=num/1000;
-					}
-					return str;
-				}
-				
-				exportToCSV.addEventListener(MouseEvent.CLICK, writeCSV);
-				
-				function searchFault(info:Object, token:Object = null):void
-				{
-					Alert.show("Error: " + info.toString(), "problem with request");
-				}
-				
-			}
-
-			private function exportStart(event:MouseEvent):void {
+			/*private function exportStart(event:MouseEvent):void {
 				var count:Number = Number(removeComma(resultsCount.text));
 				if (count == 0) {
 					Alert.show('There are no search results to export.');
@@ -1160,7 +847,7 @@ import spark.events.IndexChangeEvent;
 						Alert.show("Your search results will export as a .csv file. The first row of the .csv file will contain a record of your search parameters.","", 0, null, writeCSV);
 					}
 				}
-			}
+			}*/
 
 			private function removeComma(resultsText:String):String {
 				var count:String = "";
@@ -1173,106 +860,7 @@ import spark.events.IndexChangeEvent;
 				return count;
 			}
 
-			private function writeCSV(event:CloseEvent):void {
-				
-				exportCSVLoadingScreen.visible = true;
-				
-				var searchQuery:Query = new Query();
-				searchQuery.where = layerDef;
-				searchQuery.returnGeometry = false;
-				searchQuery.outFields = ["*"];
-				
-				var searchQueryTask:QueryTask = new QueryTask();
-				searchQueryTask.disableClientCaching = true;
-				searchQueryTask.useAMF = false;
-				searchQueryTask.url = resourceManager.getString('urls', 'fishVisSearch')+"/0";
-				searchQueryTask.execute(searchQuery, new AsyncResponder(searchFullResult, searchFault));
-				
-				function searchFullResult(featureSet:FeatureSet, token:Object = null):void {
-					var features:Array = featureSet.features;
-					
-					var fields:Array = ["COMID","Statecode","GNIS_ID","GNIS_NAME","HUC2","HUC4","HUC_8","HUC_10","HUC_12","HUC2_Name","HUC_4_NAME","HU_10_NAME","HU_12_NAME","miles","LENGTHKM","LengthM","S1A","S1A46","S1A81","S2A","S2A46","S2A81","S3A","S3A46","S3A81","S4A","S4A46","S4A81","S6A","S6A46","S6A81","S7A","S7A46","S7A81","S8A","S8A46","S8A81","S9A","S9A46","S9A81","S11A","S11A46","S11A81","S12A","S12A46","S12A81","S13A","S13A46","S13A81","S15A","S15A46","S15A81","S16A","S16A46","S16A81","CdPA","CdPA46","CdPA81","ClPA","ClPA46","ClPA81","WmPA","WmPA46","WmPA81","JXnow","JXF1","JXF2","JULclass","JLCLF1","JLCLF2","A_SO","A_SO_bin","LU_10","LU_10C","LU_20","LU_20C","LU_30","LU_30C","LU_40","LU_40C","LU_50","LU_50C","LU_70","LU_701","LU_80","LU_80C","LU_wet","LU_wetC","STEWARD_1","STEWARD_1C","STEWARD_2","STEWARD_2C","STEWARD_3","STEWARD_3C","STEWARD_4","STEWARD_4C","LDistIndx","NDistIndx","CumDistInd","CumDistI_1"];
-					
-					/*for (var key:String in features[0].attributes) {
-						fields.push(key);
-					}*/
-					
-					var csvText:String = "";
-					
-					csvText += "\"Column header definitions, full metadata, and NHDPlus reach and catchment spatial features available at https://www.sciencebase.gov/catalog/item/53bc6018e4b084059e8c004c?community=Great+Lakes+Restoration+Initiative\"\n";
-					
-					var layDefArray:Array = layerDef.split("1 = 1 AND ");
-					
-					csvText += layDefArray[1] + "\n";
-					
-					for (var i:int = 0; i < fields.length; i++) {
-						if (i < fields.length-1) {
-							csvText += fields[i] + ",";
-						} else if (i == fields.length-1) {
-							csvText += fields[i] + "\n";
-						}
-					}
-					
-					for (var i:int = 0; i < features.length; i++) {
-						for (var j:int = 0; j < fields.length; j++) {
-							if (j < fields.length-1) {
-								csvText += features[i].attributes[fields[j]] + ",";
-							} else if (j == fields.length-1) {
-								csvText += features[i].attributes[fields[j]] + "\n";
-							}
-							
-						}
-					}
-					
-					Alert.show("Click OK to choose a location to save your exported CSV File","File Completed", 0, null, ExportClose);
-					
-					function ExportClose(event:CloseEvent):void
-					{
-						exportCSVLoadingScreen.visible = false;
-						var csvFile:FileReference = new FileReference();
-						var bytes:ByteArray = new ByteArray();
-						bytes.writeUTFBytes(csvText);
-						
-						var csvDate:Date = new Date();
-						var dateArray:Array = csvDate.toString().split(" ");
-						
-						var fileName:String = removeCharacters("FishVis_search_"+dateArray[2]+dateArray[1]+dateArray[5]+"_"+csvDate.toTimeString()+".csv");
-						
-						csvFile.save(bytes, fileName);
-					}
-					
-					function removeCharacters(withSpaces:String):String {
-						var withoutCharacters:String = "";
-						
-						withoutCharacters = removeCharacter(withSpaces, " ");
-						withoutCharacters = removeCharacter(withoutCharacters, ":");
-						
-						return withoutCharacters;
-					}
-					
-					function removeCharacter(withChar:String, char:String):String {
-						var withoutCharacter:String = "";
-						
-						var splitString:Array = withChar.split(char);
-						
-						for (var i:int = 0; i < splitString.length; i++) {
-							withoutCharacter += splitString[i];
-						}
-						
-						return withoutCharacter;
-					}
-					
-				}
-				
-				function searchFault(info:Object, token:Object = null):void
-				{
-					exportCSVLoadingScreen.visible = false;
-					Alert.show("Error: " + info.toString(), "problem with data request for CSV");
-				}
-				
-			}
-
-			private function expandCollapse(event:MouseEvent):void {
+			/*private function expandCollapse(event:MouseEvent):void {
 				
 				var imgID:String = event.currentTarget.id
 				
@@ -1308,9 +896,9 @@ import spark.events.IndexChangeEvent;
 				}
 				
 				scaleSequence.play();
-			}
+			}*/
 
-			private function searchResultClear():void {
+			/*private function searchResultClear():void {
 				stateSelect.selectedIndex = -1;
 				hucSelect.selectedIndex = -1;
 				
@@ -1352,8 +940,8 @@ import spark.events.IndexChangeEvent;
 				late21stWarm.selected = false;
 				late21stWarmTransition.selected = false;
 				
-				searchResultUpdate('clear');
-			}
+				//searchResultUpdate('clear');
+			}*/
 
 			/*private function habitatUpdate():void {
 				var habitatSelectVal:String = habitatSelect.selectedItem;
@@ -1404,7 +992,7 @@ import spark.events.IndexChangeEvent;
 				}
 			}*/
 	
-			private function onToggleClick(toggleClicked:LayerToggle):void {
+			/*private function onToggleClick(toggleClicked:LayerToggle):void {
 				/*if (toggleClicked == studyAreaToggle && studyAreaToggle.selected) {
 					//scenariosToggle.selected = false;
 					if (streamTempToggle != null) {
@@ -1430,7 +1018,7 @@ import spark.events.IndexChangeEvent;
 						nhdLakesToggle.selected = false;
 					}
 				}*/
-			}
+			//}
 
 			//Handles click requests for map layer info
     		private function onMapClick(event:MapMouseEvent):void
@@ -1645,7 +1233,7 @@ import spark.events.IndexChangeEvent;
 				hucAC.sort = hucSort;
 				hucAC.refresh();
 				
-				hucSelect.dataProvider = hucAC;
+				//hucSelect.dataProvider = hucAC;
 			}
 
 			private function hucFault(info:Object, token:Object = null):void
