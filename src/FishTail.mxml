@@ -34,7 +34,7 @@
 	xmlns:localControls="controls.*"
 	xmlns:navigationClasses="com.esri.ags.controls.navigationClasses.*"
  	creationComplete="setup()"
-    pageTitle="Fish Vis Mapper" 
+    pageTitle="Fishtail Mapper" 
     layout="absolute" >
     
     <fx:Style source="assets/styles/main.css"/>
@@ -125,7 +125,7 @@
 		<!-- End Info Box Symbol -->
 		
 		<!-- search expand collapse animation -->
-		<s:Parallel id="scaleSequence" 
+		<!--<s:Parallel id="scaleSequence" 
 					targets="{[late20ExContent]}" 
 					duration="1000" >
 			<s:children>
@@ -136,7 +136,7 @@
 					</s:children>
 				</s:Parallel>
 			</s:children>
-		</s:Parallel>
+		</s:Parallel>-->
 		
 		<!--USGS HeaderFooter Link Box -->
 		<s:BorderContainer 
@@ -491,7 +491,7 @@
 				updateEnd="layerUpdateComp(scenariosSmall)"
 				url="{resourceManager.getString('urls', 'scenariosSmallUrl')}" >
 			</esri:ArcGISDynamicMapServiceLayer>
-			<esri:ArcGISDynamicMapServiceLayer
+			<!--<esri:ArcGISDynamicMapServiceLayer
 				id="fishVisSearch"
 				visible="{resultsTabs.selectedIndex == 1}"
 				alpha="1"
@@ -503,7 +503,7 @@
 						<fx:Number>-1</fx:Number>
 					</s:ArrayCollection>
 				</esri:visibleLayers>
-			</esri:ArcGISDynamicMapServiceLayer>
+			</esri:ArcGISDynamicMapServiceLayer>-->
 			<esri:ArcGISDynamicMapServiceLayer
 				id="fishSampleLocations"
 				visible="{fishSampleLocationsToggle.selected}"
@@ -974,371 +974,7 @@
 						
 						
 						
-						<mx:Box id="searchResults" label="Search results" color="black">
-							<s:VGroup width="100%" bottom="20">
-								<s:Rect width="100%" height="100%">
-									<s:fill><s:SolidColor color="black" /></s:fill>
-								</s:Rect>
-								
-								<!-- Add message for under construction -->
-								
-								<s:VGroup paddingLeft="5">
-									<s:HGroup verticalAlign="middle">
-										<s:Label color="0xDC8739" fontWeight="bold" text="SEARCH FISHVIS" />
-										<mx:Image source="./assets/images/help_tip.png" toolTip="Search for reaches or catchments that meet your custom criteria. Select the desired criteria for each of the three time periods. There is no minimum or maximum number of criteria required for any of the time periods, but realize that the more options you choose, the less likely a unit will match all your criteria." />
-										<s:Label id="exportToCSV" visible="false" color="white" textDecoration="underline" text="Export to CSV" />
-									</s:HGroup>
-									
-									<s:HGroup verticalAlign="middle">
-										<s:Label color="white" fontWeight="bold" text="Select" />
-										<s:DropDownList id="displayUnit" width="150" color="black" selectedIndex="0" >
-											<s:ArrayCollection>
-												<fx:String>stream reaches</fx:String>
-												<fx:String>catchments</fx:String>
-											</s:ArrayCollection>
-										</s:DropDownList>
-										<s:Label color="white" text="in..." />
-										<mx:Image source="./assets/images/help_tip.png" toolTip="{searchSelectInTooltip}" />
-									</s:HGroup>
-									
-									<s:HGroup verticalAlign="middle" paddingLeft="42">
-										<s:DropDownList id="areaSelect" width="70" color="black" prompt="select geometry..." selectedIndex="1" >
-											<s:ArrayCollection>
-												<fx:String>HUC</fx:String>
-												<fx:String>state</fx:String>
-											</s:ArrayCollection>
-										</s:DropDownList>
-										<s:Label color="white" text=" = " />
-										<s:DropDownList id="stateSelect" labelField="state" width="140" color="black" prompt="select state..." 
-														visible="{areaSelect.selectedIndex == 1}" 
-														includeInLayout="{areaSelect.selectedIndex == 1}" >
-											<s:ArrayCollection>
-												<fx:Object state="Indiana" abbr="IN" />
-												<fx:Object state="Michigan" abbr="MI" />
-												<fx:Object state="Minnesota" abbr="MN,ND" />
-												<fx:Object state="New York" abbr="NY,NJ,VT" />
-												<fx:Object state="Ohio" abbr="OH" />
-												<fx:Object state="Pennsylvania" abbr="PA" />
-												<fx:Object state="Wisconsin" abbr="WI,IA" />
-											</s:ArrayCollection>
-										</s:DropDownList>
-										<s:DropDownList id="hucSelect" labelField="inputText" width="140" color="black" prompt="select HUC..." 
-														visible="{areaSelect.selectedIndex == 0}" 
-														includeInLayout="{areaSelect.selectedIndex == 0}" 
-														skinClass="skins.customDropDownListSkin"
-														creationComplete="getHUCs(event)" typicalItem="#### (this is a test string in order to set a large typicalItem)">
-											<s:ArrayCollection>
-												<fx:Object inputText="... loading ..." hucNumber="###" />
-											</s:ArrayCollection>
-										</s:DropDownList>
-										<s:Label color="white" text="where..." />
-									</s:HGroup>
-								</s:VGroup>
-								
-								
-								<s:HGroup paddingLeft="5" width="100%">
-									<mx:HRule width="87%"/>
-								</s:HGroup>
-								
-								<s:HGroup>
-									
-									<s:VGroup id="searchOptions" height="{resultsTabs.height-195}" clipAndEnableScrolling="true" paddingTop="5" paddingLeft="5" paddingBottom="10" visible="true">
-										
-										<!-- late 20th century options -->
-										<s:HGroup width="100%" color="0xa9d157" verticalAlign="middle">
-											<mx:Image id="late20Ex" source="./assets/images/searchExpand.png" scaleX=".30" scaleY=".30" click="expandCollapse(event)" toolTip="Click to expand/collapse"/>
-											<s:Label text="LATE 20TH CENTURY (1961-2000) CRITERIA" fontWeight="bold" />
-											<!--<mx:HRule width="100%" strokeColor="0xa9d157" shadowColor="0xa9d157" />-->
-										</s:HGroup>
-										
-										<s:VGroup id="late20ExContent" scaleY="0">
-											<s:HGroup>
-												<s:Label color="white" text="Fish species/thermal guilds" />
-												<mx:Image source="./assets/images/help_tip.png">
-													<mx:toolTip>
-														<![CDATA[<b>Fish</b><p><font color="#0000FF"><br/><b>Thermal Guild – Cold</b></font><br/>Brook Trout<br/>Brown Trout<br/>Mottled Sculpin<br/>Rainbow Trout</p><p><font color="#00FF00"><br/><b>Thermal Guild – Cool</b></font><br/>Blackchin Shiner<br/>Brook Stickleback<br/>Northern Hogsucker<br/>Northern Pike<br/>White Sucker</p><p><font color="#FF0000"><br/><b>Thermal Guild – Warm</b></font><br/>Common Carp<br/>Green Sunfish<br/>Smallmouth Bass<br/>Stonecat</p>]]>
-													</mx:toolTip>
-												</mx:Image>
-											</s:HGroup>
-											
-											<s:HGroup paddingLeft="15" verticalAlign="middle">
-												<s:DropDownList id="late20thSpeciesSelect" labelField="speciesCode" width="150" color="black" prompt="select species..." >
-													<s:ArrayCollection>
-														<fx:Object speciesCode="Cold water species" abbr="CdPA" />
-														<fx:Object speciesCode="Cool water species" abbr="ClPA" />
-														<fx:Object speciesCode="Warm water species" abbr="WmPA" />
-														<fx:Object speciesCode="Blackchin Shiner" abbr="S6A" />
-														<fx:Object speciesCode="Brook Stickleback" abbr="S7A" />
-														<fx:Object speciesCode="Brook Trout" abbr="S2A" />
-														<fx:Object speciesCode="Brown Trout" abbr="S1A" />
-														<fx:Object speciesCode="Common Carp" abbr="S12A" />
-														<fx:Object speciesCode="Green Sunfish" abbr="S13A" />
-														<fx:Object speciesCode="Mottled Sculpin" abbr="S3A" />
-														<fx:Object speciesCode="Northern Hogsucker" abbr="S8A" />
-														<fx:Object speciesCode="Northern Pike" abbr="S9A" />
-														<fx:Object speciesCode="Rainbow Trout" abbr="S4A" />
-														<fx:Object speciesCode="Smallmouth Bass" abbr="S15A" />
-														<fx:Object speciesCode="Stonecat" abbr="S16A" />
-														<fx:Object speciesCode="White Sucker" abbr="S11A" />
-													</s:ArrayCollection>
-												</s:DropDownList>
-												<s:Label color="white" text=" = " />
-												<s:DropDownList id="late20thPASelect" labelField="pa" color="black" prompt="select ..." >
-													<s:ArrayCollection>
-														<fx:Object pa="Present" cd="P" />
-														<fx:Object pa="Absent" cd="A" />
-													</s:ArrayCollection> 
-												</s:DropDownList>
-											</s:HGroup>
-											
-											<s:HGroup>
-												<s:Label color="white" text="Stream Temperature" />
-												<mx:Image source="./assets/images/help_tip.png" toolTip="{streamTempSearch}" />
-												<s:VGroup color="white">
-													<s:CheckBox id="late20thCold" label="Cold"/>
-													<s:CheckBox id="late20thColdTransition" label="Cold transition"/>
-													<s:CheckBox id="late20thWarmTransition" label="Warm transition"/>
-													<s:CheckBox id="late20thWarm" label="Warm"/>
-												</s:VGroup>
-											</s:HGroup>
-											
-											<s:HGroup>
-												<s:Label color="white" text="Stream Size" />
-												<mx:Image source="./assets/images/help_tip.png" toolTip="Stream order hierarchy is a way to categorize stream size by determining how many tributary levels it contains. For example, headwater streams (1st order) have no other streams flowing into them; they are source streams. 2nd order streams have at least one 1st order stream flowing into them, and are usually a little larger than the 1st order streams in their region. 3rd order streams have at least one 2nd order stream flowing into them, and so on. Rivers like the Ohio River (8th order) or the Mississippi River (10th order) represent the largest streams in the U.S." />
-												<s:VGroup color="white">
-													<s:CheckBox id="headwaterSize" label="Headwater (1st order stream)"/>
-													<s:CheckBox id="smallSize" label="Small stream (2nd to 4th order)"/>
-													<s:CheckBox id="mediumSize" label="Medium river (5th to 7th order)"/>
-													<s:CheckBox id="largeSize" label="Large river (8th and greater order)"/>
-												</s:VGroup>
-												</s:HGroup>
-											<s:HGroup verticalAlign="middle">
-												<s:Label color="white" text="Land use/land cover = " />
-												<mx:Image source="./assets/images/help_tip.png" toolTip="Select features with catchments that are a user-defined percentage of one of 16-class land cover classes (as defined by the National Land Cover Database 2006).  'Local catchment' encompasses the area of land that drains directly to an individual stream reach; 'network catchment' encompasses the entire upstream drainage area that drains to an individual stream reach." />
-												<s:DropDownList id="landUseCatchmentType" labelField="type" prompt="select..." width="125">
-													<s:ArrayCollection>
-														<fx:Object type="Local catchment" cd="" />
-														<fx:Object type="Network catchment" cd="C" />
-													</s:ArrayCollection>
-												</s:DropDownList>
-											</s:HGroup>
-											<s:HGroup verticalAlign="middle" paddingLeft="15">
-												<s:DropDownList id="landUseType" labelField="type" prompt="select..." width="150">
-													<s:ArrayCollection>
-														<fx:Object type="Agriculture" cd="LU_80" />
-														<fx:Object type="Barren" cd="LU_30" />
-														<fx:Object type="Developed" cd="LU_20" />
-														<fx:Object type="Forest" cd="LU_40" />
-														<fx:Object type="Herbaceous Upland" cd="LU_70" />
-														<fx:Object type="Shrubland" cd="LU_50" />
-														<fx:Object type="Water" cd="LU_10" />
-														<fx:Object type="Wetlands" cd="LU_wet" />
-													</s:ArrayCollection>
-												</s:DropDownList>
-												<s:DropDownList id="landUseOperator" width="50">
-													<s:ArrayCollection>
-														<fx:String>&lt;</fx:String>
-														<fx:String>=</fx:String>
-														<fx:String>&gt;</fx:String>
-													</s:ArrayCollection>
-												</s:DropDownList>
-												<s:TextInput id="landUsePct" width="25" />
-												<s:Label text="percent" />
-											</s:HGroup>
-											
-											<s:HGroup verticalAlign="middle">
-												<s:Label color="white" text="Land stewardship = " />
-												<mx:Image source="./assets/images/help_tip.png" toolTip="{landStewardTooltip}" />
-												<s:DropDownList id="landStewardshipCatchmentType" labelField="type" prompt="select..." width="125">
-													<s:ArrayCollection>
-														<fx:Object type="Local catchment" cd="" />
-														<fx:Object type="Network catchment" cd="C" />
-													</s:ArrayCollection>
-												</s:DropDownList>
-											</s:HGroup>
-											<s:HGroup verticalAlign="middle" paddingLeft="15">
-												<s:DropDownList id="landStewardshipType" labelField="type" prompt="select..." width="150">
-													<s:ArrayCollection>
-														<fx:Object type="Status 1 (most protected)" cd="STEWARD_1" />
-														<fx:Object type="Status 2 (protection, allowing minimal use)" cd="STEWARD_2" />
-														<fx:Object type="Status 3 (protection, allowing extractive use)" cd="STEWARD_3" />
-														<fx:Object type="Status 4 (no protection)" cd="STEWARD_4" />
-													</s:ArrayCollection>
-												</s:DropDownList>
-												<s:DropDownList id="landStewardshipOperator" width="50">
-													<s:ArrayCollection>
-														<fx:String>&lt;</fx:String>
-														<fx:String>=</fx:String>
-														<fx:String>&gt;</fx:String>
-													</s:ArrayCollection>
-												</s:DropDownList>
-												<s:TextInput id="landStewardshipPct" width="25" />
-												<s:Label text="percent" />
-											</s:HGroup>
-											
-											<s:HGroup verticalAlign="middle">
-												<s:Label color="white" text="Human Disturbance Index = " />
-												<mx:Image source="./assets/images/help_tip.png" toolTip="Relative risk of current fish-habitat degradation based on an index of cumulative disturbance within the selected geographic unit based on 15 disturbance variables. Habitats with a very high risk include those in or near urban development, livestock grazing, agriculture, point source pollution, or areas with high numbers of active mines and dams." />
-												<s:DropDownList id="humanDist" labelField="type" prompt="select ...">
-													<s:ArrayCollection>
-														<fx:Object type="Unscored" cd="unscored" />
-														<fx:Object type="Very high risk" cd="very high" />
-														<fx:Object type="High risk" cd="high" />
-														<fx:Object type="Moderate risk" cd="moderate" />
-														<fx:Object type="Low risk" cd="low" />
-														<fx:Object type="Very low risk" cd="very low" />
-													</s:ArrayCollection>
-												</s:DropDownList>
-											</s:HGroup>
-										</s:VGroup>
-										
-										<!-- mid 21st century options -->
-										<s:HGroup width="100%" color="0xa9d157" verticalAlign="middle">
-											<mx:Image id="mid21Ex" source="./assets/images/searchExpand.png" scaleX=".30" scaleY=".30" click="expandCollapse(event)" toolTip="Click to expand/collapse"/>
-											<s:Label text="MID 21ST CENTURY (2046-2065) CRITERIA" fontWeight="bold" />
-											<!--<mx:HRule width="100%" strokeColor="0xa9d157" shadowColor="0xa9d157" />-->
-										</s:HGroup>
-										
-										<s:VGroup id="mid21ExContent" scaleY="0">
-											<s:HGroup>
-												<s:Label color="white" text="Fish species/thermal guilds" />
-												<mx:Image source="./assets/images/help_tip.png">
-													<mx:toolTip>
-														<![CDATA[<b>Fish</b><p><font color="#0000FF"><br/><b>Thermal Guild – Cold</b></font><br/>Brook Trout<br/>Brown Trout<br/>Mottled Sculpin<br/>Rainbow Trout</p><p><font color="#00FF00"><br/><b>Thermal Guild – Cool</b></font><br/>Blackchin Shiner<br/>Brook Stickleback<br/>Northern Hogsucker<br/>Northern Pike<br/>White Sucker</p><p><font color="#FF0000"><br/><b>Thermal Guild – Warm</b></font><br/>Common Carp<br/>Green Sunfish<br/>Smallmouth Bass<br/>Stonecat</p>]]>
-													</mx:toolTip>
-												</mx:Image>
-											</s:HGroup>
-											
-											<s:HGroup paddingLeft="15" verticalAlign="middle">
-												<s:DropDownList id="mid21stSpeciesSelect" labelField="speciesCode" width="150" color="black" prompt="select species..." >
-													<s:ArrayCollection>
-														<fx:Object speciesCode="Cold water species" abbr="CdPA46" />
-														<fx:Object speciesCode="Cool water species" abbr="ClPA46" />
-														<fx:Object speciesCode="Warm water species" abbr="WmPA46" />
-														<fx:Object speciesCode="Blackchin Shiner" abbr="S6A46" />
-														<fx:Object speciesCode="Brook Stickleback" abbr="S7A46" />
-														<fx:Object speciesCode="Brook Trout" abbr="S2A46" />
-														<fx:Object speciesCode="Brown Trout" abbr="S1A46" />
-														<fx:Object speciesCode="Common Carp" abbr="S12A46" />
-														<fx:Object speciesCode="Green Sunfish" abbr="S13A46" />
-														<fx:Object speciesCode="Mottled Sculpin" abbr="S3A46" />
-														<fx:Object speciesCode="Northern Hogsucker" abbr="S8A46" />
-														<fx:Object speciesCode="Northern Pike" abbr="S9A46" />
-														<fx:Object speciesCode="Rainbow Trout" abbr="S4A46" />
-														<fx:Object speciesCode="Smallmouth Bass" abbr="S15A46" />
-														<fx:Object speciesCode="Stonecat" abbr="S16A46" />
-														<fx:Object speciesCode="White Sucker" abbr="S11A46" />
-													</s:ArrayCollection>
-												</s:DropDownList>
-												<s:Label color="white" text=" = " />
-												<s:DropDownList id="mid21stPASelect" labelField="pa" color="black" prompt="select ..." >
-													<s:ArrayCollection>
-														<fx:Object pa="Present" cd="P" />
-														<fx:Object pa="Absent" cd="A" />
-													</s:ArrayCollection>
-												</s:DropDownList>
-											</s:HGroup>
-											
-											<s:HGroup>
-												<s:Label color="white" text="Stream Temperature" />
-												<mx:Image source="./assets/images/help_tip.png" toolTip="{streamTempSearch}" />
-												<s:VGroup color="white">
-													<s:CheckBox id="mid21stCold" label="Cold"/>
-													<s:CheckBox id="mid21stColdTransition" label="Cold transition"/>
-													<s:CheckBox id="mid21stWarmTransition" label="Warm transition"/>
-													<s:CheckBox id="mid21stWarm" label="Warm"/>
-												</s:VGroup>
-											</s:HGroup>
-										</s:VGroup>
-										
-										
-										<!-- late 21st century options -->
-										<s:HGroup width="100%" color="0xa9d157" verticalAlign="middle">
-											<mx:Image id="late21Ex" source="./assets/images/searchExpand.png" scaleX=".30" scaleY=".30" click="expandCollapse(event)" toolTip="Click to expand/collapse"/>
-											<s:Label text="LATE 21ST CENTURY (2081-2100) CRITERIA" fontWeight="bold" />
-											<!--<mx:HRule width="100%" strokeColor="0xa9d157" shadowColor="0xa9d157" />-->
-										</s:HGroup>
-										
-										<s:VGroup id="late21ExContent" scaleY="0">
-											<s:HGroup>
-												<s:Label color="white" text="Fish species/thermal guilds" />
-												<mx:Image source="./assets/images/help_tip.png">
-													<mx:toolTip>
-														<![CDATA[<b>Fish</b><p><font color="#0000FF"><br/><b>Thermal Guild – Cold</b></font><br/>Brook Trout<br/>Brown Trout<br/>Mottled Sculpin<br/>Rainbow Trout</p><p><font color="#00FF00"><br/><b>Thermal Guild – Cool</b></font><br/>Blackchin Shiner<br/>Brook Stickleback<br/>Northern Hogsucker<br/>Northern Pike<br/>White Sucker</p><p><font color="#FF0000"><br/><b>Thermal Guild – Warm</b></font><br/>Common Carp<br/>Green Sunfish<br/>Smallmouth Bass<br/>Stonecat</p>]]>
-													</mx:toolTip>
-												</mx:Image>
-											</s:HGroup>
-											
-											<s:HGroup paddingLeft="15" verticalAlign="middle">
-												<s:DropDownList id="late21stSpeciesSelect" labelField="speciesCode" width="150" color="black" prompt="select species..." >
-													<s:ArrayCollection>
-														<fx:Object speciesCode="Cold water species" abbr="CdPA81" />
-														<fx:Object speciesCode="Cool water species" abbr="ClPA81" />
-														<fx:Object speciesCode="Warm water species" abbr="WmPA81" />
-														<fx:Object speciesCode="Blackchin Shiner" abbr="S6A81" />
-														<fx:Object speciesCode="Brook Stickleback" abbr="S7A81" />
-														<fx:Object speciesCode="Brook Trout" abbr="S2A81" />
-														<fx:Object speciesCode="Brown Trout" abbr="S1A81" />
-														<fx:Object speciesCode="Common Carp" abbr="S12A81" />
-														<fx:Object speciesCode="Green Sunfish" abbr="S13A81" />
-														<fx:Object speciesCode="Mottled Sculpin" abbr="S3A81" />
-														<fx:Object speciesCode="Northern Hogsucker" abbr="S8A81" />
-														<fx:Object speciesCode="Northern Pike" abbr="S9A81" />
-														<fx:Object speciesCode="Rainbow Trout" abbr="S4A81" />
-														<fx:Object speciesCode="Smallmouth Bass" abbr="S15A81" />
-														<fx:Object speciesCode="Stonecat" abbr="S16A81" />
-														<fx:Object speciesCode="White Sucker" abbr="S11A81" />
-													</s:ArrayCollection>
-												</s:DropDownList>
-												<s:Label color="white" text=" = " />
-												<s:DropDownList id="late21stPASelect" labelField="pa" color="black" prompt="select ..." >
-													<s:ArrayCollection>
-														<fx:Object pa="Present" cd="P" />
-														<fx:Object pa="Absent" cd="A" />
-													</s:ArrayCollection>
-												</s:DropDownList>
-											</s:HGroup>
-											
-											<s:HGroup>
-												<s:Label color="white" text="Stream Temperature" />
-												<mx:Image source="./assets/images/help_tip.png" toolTip="{streamTempSearch}" />
-												<s:VGroup color="white">
-													<s:CheckBox id="late21stCold" label="Cold"/>
-													<s:CheckBox id="late21stColdTransition" label="Cold transition"/>
-													<s:CheckBox id="late21stWarmTransition" label="Warm transition"/>
-													<s:CheckBox id="late21stWarm" label="Warm"/>
-												</s:VGroup>
-											</s:HGroup>
-										</s:VGroup>
-										
-									
-									</s:VGroup>
-									<s:VScrollBar height="{searchOptions.height}" viewport="{searchOptions}"/>
-								</s:HGroup>
-								
-								<s:HGroup paddingLeft="5" width="100%">
-									<mx:HRule width="87%"/>
-								</s:HGroup>
-								
-								<s:HGroup width="100%" paddingTop="10">
-									<s:HGroup horizontalAlign="left" width="50%" paddingLeft="10">
-										<s:VGroup color="white" horizontalAlign="left" paddingTop="3">
-											<s:HGroup>
-												<s:Label text="RESULTS:" fontWeight="bold" color="0xDC8739" />
-												<mx:Image source="./assets/images/help_tip.png" toolTip="The results count displays how many individual reaches or catchments match the selected search criteria. To save your search results as a .csv file, click on the 'Export Results' button. The first row of the .csv file will contain a record of your search parameters, and the export will include all the searchable data fields for each matching reach/catchment. To download the full FishVis dataset, click on the orange 'Download FishVis Dataset' button at the top of the mapper." />
-											</s:HGroup>
-											<s:Label id="resultsCount" text="0" />
-										</s:VGroup>
-										<s:Button label="Export Results" skinClass="controls.skins.WrapButtonSkin" click="exportStart(event)" textAlignLast="left" width="75" height="40" color="black" cornerRadius="0" fontSize="10" fontWeight="bold" chromeColor="0xDC8739" />
-									</s:HGroup>
-									<s:HGroup right="10" paddingRight="20" paddingBottom="10" horizontalAlign="right" width="50%">
-										<s:Button label="Clear" click="searchResultClear()" height="40" color="black" />
-										<s:Button label="Go" click="{searchResultUpdate('go')}" height="40" chromeColor="0x3F70B6" color="black" fontWeight="bold" fontSize="11" />
-									</s:HGroup>
-								</s:HGroup>
-								
-							</s:VGroup>
-						</mx:Box>
+						
 					</mx:TabNavigator>
 				</s:VGroup>
 			</s:VGroup>
@@ -1366,8 +1002,8 @@
 							<!-- End legends for browse tab results -->
 							
 							<!-- Begin legends for search tab results -->
-							<localControls:MapServiceLegend id="searchLegend" map="{map}" visible="{fishVisSearch.visible &amp;&amp; fishVisSearch.visibleLayers.length &gt; 0}" legendTitle="{(fishVisSearch.visibleLayers.getItemAt(0) == 0) ? 'Reaches' : 'Catchments'} that meet search criteria" needsUpdates="true" includeInLayout="{fishVisSearch.visible}" serviceLayer="{fishVisSearch}" legendWidth="245" />
-							<!-- End legends for search tab results -->
+							<!--<localControls:MapServiceLegend id="searchLegend" map="{map}" visible="{fishVisSearch.visible &amp;&amp; fishVisSearch.visibleLayers.length &gt; 0}" legendTitle="{(fishVisSearch.visibleLayers.getItemAt(0) == 0) ? 'Reaches' : 'Catchments'} that meet search criteria" needsUpdates="true" includeInLayout="{fishVisSearch.visible}" serviceLayer="{fishVisSearch}" legendWidth="245" />
+							--><!-- End legends for search tab results -->
 							
 							<!-- Additional layer legends -->
 							<localControls:MapServiceLegend id="fishSampleLocationsLegend" map="{map}" serviceLayer="{fishSampleLocations}" legendWidth="245" needsUpdates="false" />
@@ -1407,14 +1043,14 @@
 															 opacBoxBGColor="0x444444" openOpacityRight="true" opacityBoxAlpha="0.9"
 															 moreInfoToolTip="Fish sample collections were acquired from City of Elkhart, Indiana; Indiana Department of Environmental Management; Michigan Department of Natural Resources; Minnesota Pollution Control Agency; New York State Department of Environmental Conservation; Ohio Environmental Protection Agency; Pennsylvania Fish and Boat Commission; and Wisconsin Department of Natural Resources)" 
 															 selected="{fishSampleLocations.visible}" creationComplete="{ fishSampleLocationsToggle.selected=false; }" />
-									<wimControls:LayerToggle id="streamBufferToggle" layerID="1" serviceLayerID="streamBuffer" layerTitle="Stream buffer" click="onToggleClick(streamBufferToggle)" 
+									<wimControls:LayerToggle id="streamBufferToggle" layerID="1" serviceLayerID="streamBuffer" layerTitle="Stream buffer"
 															 opacBoxBGColor="0x444444" openOpacityRight="true" opacityBoxAlpha="0.9"
 															 selected="{nhdStreams.visible}" />
-									<wimControls:LayerToggle id="nhdStreamsToggle" layerID="1" serviceLayerID="nhdStreams" layerTitle="Streams" click="onToggleClick(nhdStreamsToggle)" 
+									<wimControls:LayerToggle id="nhdStreamsToggle" layerID="1" serviceLayerID="nhdStreams" layerTitle="Streams"
 															 opacBoxBGColor="0x444444" openOpacityRight="true" opacityBoxAlpha="0.9"
 															 moreInfoToolTip="From NHDPlus, which combines the medium-resolution NHD with a digital elevation model with 30-meter grid spacing to produce several derivative datasets that enable the definition of the land surface areas (catchment). NHDPlus Version 1 (NHDPlusV1) was released in 2006."
 															 selected="{nhdStreams.visible}" />
-									<wimControls:LayerToggle id="nhdLakesToggle" layerID="1" serviceLayerID="nhdLakes" layerTitle="Lakes" click="onToggleClick(nhdLakesToggle)" 
+									<wimControls:LayerToggle id="nhdLakesToggle" layerID="1" serviceLayerID="nhdLakes" layerTitle="Lakes"
 															 opacBoxBGColor="0x444444" openOpacityRight="true" opacityBoxAlpha="0.9"
 															 moreInfoToolTip="From NHDPlus, which combines the medium-resolution NHD with a digital elevation model with 30-meter grid spacing to produce several derivative datasets that enable the definition of the land surface areas (catchment). NHDPlus Version 1 (NHDPlusV1) was released in 2006."
 															 selected="{nhdLakes.visible}" />
