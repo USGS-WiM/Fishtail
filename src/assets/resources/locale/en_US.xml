@@ -21,9 +21,11 @@
 	<resource name="streamsForQueryUrl" value="http://commons.wim.usgs.gov/ArcGIS/rest/services/FishVis/streams_for_query/MapServer" />
 	<resource name="climateStreamflow" value="http://commons.wim.usgs.gov/arcgis/rest/services/FishVis/climate_streamflow/MapServer" />
 	<resource name="climateStreamflowSmall" value="http://commons.wim.usgs.gov/arcgis/rest/services/FishVis/climate_streamflow_small_scale/MapServer" />
+  	<!-- changed to FishTail -->
   	<resource name="supplementalLayersUrl" value="http://commons.wim.usgs.gov/ArcGIS/rest/services/FishTail/supplementalLayers/MapServer" />
-  	<resource name="streamsCache" value="http://commons.wim.usgs.gov/ArcGIS/rest/services/FishVis/streams_cache/MapServer" />
-  	<resource name="catchmentsCache" value="http://commons.wim.usgs.gov/ArcGIS/rest/services/FishVis/catchments_cache/MapServer" />
+  	<resource name="streamsCache" value="http://commons.wim.usgs.gov/ArcGIS/rest/services/FishTail/streams_cache/MapServer" />
+  	<resource name="catchmentsCache" value="http://commons.wim.usgs.gov/ArcGIS/rest/services/FishTail/catchments_cache/MapServer" />
+  	<!-- end changed to FishTail -->
   	<resource name="roadStreamsCache" value="http://commons.wim.usgs.gov/ArcGIS/rest/services/FishVis/roads_stream_crossing_cache/MapServer" />
   	
   	<!-- non wim hosted resources -->
