@@ -454,7 +454,7 @@
 			<esri:ArcGISDynamicMapServiceLayer
 				id="climateStreamflow"
 				visible="{resultsTabs.selectedIndex == 0 &amp;&amp; (climateProj.selected || streamflow.selected) &amp;&amp; map.scale &lt; 1500000}"
-				alpha="0.7" 
+				alpha="0.7"
 				updateStart="loadingScreenEnable()"
 				updateEnd="layerUpdateComp(climateStreamflow)"
 				url="{resourceManager.getString('urls', 'climateStreamflow')}" >
@@ -462,7 +462,7 @@
 			<esri:ArcGISDynamicMapServiceLayer
 				id="climateStreamflowSmall"
 				visible="{resultsTabs.selectedIndex == 0 &amp;&amp; (climateProj.selected || streamflow.selected) &amp;&amp; map.scale &gt; 1500000}"
-				alpha="0.7"  
+				alpha="0.7"
 				updateStart="loadingScreenEnable()"
 				updateEnd="layerUpdateComp(climateStreamflowSmall)"
 				url="{resourceManager.getString('urls', 'climateStreamflowSmall')}" >
