@@ -1244,27 +1244,21 @@
 				<mx:Text width="100%" textAlign="left" condenseWhite="true">
 					<mx:htmlText>
 						<![CDATA[<font size='12' color='#000000'><p>
-						<p><b>Welcome to FishTail!</b></p> 
-						<p>Fish distribution and community composition in streams are expected to change based on altered thermal and/or hydrologic characteristics of surface and groundwater resources resulting from climate change. FishTail was developed to help you visualize, search, and download these potential climate-driven responses for 13 fish species in streams across the Great Lakes region.</p><br/>
-						<p>You can use FishTail to ...</p><br/>
-						<p><ul><li>Explore fish, stream temperature, streamflow exceedance, and climate data</li>
-						<li>View summarized data at stream reach, catchment, or HUC12 spatial scales</li>
-						<li>Access FishTail data by clicking on a hydrologic feature to see detailed results in pop-up tables</li>
-						<li>Search FishTail data to find stream reaches or catchments that meet your criteria</li>
-						<li>Learn more about the FishTail project and data through help tips (mouse over the “?”s) and ancillary information (hosted by ScienceBase)</li>
-						<li>View supplemental data layers or change your basemap</li>
-						<li>Download FishTail data</li></ul></p><br/>
-						<p><b>About FishTail</b></p> 
-						<p>The FishTail Mapper is the product of an Upper Midwest and Great Lakes Landscape Conservation Cooperative project, “A Regional Decision Support Tool for Identifying Vulnerabilities of Riverine Habitat and Fishes to Climate Change”. The goal of this project was to develop an approach for predicting fish species occurrence under current climate conditions and project how fish species occurrence may change under future climate conditions.
-						</p><br/>
-						<p>Modeling fish species occurrence under current and future conditions required six input types of input data sets: landscape characteristics, stream temperature and flow estimates from statistical models, fish sample collections from State natural resource agencies, climate time-series from meteorological stations, and climate time-series from downscaled general circulation models. The 1:100,000 scale <font color="#0000FF" text-decoration="underline"><a href="http://www.horizon-systems.com/NHDPlus/NHDPlusV1_home.php" target="_blank">NHDPlus Version 1</a></font> served as the common environmental spatial framework to which all landscape, physical, and biological data were attributed. The vulnerability of fish species to climate change was evaluated by comparing predicted species occurrence under current conditions to predicted fish species occurrence under future climate conditions for 13 climate models and 13 fish species. Results from FishTail analyses can be viewed for the individual stream reach/catchment or summarized at the HUC12 scale.
-						</p><br/>
-						<p>The results presented here are not predictions of what will happen in the future so much as they are representations of what might happen given a set of assumptions about future energy development and use.
-						</p><br/>
-						<p>Complete information about the FishTail project and data are described in USGS Data Report XXXX-XXXX and available in <font color="#0000FF"><a href="https://www.sciencebase.gov/catalog/item/5113e594e4b0a9ee4115bb08" target="_blank">ScienceBase</a></font>. FishVis data can also be <font color="#0000FF"><a href="https://www.sciencebase.gov/catalog/item/5113e594e4b0a9ee4115bb08" target="_blank">downloaded</a></font> here.
-						</p><br/>
-						<p><b>Acknowlegdements</b></p>
-						<p>Support for this project was provided by the <font color="#0000FF"><a href="http://greatlakeslcc.org/" target="_blank">Upper Midwest and Great Lakes Landscape Conservation Cooperative</a></font> (LCC) of the U.S. Fish and Wildlife Service. The U.S. Geological Survey collaborated with Michigan State University, Michigan Institute of Fisheries Research, and the Wisconsin Department of Natural Resources. Additional support for this project was provided by the USGS National GAP Analysis Program, the Federal Aid in Sport Fish Restoration Project F-95-P (studies SSMP and SSCN), the National Fish Habitat Action Plan, and the USGS National Climate Change and Wildlife Science Center. </p>
+						<p><b>ABOUT FISHTAIL:  A decision support mapper for conserving stream fish habitats of the NECSC region</b></p><br/>
+						<p><b><i>Assessing current and future condition of fluvial habitats</i></b></p><br/>
+						<p>Human impacts occurring throughout the Northeast U.S. that include urbanization, agriculture, and dams have multiple effects on the region’s streams which support economically and socially valuable stream fishes.  Changes in climate are expected to cause additional changes in stream habitats, including changing water temperatures, which will potentially alter future stream fish assemblages. To manage streams for current impacts as well as future changes, managers need region-wide information for decision-making and development of proactive management strategies.  Our project helps to meet that need by integrating results of a current condition assessment of stream habitats based on fish response to human land uses, water quality impairment, and fragmentation by dams with estimates of which stream habitats may change in their ability to support current fish assemblages with changing climate.  This decision support mapper, FISHTAIL, will allow users to evaluate how fish may respond to current and future condition of fish habitats so managers can better protect and conserve stream fishes.</p><br/>
+						<p>Users of FISHTAIL have the capability of viewing a variety of information to support decision making, which can be displayed for different spatial units such as the stream reach or for large watersheds; views of information can be tailored to the entire study region, individual states, or ecoregions; and results can reflect response of entire groups of species or key species of interest to management. Types of information that can be displayed with FISHTAIL include:</p><br/>
+						<p><b><i>Current condition of fish habitats</i></b></p><br/>
+						<p><ul><li>An index characterizing stream fish response to urban and agricultural land use</li>
+						<li>An index characterizing stream fish response to river fragmentation by large dams</li>
+						<li>An index characterizing stream fish response to water quality impairment as reflected by 303d listings in waterbodies related to mercury, other metals, nutrients, organic enrichment/oxygen depletion, and pathogens.</li>
+						<br/>
+						<p><b><i>Future condition of fish habitats</i></b></p><br/>
+						<p><ul><li>An index characterizing the likelihood of stream habitat to change in its ability to support species of interest with projected changes in climate</li>
+						<br/>
+						<p><b><i>Additional information to support decision making</i></b></p><br/>
+						<p><ul><li>Locations of currently protected lands throughout the NECSC region</li>
+						<li>National Fish Habitat Partnership fish habitat condition assessment scores for 2015</li>
 						<br/>
 						<br/>
 						]]>
