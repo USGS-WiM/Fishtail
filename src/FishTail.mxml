@@ -477,23 +477,25 @@
 			</esri:ArcGISDynamicMapServiceLayer>
 			<esri:ArcGISDynamicMapServiceLayer
 				id="climateStreamflow"
-				visible="{resultsTabs.selectedIndex == 0 &amp;&amp; (climateProj.selected || streamflow.selected) &amp;&amp; map.scale &lt; 1500000}"
+				visible="false" 
 				alpha="0.7"
 				updateStart="loadingScreenEnable()"
 				updateEnd="layerUpdateComp(climateStreamflow)"
-				url="{resourceManager.getString('urls', 'climateStreamflow')}" >
+				url="{resourceManager.getString('urls', 'climateStreamflow')}" > <!--visible="{resultsTabs.selectedIndex == 0 &amp;&amp; (climateProj.selected || streamflow.selected) &amp;&amp; map.scale &lt; 1500000}"-->
 			</esri:ArcGISDynamicMapServiceLayer>
 			<esri:ArcGISDynamicMapServiceLayer
 				id="climateStreamflowSmall"
-				visible="{resultsTabs.selectedIndex == 0 &amp;&amp; (climateProj.selected || streamflow.selected) &amp;&amp; map.scale &gt; 1500000}"
+				visible="false"
 				alpha="0.7"
 				updateStart="loadingScreenEnable()"
 				updateEnd="layerUpdateComp(climateStreamflowSmall)"
-				url="{resourceManager.getString('urls', 'climateStreamflowSmall')}" >
+				url="{resourceManager.getString('urls', 'climateStreamflowSmall')}" > <!--visible="{resultsTabs.selectedIndex == 0 &amp;&amp; (climateProj.selected || streamflow.selected) &amp;&amp; map.scale &gt; 1500000}"-->
 			</esri:ArcGISDynamicMapServiceLayer>
 			<esri:ArcGISDynamicMapServiceLayer
 				id="scenariosCatchments"
-				visible="{resultsTabs.selectedIndex == 0 &amp;&amp; catchment.selected == true &amp;&amp; streamflow.selected == false &amp;&amp; climateProj.selected == false}"
+				visible="false" > <!-- visible="{resultsTabs.selectedIndex == 0 &amp;&amp; catchment.selected == true &amp;&amp; streamflow.selected == false &amp;&amp; climateProj.selected == false}" -->
+			</esri:ArcGISDynamicMapServiceLayer>
+			<esri:ArcGISDynamicMapServiceLayer
 				alpha="0.7" 
 				updateStart="loadingScreenEnable()"
 				updateEnd="layerUpdateComp(scenariosCatchments)"
@@ -501,15 +503,17 @@
 			</esri:ArcGISDynamicMapServiceLayer>
 			<esri:ArcGISDynamicMapServiceLayer
 				id="scenarios"
-				visible="{(resultsTabs.selectedIndex == 0 &amp;&amp; streamReach.selected == true &amp;&amp; streamflow.selected == false &amp;&amp; climateProj.selected == false) &amp;&amp; map.scale &lt; 1500000}"
+				visible="false"
 				alpha="1" 
 				updateStart="loadingScreenEnable()"
 				updateEnd="layerUpdateComp(scenarios)"
-				url="{resourceManager.getString('urls', 'scenariosUrl')}" >
+				url="{resourceManager.getString('urls', 'scenariosUrl')}" > <!-- visible="{(resultsTabs.selectedIndex == 0 &amp;&amp; streamReach.selected == true &amp;&amp; streamflow.selected == false &amp;&amp; climateProj.selected == false) &amp;&amp; map.scale &lt; 1500000}" -->
 			</esri:ArcGISDynamicMapServiceLayer>
 			<esri:ArcGISDynamicMapServiceLayer
 				id="scenariosSmall"
-				visible="{(resultsTabs.selectedIndex == 0 &amp;&amp; streamReach.selected == true &amp;&amp; streamflow.selected == false &amp;&amp; climateProj.selected == false) &amp;&amp; map.scale &gt; 1500000}"
+				visible="false" > <!-- visible="{(resultsTabs.selectedIndex == 0 &amp;&amp; streamReach.selected == true &amp;&amp; streamflow.selected == false &amp;&amp; climateProj.selected == false) &amp;&amp; map.scale &gt; 1500000}" -->
+			</esri:ArcGISDynamicMapServiceLayer>
+			<esri:ArcGISDynamicMapServiceLayer
 				alpha="1"  
 				updateStart="loadingScreenEnable()"
 				updateEnd="layerUpdateComp(scenariosSmall)"
@@ -582,7 +586,7 @@
 			<s:VGroup paddingTop="10" paddingRight="10" id="moreInfoIcon">
 				<s:BorderContainer
 					id="moreInfoButton"
-					backgroundColor="0xDC8739"
+					backgroundColor="0x990033"
 					cornerRadius="5"
 					height="35"
 					borderColor="1"
@@ -648,7 +652,7 @@
 										</s:DropDownList>
 										<s:TextInput color="black" text="entire Great Lakes basin" width="150" />
 									</s:HGroup>-->
-									<s:HGroup color="0xa9d157" fontWeight="bold">
+									<s:HGroup color="0xFFFF99" fontWeight="bold">
 										<s:Label text="Step 1: " /><s:Label text="Display by..." />
 									</s:HGroup>
 									<s:VGroup paddingLeft="25" gap="0" paddingBottom="10">
@@ -676,18 +680,17 @@
 										</s:HGroup>
 										<s:HGroup verticalAlign="middle">
 											<s:RadioButton group="{displayByOpt}"
-														   id="streamBuff" 
-														   selected="true"
+														   id="streamBuff"
 														   label="Stream buffers" 
 														   value="streambuff" />
 											<mx:Image source="./assets/images/help_tip.png" toolTip="Stream buffer - description" />
 										</s:HGroup>
 									</s:VGroup>
-									<s:HGroup color="0xa9d157" fontWeight="bold">
-										<s:Label text="Step 2: "/><s:Label text="Select topic" />
+									<s:HGroup color="0xFFFF99" fontWeight="bold">
+										<s:Label text="Step 2: "/><s:Label text="Select Habitat Response Index" />
 									</s:HGroup>
 									<s:VGroup paddingLeft="25" gap="0" paddingBottom="10">
-										<s:HGroup verticalAlign="middle">
+										<!--<s:HGroup verticalAlign="middle">
 											<s:RadioButton group="{topicOpt}"
 													   id="fish"
 													   selected="true"
@@ -727,261 +730,75 @@
 														<fx:String>White Sucker</fx:String>
 													</s:ArrayCollection>
 												</s:DropDownList>
-												<!--<mx:Image source="./assets/images/help_tip.png" toolTip="{indSpeciesSelect.selectedItem.toolTip}" />-->
+												<mx:Image source="./assets/images/help_tip.png" toolTip="{indSpeciesSelect.selectedItem.toolTip}" />
 											</s:HGroup>
-										</s:VGroup>
+										</s:VGroup>-->
 										<s:RadioButton group="{topicOpt}"
-													   id="streamtemp"
-													   label="Stream temperature" 
-													   value="streamtemp" />
-										<s:HGroup visible="{huc12.selected == false}" verticalAlign="middle"
-											includeInLayout="{huc12.selected == false}">
-											<s:RadioButton group="{topicOpt}"
-													   id="streamflow" 
-													   label="Streamflow exceedance" 
-													   value="streamflow" />
-											<mx:Image source="./assets/images/help_tip.png" toolTip="The percentage of time that an observed streamflow is greater than or equal to a defined streamflow." />
-										</s:HGroup>
-										<s:RadioButton group="{topicOpt}"
-													   id="climateProj" 
-													   label="Climate" 
-													   value="climateproj" 
-													   visible="{catchment.selected == true}"
-													   includeInLayout="{catchment.selected == true}" />
-										<s:VGroup paddingLeft="25" gap="0" paddingBottom="10" visible="{climateProj.selected &amp;&amp; catchment.selected}" includeInLayout="{climateProj.selected &amp;&amp; catchment.selected}">
-											<s:DropDownList id="climateVariable" color="black" width="240" visible="{climateProj.selected}" includeInLayout="{climateProj.selected}" prompt="Select a climate variable..." >
-												<s:ArrayCollection>
-													<fx:String>Air temperature</fx:String>
-													<fx:String>Precipitation</fx:String>
-												</s:ArrayCollection>
-											</s:DropDownList>
-										</s:VGroup>
-									</s:VGroup>
-									<s:HGroup color="0xa9d157" fontWeight="bold">
-										<s:Label text="Step 3: "/><s:Label text="Select time period" />
-									</s:HGroup>
-									<s:VGroup paddingLeft="25" gap="0" paddingBottom="10">
-										<s:HGroup verticalAlign="middle">
-											<s:RadioButton group="{timeOpt}"
-													   id="late20"
+													   id="landuse"
+													   label="Land use" 
 													   selected="true"
-													   label="Late 20th century (1961-2000)" 
-													   click="timePeriodSelectChange()"
-													   value="Current"/>
-											<mx:Image source="./assets/images/help_tip.png">
-												<mx:toolTip>
-													<![CDATA[<b>Late 20th century (1961-2000):</b> recorded observations]]>
-												</mx:toolTip>
-											</mx:Image>
-										</s:HGroup>
-										<s:HGroup verticalAlign="middle">
-											<s:RadioButton group="{timeOpt}"
-													   id="mid21"
-													   label="Mid 21st century (2046-2065)" 
-													   click="timePeriodSelectChange()"
-													   value="2046 - 2065" />
-											<mx:Image source="./assets/images/help_tip.png">
-												<mx:toolTip>
-													<![CDATA[<b>Mid 21st century (2046-2065):</b> modeled results]]>
-												</mx:toolTip>
-											</mx:Image>
-										</s:HGroup>
-										<s:HGroup verticalAlign="middle">
-											<s:RadioButton group="{timeOpt}"
-													   id="late21" 
-													   label="Late 21st century (2081-2100)" 
-													   click="timePeriodSelectChange()"
-													   value="2081 - 2100" />
-											<mx:Image source="./assets/images/help_tip.png">
-												<mx:toolTip>
-													<![CDATA[<b>Late 21st century (2081-2100):</b> modeled results]]>
-												</mx:toolTip><!-- fish, streamflow, streamtemp, climateProj -->
-											</mx:Image>
-										</s:HGroup>
+													   value="landuse" />
+										<s:RadioButton group="{topicOpt}"
+													   id="fragmentation" 
+													   label="Fragmentation" 
+													   value="fragmentation" />
+										<s:RadioButton group="{topicOpt}"
+													   id="waterqualimp" 
+													   label="Water-quality impairment" 
+													   value="waterqualimp" />
+										<s:RadioButton group="{topicOpt}"
+													   id="futureclimate" 
+													   label="Future climate" 
+													   value="futureclimate" />
+										<s:VGroup paddingLeft="25" gap="0" paddingBottom="10" visible="{futureclimate.selected}" includeInLayout="{futureclimate.selected}">
+											<s:DropDownList id="emissionScenario" color="black" width="240" visible="{futureclimate.selected}" includeInLayout="{futureclimate.selected}" prompt="emission scenario" >
+												<s:ArrayCollection>
+													<fx:String>scenario one</fx:String>
+													<fx:String>scenario two</fx:String>
+												</s:ArrayCollection>
+											</s:DropDownList>
+											<s:DropDownList id="GCM" color="black" width="240" visible="{futureclimate.selected}" includeInLayout="{futureclimate.selected}" prompt="GCM" >
+												<s:ArrayCollection>
+													<fx:String>GCM one</fx:String>
+													<fx:String>GCM two</fx:String>
+												</s:ArrayCollection>
+											</s:DropDownList>
+										</s:VGroup>
 									</s:VGroup>
-									<s:HGroup verticalAlign="middle" color="0xa9d157" fontWeight="bold">
-										<s:Label text="Step 4: "/>
-										<s:Label text="Select response type" /> 
-										<mx:Image id="reponseMoreInfo" source="./assets/images/help_tip.png" toolTip="{fish.selected ? fishTooltip : streamflow.selected ? streamflowTooltip : streamtemp.selected ? streamtempTooltip : climateProj.selected ? climateProjTooltip : ''}" />
+									<s:HGroup color="0xFFFF99" fontWeight="bold">
+										<s:Label text="Step 3: "/><s:Label text="Select Species" />
 									</s:HGroup>
 									<s:VGroup paddingLeft="25" gap="0" paddingBottom="10">
-										
-										<s:VGroup includeInLayout="{huc12.selected == false}">
-											<!-- catchment and stream current fish response selections -->
-											<s:DropDownList id="fishResponseLate20Select" visible="{fish.selected &amp;&amp; late20.selected &amp;&amp; indSelectGroup.visible == false &amp;&amp; huc12.selected == false}" 
-															includeInLayout="{fishResponseLate20Select.visible}" color="black" prompt="Select a response..." width="265" >
+										<s:DropDownList id="speciesSelect" color="black" width="240" prompt="Select a species group or individual species..." change="speciesSelectChange()" >
+											<s:ArrayCollection>
+												<fx:String>All species</fx:String>
+												<fx:String>Cold water species</fx:String>
+												<fx:String>Cool water species</fx:String>
+												<fx:String>Warm water species</fx:String>
+												<fx:String>Individual species</fx:String>
+											</s:ArrayCollection>
+										</s:DropDownList>
+										<s:HGroup id="indSelectGroup" paddingLeft="{(huc12.selected) ? 0 : 20}" verticalAlign="middle" visible="{(speciesSelect.selectedItem == 'Individual species')}" includeInLayout="{speciesSelect.selectedItem == 'Individual species'}" >
+											<s:Label text="-> " visible="{(huc12.selected) ? false : true}" includeInLayout="{(huc12.selected) ? false : true}" color="white" />
+											<s:DropDownList id="indSpeciesSelect" prompt="Select a species..." color="black" width="{(huc12.selected) ? 240 : 201}">
 												<s:ArrayCollection>
-													<fx:String>Predicted occurrence</fx:String>
-													<!--<fx:String>Number of species present</fx:String>-->
+													<fx:String>Blackchin Shiner</fx:String>
+													<fx:String>Brook Stickleback</fx:String>
+													<fx:String>Brook Trout</fx:String>
+													<fx:String>Brown Trout</fx:String>
+													<fx:String>Common Carp</fx:String>
+													<fx:String>Green Sunfish</fx:String>
+													<fx:String>Mottled Sculpin</fx:String>
+													<fx:String>Northern Hogsucker</fx:String>
+													<fx:String>Northern Pike</fx:String>
+													<fx:String>Rainbow Trout</fx:String>
+													<fx:String>Smallmouth Bass</fx:String>
+													<fx:String>Stonecat</fx:String>
+													<fx:String>White Sucker</fx:String>
 												</s:ArrayCollection>
 											</s:DropDownList>
-											<s:DropDownList id="indFishResponseLate20Select" visible="{fish.selected &amp;&amp; late20.selected &amp;&amp; indSelectGroup.visible &amp;&amp; huc12.selected == false}" 
-															includeInLayout="{indFishResponseLate20Select.visible}" color="black" prompt="Select a response..." width="265" >
-												<s:ArrayCollection>
-													<fx:String>Predicted occurrence</fx:String>
-													<fx:String>Probability of occurrence</fx:String>
-												</s:ArrayCollection>
-											</s:DropDownList>
-											<!-- species group future responses -->
-											<s:DropDownList id="groupFishResponseFutureSelect" visible="{fish.selected &amp;&amp; late20.selected == false &amp;&amp; indSelectGroup.visible == false &amp;&amp; huc12.selected == false}" 
-															includeInLayout="{groupFishResponseFutureSelect.visible}" color="black" prompt="Select a response..." width="265" > <!--toolTip="Vulnerability:&#13;Models predict a species will experience a loss (species disappearance)&#13;&#13;Opportunity:&#13;Models predict a species or stream will experience a gain&#13;&#13;Sensitivity:&#13;Models predict a species or stream will experience a change" >-->
-												<s:layout>
-													<s:VerticalLayout requestedRowCount="8" />
-												</s:layout>
-												<s:ArrayCollection>
-													<fx:String>Number of species lost</fx:String>
-													<fx:String>Number of species gained</fx:String>
-													<fx:String>Number of species lost or gained</fx:String>
-													<fx:String>Percent of species lost</fx:String>
-													<fx:String>Percent of species gained</fx:String>
-													<!--<fx:String>Predicted occurrence</fx:String>-->
-													<fx:String>Vulnerability</fx:String>
-													<fx:String>Opportunity</fx:String>
-													<fx:String>Sensitivity</fx:String>
-												</s:ArrayCollection>
-											</s:DropDownList>
-											<!-- individual species future responses -->
-											<s:DropDownList id="indFishResponseFutureSelect" visible="{fish.selected &amp;&amp; late20.selected == false &amp;&amp; indSelectGroup.visible &amp;&amp; huc12.selected == false}" 
-															includeInLayout="{indFishResponseFutureSelect.visible}" color="black" prompt="Select a response..." width="265" > <!--toolTip="Vulnerability:&#13;Models predict a species will experience a loss (species disappearance)&#13;&#13;Opportunity:&#13;Models predict a species or stream will experience a gain&#13;&#13;Sensitivity:&#13;Models predict a species or stream will experience a change" >-->
-												<s:ArrayCollection>
-													<!--<fx:String>Predicted occurrence</fx:String>-->
-													<fx:String>Probability of occurrence</fx:String>
-													<fx:String>Change in probability of occurrence</fx:String>
-													<fx:String>Vulnerability</fx:String>
-													<fx:String>Opportunity</fx:String>
-													<fx:String>Sensitivity</fx:String>
-												</s:ArrayCollection>
-											</s:DropDownList>
-											<!-- end catchment and stream fish responses -->
-											
-											<!-- catch/stream stream temp responses -->
-											<s:DropDownList id="streamTempResponseSelect" visible="{huc12.selected == false &amp;&amp; streamtemp.selected &amp;&amp; late20.selected}" 
-															includeInLayout="{streamTempResponseSelect.visible}" color="black" prompt="Select a response type..." width="265" >
-												<s:ArrayCollection>
-													<fx:String>Thermal class</fx:String>
-												</s:ArrayCollection>
-											</s:DropDownList>
-											<s:DropDownList id="futureStreamTempResponseSelect" visible="{huc12.selected == false &amp;&amp; streamtemp.selected &amp;&amp; late20.selected == false}" 
-															includeInLayout="{futureStreamTempResponseSelect.visible}" color="black" prompt="Select a response type..." width="265" >
-												<s:ArrayCollection>
-													<fx:String>Thermal class</fx:String>
-													<fx:String>Change in thermal class</fx:String>
-													<!--<fx:String>Change in degrees (Celsius)</fx:String>-->
-												</s:ArrayCollection>
-											</s:DropDownList>
-											<!-- end catch/stream stream temp responses -->
-											
-											<!-- catch/stream streamflow responses -->
-											<s:DropDownList id="streamflowReach" labelField="text" visible="{streamReach.selected == true &amp;&amp; streamflow.selected}" 
-															includeInLayout="{streamflowReach.visible}" color="black" prompt="Select a response type..." width="265" >
-												<s:ArrayCollection>
-													<fx:Object text="Annual Q50 flow (median flow)" value="ANQ50CFS"></fx:Object>
-													<fx:Object text="August Q90 flow (low flow)" value="AGQ90CFS"></fx:Object>
-												</s:ArrayCollection>
-											</s:DropDownList>
-											<s:DropDownList id="streamflowCatch" labelField="text" visible="{catchment.selected == true &amp;&amp; streamflow.selected}" 
-															includeInLayout="{streamflowCatch.visible}" color="black" prompt="Select a response type..." width="265" >
-												<s:ArrayCollection>
-													<fx:Object text="Annual Q50 yield (median flow)" value="ANQ50YLF"></fx:Object>
-													<fx:Object text="August Q90 yield (low flow)" value="AGQ90YLF"></fx:Object>
-												</s:ArrayCollection>
-											</s:DropDownList>
-											<!-- end catch/stream streamflow responses -->
-											
-											<!-- catchment climate responses -->
-											<s:VGroup visible="{catchment.selected == true}" includeInLayout="{catchment.selected == true}">
-												<s:DropDownList id="airTempResponses" labelField="text" visible="{climateProj.selected == true &amp;&amp; climateVariable.selectedIndex == 0 &amp;&amp; late20.selected}" 
-																includeInLayout="{airTempResponses.visible}" color="black" prompt="Select a response type..." width="265" >
-													<s:ArrayCollection>
-														<fx:Object text="Mean annual air temperature" value="AT20X"></fx:Object>
-													</s:ArrayCollection>
-												</s:DropDownList>
-												<s:DropDownList id="airTempResponsesFuture" labelField="text" visible="{climateProj.selected == true &amp;&amp; climateVariable.selectedIndex == 0 &amp;&amp; late20.selected == false}" includeInLayout="{airTempResponsesFuture.visible}" color="black" prompt="Select a response type..." width="265" >
-													<s:ArrayCollection>
-														<fx:Object text="Mean annual air temperature (GCM average)" value="AT" suff="X"></fx:Object>
-														<fx:Object text="Change in mean annual air temperature (GCM average)" value="CHAT20" suff="X"></fx:Object>
-													</s:ArrayCollection>
-												</s:DropDownList>
-												<s:DropDownList id="precipitationResponses" labelField="text" visible="{climateProj.selected == true &amp;&amp; climateVariable.selectedIndex == 1 &amp;&amp; late20.selected}" includeInLayout="{precipitationResponses.visible}" color="black" prompt="Select a response type..." width="265" >
-													<s:ArrayCollection>
-														<fx:Object text="Mean annual precipitation" value="PR20X"></fx:Object>
-													</s:ArrayCollection>
-												</s:DropDownList>
-												<s:DropDownList id="precipitationResponsesFuture" labelField="text" visible="{climateProj.selected == true &amp;&amp; climateVariable.selectedIndex == 1 &amp;&amp; late20.selected == false}" includeInLayout="{precipitationResponsesFuture.visible}" color="black" prompt="Select a response type..." width="265" >
-													<s:ArrayCollection>
-														<fx:Object text="Mean annual precipitation (GCM average)" value="PR" suff="X"></fx:Object>
-														<fx:Object text="Change in mean annual precipitation (GCM average)" value="CHPR20" suff="X"></fx:Object>
-													</s:ArrayCollection>
-												</s:DropDownList>
-											</s:VGroup>
-											<!-- end catchment climate responses -->
-										</s:VGroup>
-										
-										<s:VGroup includeInLayout="{huc12.selected}">
-											<!-- huc12 fish response type late 20th -->
-											<s:DropDownList id="hucFishResponseTypeSelect" visible="{huc12.selected &amp;&amp; fish.selected}" includeInLayout="{hucFishResponseTypeSelect.visible}" color="black" prompt="Select a response type..." width="265" >
-												<s:ArrayCollection>
-													<fx:String>Probability of occurrence (length-weighted)</fx:String>
-													<fx:String>Absolute miles of fish occurrence</fx:String>
-													<fx:String>Percent miles of fish occurrence</fx:String>
-												</s:ArrayCollection>
-											</s:DropDownList>
-											
-											<!-- response types for fish huc12 -->
-											<s:HGroup id="hucFishProbFutureGroup" paddingLeft="20" width="245" visible="{huc12.selected &amp;&amp; fish.selected &amp;&amp; late20.selected == false &amp;&amp; hucFishResponseTypeSelect.selectedItem == 'Probability of occurrence (length-weighted)'}" 
-													  includeInLayout="{hucFishProbFutureGroup.visible}" >
-												<s:Label text="-> " visible="{hucFishProbFutureGroup.visible}" includeInLayout="{hucFishProbFutureGroup.visible}" paddingTop="5" color="white" />
-												<s:DropDownList id="hucFishResponseProbFutureSelect" visible="{hucFishProbFutureGroup.visible}" includeInLayout="{hucFishProbFutureGroup.visible}"  color="black" prompt="Select a response type..." width="225" >
-													<s:ArrayCollection>
-														<fx:String>Probability of occurrence</fx:String>
-														<fx:String>Change in probability of occurrence</fx:String>
-													</s:ArrayCollection>
-												</s:DropDownList>
-											</s:HGroup>
-											<s:HGroup id="hucFishAbsFutureGroup" paddingLeft="20" width="245" visible="{huc12.selected &amp;&amp; fish.selected &amp;&amp; late20.selected == false &amp;&amp; hucFishResponseTypeSelect.selectedItem == 'Absolute miles of fish occurrence'}" 
-													  includeInLayout="{hucFishAbsFutureGroup.visible}" >
-												<s:Label text="-> " visible="{hucFishAbsFutureGroup.visible}" includeInLayout="{hucFishAbsFutureGroup.visible}" paddingTop="5" color="white" />
-												<s:DropDownList id="hucFishResponseAbsFutureSelect" visible="{hucFishAbsFutureGroup.visible}" includeInLayout="{hucFishAbsFutureGroup.visible}" color="black" prompt="Select a response type..." width="225" >
-													<s:ArrayCollection>
-														<fx:String>Miles of fish occurrence</fx:String>
-														<fx:String>Miles lost</fx:String>
-														<fx:String>Miles gained</fx:String>
-														<fx:String>Miles unchanged</fx:String>
-														<fx:String>Miles lost or gained</fx:String>
-													</s:ArrayCollection>
-												</s:DropDownList>
-											</s:HGroup>
-											<s:HGroup id="hucFishPercFutureGroup" paddingLeft="20" width="245" visible="{huc12.selected &amp;&amp; fish.selected &amp;&amp; late20.selected == false &amp;&amp; hucFishResponseTypeSelect.selectedItem == 'Percent miles of fish occurrence'}" 
-													  includeInLayout="{hucFishPercFutureGroup.visible}" >
-												<s:Label text="->" visible="{hucFishPercFutureGroup.visible}" includeInLayout="{hucFishPercFutureGroup.visible}" paddingTop="5" color="white" />
-												<s:DropDownList id="hucFishResponsePercentFutureSelect" visible="{hucFishPercFutureGroup.visible}" includeInLayout="{hucFishPercFutureGroup.visible}" color="black" prompt="Select a response type..." width="226" >
-													<s:ArrayCollection>
-														<fx:String>Miles of fish occurrence (percent)</fx:String>
-														<fx:String>Miles lost (percent)</fx:String>
-														<fx:String>Miles gained (percent)</fx:String>
-														<fx:String>Miles unchanged (percent)</fx:String>
-														<fx:String>Miles lost or gained (percent)</fx:String>
-													</s:ArrayCollection>
-												</s:DropDownList>
-											</s:HGroup>
-											<!-- end response types for fish huc12 -->
-											
-											<s:DropDownList id="hucStreamTempResponseSelect" visible="{huc12.selected &amp;&amp; streamtemp.selected &amp;&amp; late20.selected}" 
-															includeInLayout="{hucStreamTempResponseSelect.visible}" color="black" prompt="Select a response type..." width="265" >
-												<s:ArrayCollection>
-													<fx:String>Thermal class (length-weighted)</fx:String>
-												</s:ArrayCollection>
-											</s:DropDownList>
-											<s:DropDownList id="hucFutureStreamTempResponseSelect" visible="{huc12.selected &amp;&amp; streamtemp.selected &amp;&amp; late20.selected == false}" 
-															includeInLayout="{hucFutureStreamTempResponseSelect.visible}" color="black" prompt="Select a response type..." width="265" >
-												<s:ArrayCollection>
-													<fx:String>Thermal class (length-weighted)</fx:String>
-													<fx:String>Change in thermal class (length-weighted)</fx:String>
-													<fx:String>Change in degrees (length-weighted)</fx:String>
-												</s:ArrayCollection>
-											</s:DropDownList>
-										</s:VGroup>
-										
+											<mx:Image source="./assets/images/help_tip.png" toolTip="{indSpeciesSelect.selectedItem.toolTip}" />
+										</s:HGroup>
 									</s:VGroup>
 									
 									<!-- move this to outside of choices to keep it anchored to right side of the larger box -->
@@ -995,9 +812,6 @@
 								</s:VGroup>	
 							</s:Group>
 						</mx:Box>
-						
-						
-						
 						
 					</mx:TabNavigator>
 				</s:VGroup>
@@ -1129,7 +943,7 @@
 	<s:VGroup gap="0" horizontalAlign="right" top="5" right="395" useHandCursor="true" buttonMode="true" > <!--click="navigateToURL(new URLRequest('https://www.sciencebase.gov/catalog/item/52138cf2e4b0b08f44619be8?community=Northeast+CSC'))">--> 
 		<s:BorderContainer
 			id="download"
-			backgroundColor="0xDC8739"
+			backgroundColor="0x990033"
 			cornerRadius="5"
 			height="35"
 			borderColor="1"
@@ -1146,7 +960,7 @@
 	<s:VGroup gap="5" horizontalAlign="right" top="5" right="180" useHandCursor="true" buttonMode="true">
 		<s:BorderContainer
 			id="modelLimits"
-			backgroundColor="0x3f70b6"
+			backgroundColor="0x948A54"
 			cornerRadius="5"
 			height="35"
 			borderColor="1"
@@ -1171,7 +985,7 @@
 		visible="false"
 		useHandCursor="false">						
 		<s:VGroup width="100%" gap="0">
-			<mx:HBox backgroundColor="0xDC8739" textAlign="center" width="100%" paddingTop="5" paddingLeft="5" paddingRight="5">
+			<mx:HBox backgroundColor="0x990033" textAlign="center" width="100%" paddingTop="5" paddingLeft="5" paddingRight="5">
 				<mx:Text width="100%" color="white" fontSize="14" fontWeight="bold" text="Download FishTail dataset" textAlign="left" />
 				<mx:Text text="X" click="{downloadInfo.visible = false}" fontWeight="bold" fontSize="12" color="white" textAlign="right" useHandCursor="true" buttonMode="true" mouseChildren="false" toolTip="close"/>
 			</mx:HBox>
@@ -1182,7 +996,7 @@
 						<![CDATA[
 						<font size='12' color='#000000'>
 						<p>The entire FishTail dataset is available for download. Spatial data is provided as a file geodatabase, and 
-						associated metadata is provided in an Excel file. <font size='12' color='#3f70b6'><b><a target='_blank' href='https://www.sciencebase.gov/catalog/item/52138cf2e4b0b08f44619be8?community=Northeast+CSC'>Click here</a></b></font> to access the download site.</p>
+						associated metadata is provided in an Excel file. <font size='12' color='#948A54'><b><a target='_blank' href='https://www.sciencebase.gov/catalog/item/52138cf2e4b0b08f44619be8?community=Northeast+CSC'>Click here</a></b></font> to access the download site.</p>
 						
 						]]>
 					</mx:htmlText> <!--   -->
@@ -1204,7 +1018,7 @@
 		visible="false"
 		useHandCursor="false">						
 		<s:VGroup width="100%" gap="0">
-			<mx:HBox backgroundColor="0x3f70b6" textAlign="center" width="100%" paddingTop="5" paddingLeft="5" paddingRight="5">
+			<mx:HBox backgroundColor="0x948A54" textAlign="center" width="100%" paddingTop="5" paddingLeft="5" paddingRight="5">
 				<mx:Text width="100%" color="white" fontSize="14" fontWeight="bold" text="FishTail model limitations" textAlign="left" />
 				<mx:Text text="X" click="{modelLimitInfo.visible = false}" fontWeight="bold" fontSize="12" color="white" textAlign="right" useHandCursor="true" buttonMode="true" mouseChildren="false" toolTip="close"/>
 			</mx:HBox>
@@ -1218,7 +1032,7 @@
 						not accurately reflect local conditions.</p>
 						<br/>
 						<p>To learn more about model uncertainty and read expert
-						reviews of this map, visit the <font size='12' color='#DC8739'><b><a target='_blank' href='https://www.sciencebase.gov/catalog/item/52138cf2e4b0b08f44619be8?community=Northeast+CSC'>FishTail project documentation.</a></b></p>
+						reviews of this map, visit the <font size='12' color='#990033'><b><a target='_blank' href='https://www.sciencebase.gov/catalog/item/52138cf2e4b0b08f44619be8?community=Northeast+CSC'>FishTail project documentation.</a></b></p>
 						</font>
 						]]>
 					</mx:htmlText> <!--   -->

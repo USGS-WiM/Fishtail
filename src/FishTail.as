@@ -235,12 +235,12 @@ import spark.events.IndexChangeEvent;
 				
 				//displayByOpt.selectedValue = null;
 				//topicOpt.selectedValue = null;
-				speciesSelect.selectedIndex = -1;
-				indSpeciesSelect.selectedIndex = -1;
-				climateVariable.selectedIndex = -1;
+				//speciesSelect.selectedIndex = -1;
+				//indSpeciesSelect.selectedIndex = -1;
+				//climateVariable.selectedIndex = -1;
 				//timeOpt.selectedValue = null;
 				
-				fishResponseLate20Select.selectedIndex = -1;
+				/*fishResponseLate20Select.selectedIndex = -1;
 				indFishResponseLate20Select.selectedIndex = -1;
 				groupFishResponseFutureSelect.selectedIndex = -1;
 				
@@ -261,7 +261,7 @@ import spark.events.IndexChangeEvent;
 				hucFishResponseAbsFutureSelect.selectedIndex = -1;
 				hucFishResponsePercentFutureSelect.selectedIndex = -1;
 				hucStreamTempResponseSelect.selectedIndex = -1;
-				hucFutureStreamTempResponseSelect.selectedIndex = -1;
+				hucFutureStreamTempResponseSelect.selectedIndex = -1;*/
 				
 				//indSpeciesSelect.dataProvider = null;
 				
@@ -287,10 +287,12 @@ import spark.events.IndexChangeEvent;
 					disturbanceToggle.selected = false;
 				}
 				
-				var speciesSelectVal:String = speciesSelect.selectedItem;
-				var indSpeciesSelectVal:String = indSpeciesSelect.selectedItem;
+				return;
+				
+				//var speciesSelectVal:String = speciesSelect.selectedItem;
+				//var indSpeciesSelectVal:String = indSpeciesSelect.selectedItem;
 				var timePeriodSelectVal:String = timeOpt.selectedValue.toString();
-				var responseSelectVal:String = fishResponseLate20Select.selectedItem;
+				//var responseSelectVal:String = fishResponseLate20Select.selectedItem;
 				
 				var layerName:String = "";
 				var speciesCode:String = "";
@@ -318,7 +320,7 @@ import spark.events.IndexChangeEvent;
 				climateStreamflowSmall.visibleLayers = new ArrayCollection();
 				climateStreamflowSmall.refresh();
 				
-				if (indSelectGroup.visible == false) {
+				/*if (indSelectGroup.visible == false) {
 					if (speciesSelectVal == "Cold water species") {
 						speciesCode = "Cd";
 					} else if (speciesSelectVal == "Warm water species") {
@@ -368,7 +370,7 @@ import spark.events.IndexChangeEvent;
 							A_responseType = indSpeciesSelectVal;
 						}	
 					}
-				}
+				}*/
 				
 				if (timePeriodSelectVal == "Current") {
 					timePeriodCode = "T20";
@@ -382,7 +384,7 @@ import spark.events.IndexChangeEvent;
 				}
 				
 				if (huc12.selected) {
-					if (streamtemp.selected) {
+					/*if (streamtemp.selected) {
 						if (timePeriodCode == "T20" && hucStreamTempResponseSelect.selectedItem == "Thermal class (length-weighted)") {
 							layerName = "WSLJTCX";
 							F_addInfo = "(July mean)";
@@ -412,11 +414,11 @@ import spark.events.IndexChangeEvent;
 							}
 							D_response = hucFutureStreamTempResponseSelect.selectedItem;
 						}
-						A_responseType = "Stream temperature";
+						//A_responseType = "Stream temperature";
 						
 					} else if (fish.selected) {
 						// first get response type
-						if (hucFishResponseTypeSelect.selectedItem == "Probability of occurrence (length-weighted)" && late20.selected) {
+						/*if (hucFishResponseTypeSelect.selectedItem == "Probability of occurrence (length-weighted)" && late20.selected) {
 							responseCode = "WSL";
 							responseCodeSuff = "AP";
 						} else if (hucFishResponseTypeSelect.selectedItem == "Absolute miles of fish occurrence" && late20.selected) {
@@ -480,11 +482,11 @@ import spark.events.IndexChangeEvent;
 						layerName = responseCode+speciesCode+responseCodeSuff+timeCodeSuff;
 						D_response = hucFishResponseTypeSelect.selectedItem;
 						
-					}
+					}*/
 					
 					
 				} else {
-					if (streamtemp.selected) {
+					/*if (streamtemp.selected) {
 						if (timePeriodCode == "T20" && streamTempResponseSelect.selectedItem == "Thermal class") {
 							layerName = "JULclass";
 							D_response = streamTempResponseSelect.selectedItem;
@@ -690,7 +692,7 @@ import spark.events.IndexChangeEvent;
 						}
 						layerName = responseCode + responseCodeSuff + suff;
 						A_responseType = climateVariable.selectedItem;
-					}
+					}*/
 					
 				}
 				
@@ -786,7 +788,7 @@ import spark.events.IndexChangeEvent;
 					}
 				}
 				
-				if (streamflow.selected || climateProj.selected) {
+				/*if (streamflow.selected || climateProj.selected) {
 					var i:int;
 					if (climateStreamflowLayerInfos != null) {
 						for (i = 0; i < climateStreamflowLayerInfos.length; i++) {
@@ -809,7 +811,7 @@ import spark.events.IndexChangeEvent;
 						climateStreamflowSmallLegend.aLegendService.send();
 						climateStreamflowSmallLegend.legendTitle = legendTitle;
 					}
-				}
+				}*/
 				
 				if (needBrowseWarning == true && buttonLabel == 'go') {
 					Alert.show("You have not entered enough information to display a map. Check your selections and try again.");
