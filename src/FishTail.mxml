@@ -320,6 +320,12 @@
 					</mx:ArrayCollection>            
 				</esri:visibleLayers>
 			</esri:ArcGISDynamicMapServiceLayer>
+			<esri:ArcGISTiledMapServiceLayer
+				id="streamBuffersCache"
+				visible="{streamBufferToggle.selected}"
+				alpha="{streamBuffer.alpha}" 
+				url="{resourceManager.getString('urls', 'streamBuffersCache')}" >
+			</esri:ArcGISTiledMapServiceLayer>
 			<esri:ArcGISDynamicMapServiceLayer
 				id="nhdStreams"
 				visible="{nhdStreamsToggle.selected}"
@@ -380,6 +386,24 @@
 					updateEnd="layerUpdateComp(padus)"
 					alpha="0.65"
 					url="{resourceManager.getString('urls', 'padusUrl')}" >
+					<esri:visibleLayers>
+						<s:ArrayCollection>
+							<fx:Number>0</fx:Number>
+						</s:ArrayCollection>
+					</esri:visibleLayers>
+				</esri:ArcGISDynamicMapServiceLayer>
+				<esri:ArcGISDynamicMapServiceLayer
+					id="padusStatus"
+					visible="{padusStatusToggle.selected}"
+					updateStart="loadingScreenEnable()"
+					updateEnd="layerUpdateComp(padus)"
+					alpha="0.65"
+					url="{resourceManager.getString('urls', 'padusStatusUrl')}" >
+					<esri:visibleLayers>
+						<s:ArrayCollection>
+							<fx:Number>0</fx:Number>
+						</s:ArrayCollection>
+					</esri:visibleLayers>
 				</esri:ArcGISDynamicMapServiceLayer>
 				<esri:ArcGISDynamicMapServiceLayer
 					id="landCover2006"
@@ -1013,7 +1037,9 @@
 							<localControls:MapServiceLegend id="catchmentsLegend" map="{map}" serviceLayer="{catchments}" legendWidth="245" needsUpdates="false" />
 							<localControls:MapServiceLegend id="huc12Legend" map="{map}" serviceLayer="{huc12s}" legendWidth="245" needsUpdates="false" />
 							<localControls:MapServiceLegend id="ecoregionsLegend" map="{map}" serviceLayer="{ecoregions}" legendWidth="245" needsUpdates="false" />
-							<mx:Image id="padusLegend" source="./assets/images/PAD_US_explanation.png" visible="{padus.visible}" includeInLayout="{padus.visible}"/>
+							<!--<mx:Image id="padusLegend" source="./assets/images/PAD_US_explanation.png" visible="{padus.visible}" includeInLayout="{padus.visible}"/>-->
+							<localControls:MapServiceLegend id="padusLegend" map="{map}" serviceLayer="{padus}" legendTitle="Public land ownership (PAD-US)" legendWidth="245" needsUpdates="false" />
+							<localControls:MapServiceLegend id="padusStatusLegend" map="{map}" serviceLayer="{padusStatus}" legendTitle="Conservation status (PAD-US)" legendWidth="245" needsUpdates="false" />
 							<localControls:MapServiceLegend id="landCoverLegend" map="{map}" serviceLayer="{landCover2006}" legendTitle="Land use/land cover (NLCD 2006)" legendWidth="245" needsUpdates="false" />
 							<localControls:MapServiceLegend id="disturbanceLegend" map="{map}" serviceLayer="{disturbance}" legendTitle="Disturbance (HUC12 level)" legendFilter="{['Not Scored / Unavailable at this scale','Very Low','Low','Moderate','High','Very High']}" legendWidth="245" needsUpdates="false" />
 							<localControls:MapServiceLegend id="lccLegend" map="{map}" serviceLayer="{lcc}" legendTitle="USFWS Landscape Conservation Cooperatives" legendWidth="245" needsUpdates="false" />
@@ -1045,7 +1071,7 @@
 															 selected="{fishSampleLocations.visible}" creationComplete="{ fishSampleLocationsToggle.selected=false; }" />
 									<wimControls:LayerToggle id="streamBufferToggle" layerID="1" serviceLayerID="streamBuffer" layerTitle="Stream buffer"
 															 opacBoxBGColor="0x444444" openOpacityRight="true" opacityBoxAlpha="0.9"
-															 selected="{nhdStreams.visible}" />
+															 selected="{streamBuffer.visible}" creationComplete="{ streamBufferToggle.selected=false; }" />
 									<wimControls:LayerToggle id="nhdStreamsToggle" layerID="1" serviceLayerID="nhdStreams" layerTitle="Streams"
 															 opacBoxBGColor="0x444444" openOpacityRight="true" opacityBoxAlpha="0.9"
 															 moreInfoToolTip="From NHDPlus, which combines the medium-resolution NHD with a digital elevation model with 30-meter grid spacing to produce several derivative datasets that enable the definition of the land surface areas (catchment). NHDPlus Version 1 (NHDPlusV1) was released in 2006."
@@ -1065,10 +1091,14 @@
 									<wimControls:LayerToggle id="ecoregionsToggle" layerID="2" serviceLayerID="ecoregions" layerTitle="Ecoregions (EPA Wadable Streams Assessment)" 
 															 opacBoxBGColor="0x444444" openOpacityRight="true" opacityBoxAlpha="0.9"
 															 selected="{ecoregions.visible}" creationComplete="{ ecoregionsToggle.selected=false; }"/>
-									<wimControls:LayerToggle id="padusToggle" layerID="2" serviceLayerID="padus" layerTitle="Conservation status (PAD-US)" 
+									<wimControls:LayerToggle id="padusToggle" layerID="0" serviceLayerID="padus" layerTitle="Public land ownership (PAD-US)" 
 															 opacBoxBGColor="0x444444" openOpacityRight="true" opacityBoxAlpha="0.9"
 															 moreInfoToolTip="Created as part of the USGS Gap Analysis Program, the Protected Areas Database of the United States (PAD-US) illustrates and describes public land ownership, management and conservation lands nationally, including voluntarily provided privately protected areas."
 															 selected="{padus.visible}" creationComplete="{ padusToggle.selected=false; }"/>
+									<wimControls:LayerToggle id="padusStatusToggle" layerID="0" serviceLayerID="padusStatus" layerTitle="Conservation status (PAD-US)" 
+															 opacBoxBGColor="0x444444" openOpacityRight="true" opacityBoxAlpha="0.9"
+															 moreInfoToolTip=""
+															 selected="{padusStatus.visible}" creationComplete="{ padusStatusToggle.selected=false; }"/>
 									<wimControls:LayerToggle id="landCoverToggle" layerID="2" serviceLayerID="landCover2006" layerTitle="Land use/land cover (NLCD 2006)" 
 															 opacBoxBGColor="0x444444" openOpacityRight="true" opacityBoxAlpha="0.9"
 															 moreInfoToolTip="Created by the Multi-Resolution Land Characteristics Consortium (MRLC), the National Land Cover Database 2006 is a 16-class land cover classification scheme that has been applied consistently across the conterminous United States at a spatial resolution of 30 meters."
@@ -1096,7 +1126,7 @@
 	</s:VGroup>
 	
 	<!-- download button -->
-	<s:VGroup gap="0" horizontalAlign="right" top="5" right="395" useHandCursor="true" buttonMode="true">  <!--click="navigateToURL(new URLRequest('https://www.sciencebase.gov/catalog/item/53bc6018e4b084059e8c004c'))">-->
+	<s:VGroup gap="0" horizontalAlign="right" top="5" right="395" useHandCursor="true" buttonMode="true" > <!--click="navigateToURL(new URLRequest('https://www.sciencebase.gov/catalog/item/52138cf2e4b0b08f44619be8?community=Northeast+CSC'))">--> 
 		<s:BorderContainer
 			id="download"
 			backgroundColor="0xDC8739"
@@ -1152,7 +1182,7 @@
 						<![CDATA[
 						<font size='12' color='#000000'>
 						<p>The entire FishTail dataset is available for download. Spatial data is provided as a file geodatabase, and 
-						associated metadata is provided in an Excel file. <font size='12' color='#3f70b6'><b><a target='_blank' href='https://www.sciencebase.gov/catalog/item/5113e594e4b0a9ee4115bb08'>Click here</a></b></font> to access the download site.</p>
+						associated metadata is provided in an Excel file. <font size='12' color='#3f70b6'><b><a target='_blank' href='https://www.sciencebase.gov/catalog/item/52138cf2e4b0b08f44619be8?community=Northeast+CSC'>Click here</a></b></font> to access the download site.</p>
 						
 						]]>
 					</mx:htmlText> <!--   -->
@@ -1188,7 +1218,7 @@
 						not accurately reflect local conditions.</p>
 						<br/>
 						<p>To learn more about model uncertainty and read expert
-						reviews of this map, visit the <font size='12' color='#DC8739'><b><a target='_blank' href='https://www.sciencebase.gov/catalog/item/5113e594e4b0a9ee4115bb08'>FishTail project documentation.</a></b></p>
+						reviews of this map, visit the <font size='12' color='#DC8739'><b><a target='_blank' href='https://www.sciencebase.gov/catalog/item/52138cf2e4b0b08f44619be8?community=Northeast+CSC'>FishTail project documentation.</a></b></p>
 						</font>
 						]]>
 					</mx:htmlText> <!--   -->

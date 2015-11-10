@@ -25,11 +25,13 @@
   	<resource name="supplementalLayersUrl" value="http://ccviewer.wim.usgs.gov/ArcGIS/rest/services/FishTail/supplementalLayers/MapServer" />
   	<resource name="streamsCache" value="http://ccviewer.wim.usgs.gov/ArcGIS/rest/services/FishTail/streams_cache/MapServer" />
   	<resource name="catchmentsCache" value="http://ccviewer.wim.usgs.gov/ArcGIS/rest/services/FishTail/catchments_cache/MapServer" />
+  	<resource name="streamBuffersCache" value="http://ccviewer.wim.usgs.gov/ArcGIS/rest/services/FishTail/streamBuffers_cache/MapServer" />
   	<!-- end changed to FishTail -->
   	<resource name="roadStreamsCache" value="http://ccviewer.wim.usgs.gov/ArcGIS/rest/services/FishVis/roads_stream_crossing_cache/MapServer" />
   	
   	<!-- non wim hosted resources -->
   	<resource name="padusUrl" value="http://gis1.usgs.gov/arcgis/rest/services/gap/PADUS_Owner/MapServer" />
+  	<resource name="padusStatusUrl" value="http://gis1.usgs.gov/arcgis/rest/services/gap/PADUS_Status/MapServer" />
   	<resource name="landCover2006Url" value="http://raster.nationalmap.gov/arcgis/rest/services/LandCover/conus_06/MapServer" />
   	<resource name="disturbanceUrl" value="http://gis1.usgs.gov/arcgis/rest/services/nfhap/nfhap_scores_tiled_huc12_PROD/MapServer/" />
   </resourceBundle>

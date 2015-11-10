@@ -77,7 +77,7 @@
 				<s:Label fontSize="12" fontWeight="bold" width="155" text="{(hostComponent.dataObj.GNIS_NAME == ' ' || hostComponent.dataObj.GNIS_NAME == '') ? hostComponent.dataObj.COMID : hostComponent.dataObj.GNIS_NAME}" />
 				<s:HGroup paddingTop="10" >
 					<!-- this may be more location info at some point -->
-					<s:Label text="{state}" />
+					<s:Label text="State: {state}" />
 				</s:HGroup>
 				<s:VGroup>
 					<s:Label width="155" text="{hostComponent.dataObj.HUC_4_NAME}" />
