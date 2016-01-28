@@ -75,13 +75,14 @@
 				 paddingBottom="10" paddingLeft="5" paddingRight="5" paddingTop="5" width="160" height="100%">
 			<s:VGroup fontSize="10">
 				<s:Label fontSize="12" fontWeight="bold" width="155" text="{(hostComponent.dataObj.GNIS_NAME == ' ' || hostComponent.dataObj.GNIS_NAME == '') ? hostComponent.dataObj.COMID : hostComponent.dataObj.GNIS_NAME}" />
+				<s:Label fontSize="10" text="(stream or COMID)" />
 				<s:HGroup paddingTop="10" >
 					<!-- this may be more location info at some point -->
 					<s:Label text="State: {state}" />
 				</s:HGroup>
 				<s:VGroup>
-					<s:Label width="155" text="{hostComponent.dataObj.HUC_4_NAME}" />
-					<s:Label width="155" text="{hostComponent.dataObj.HU_10_NAME}" />
+					<s:Label width="150" text="HUC12 Code: {hostComponent.dataObj.HUC_12}" />
+					<s:Label width="150" text="HUC12 Name: {hostComponent.dataObj.HU_12_NAME}" />
 				</s:VGroup>
 				<s:HGroup>
 					<s:Label text="Reach COMID: " />
