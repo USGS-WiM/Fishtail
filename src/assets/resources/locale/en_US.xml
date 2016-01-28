@@ -16,7 +16,7 @@
 	<!-- FishVis and wim hosted resources -->
   	<resource name="scenariosUrl" value="http://ccviewer.wim.usgs.gov/ArcGIS/rest/services/FishVis/scenarios/MapServer" />
   	<resource name="scenariosSmallUrl" value="http://ccviewer.wim.usgs.gov/ArcGIS/rest/services/FishVis/scenarios_small_scale/MapServer" />
-  	<resource name="scenariosCatchmentsUrl" value="http://ccviewer.wim.usgs.gov/ArcGIS/rest/services/FishVis/scenarios_catchments/MapServer" />
+  	<resource name="scenariosCatchmentsUrl" value="http://ccviewer.wim.usgs.gov/arcgis/rest/services/FishTail/fishtail_catch/MapServer" />
 	<resource name="scenariosHUC12Url" value="http://ccviewer.wim.usgs.gov/arcgis/rest/services/FishVis/scenarios_huc12/MapServer" />
 	<resource name="streamsForQueryUrl" value="http://ccviewer.wim.usgs.gov/ArcGIS/rest/services/FishVis/streams_for_query/MapServer" />
 	<resource name="climateStreamflow" value="http://ccviewer.wim.usgs.gov/arcgis/rest/services/FishVis/climate_streamflow/MapServer" />
@@ -33,6 +33,7 @@
   	<resource name="padusUrl" value="http://gis1.usgs.gov/arcgis/rest/services/gap/PADUS_Owner/MapServer" />
   	<resource name="padusStatusUrl" value="http://gis1.usgs.gov/arcgis/rest/services/gap/PADUS_Status/MapServer" />
   	<resource name="landCover2006Url" value="http://raster.nationalmap.gov/arcgis/rest/services/LandCover/conus_06/MapServer" />
+  	<resource name="lccUrl" value="https://www.sciencebase.gov/arcgis/rest/services/Catalog/55b943ade4b09a3b01b65d78/MapServer" />
   	<resource name="disturbanceUrl" value="http://gis1.usgs.gov/arcgis/rest/services/nfhap/nfhap_scores_tiled_huc12_PROD/MapServer/" />
   </resourceBundle>
   

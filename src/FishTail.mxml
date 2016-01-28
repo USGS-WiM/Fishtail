@@ -89,7 +89,6 @@
 		<s:RadioButtonGroup id="streamOpt" />
 		
 		<s:RadioButtonGroup id="topicOpt" />
-		
 		<s:RadioButtonGroup id="timeOpt" />
 	    	    
 	    <!-- Info Box Symbol for displaying layer query results -->
@@ -454,10 +453,10 @@
 					updateStart="loadingScreenEnable()"
 					updateEnd="layerUpdateComp(lcc)"
 					alpha="0.65"
-					url="{resourceManager.getString('urls', 'supplementalLayersUrl')}" >
+					url="{resourceManager.getString('urls', 'lccUrl')}" >
 					<esri:visibleLayers>
 						<s:ArrayCollection>
-							<fx:Number>6</fx:Number>
+							<fx:Number>0</fx:Number>
 						</s:ArrayCollection>
 					</esri:visibleLayers>
 				</esri:ArcGISDynamicMapServiceLayer>
@@ -694,127 +693,28 @@
 										<s:Label text="Step 2: "/><s:Label text="Select Ecoregion" />
 									</s:HGroup>
 									<s:VGroup paddingLeft="25" gap="0" paddingBottom="10">
-										<s:RadioButton group="{ecoRegionOpt}"
-													   id="northAppEco"
+										<s:CheckBox id="northAppEco"
 													   label="Northern Appalachians" 
-													   selected="true"
-													   value="northAppEco" />
-										<s:RadioButton group="{ecoRegionOpt}"
-													   id="southAppCoastEco" 
-													   label="Southern Appalachians and Coastal Plains" 
-													   value="southAppCoastEco" />
-										<s:RadioButton group="{ecoRegionOpt}"
-													   id="tempPlainsEco" 
-													   label="Temperate Plains" 
-													   value="tempPlainsEco" />
-										<s:RadioButton group="{ecoRegionOpt}"
-													   id="upperMidEco" 
-													   label="Upper Midwest" 
-													   value="upperMidEco" />
-										<s:RadioButton group="{ecoRegionOpt}"
-													   id="allEco" 
-													   label="All Ecoregions" 
-													   value="allEco" />
+													   selected="true" />
+										<s:CheckBox id="southAppCoastEco" 
+													   label="Southern Appalachians and Coastal Plains" />
+										<s:CheckBox id="tempPlainsEco" 
+													   label="Temperate Plains" />
+										<s:CheckBox id="upperMidEco" 
+													   label="Upper Midwest" />
 									</s:VGroup>
 									<s:HGroup color="0xFFFF99" fontWeight="bold">
 										<s:Label text="Step 3: "/><s:Label text="Select Stream Size" />
 									</s:HGroup>
 									<s:VGroup paddingLeft="25" gap="0" paddingBottom="10">
-										<s:RadioButton group="{streamOpt}"
-													   id="creek"
+										<s:CheckBox id="creek"
 													   label="Creek" 
-													   selected="true"
-													   value="creek" />
-										<s:RadioButton group="{streamOpt}"
-													   id="river" 
-													   label="River" 
-													   value="river" />
-										<s:RadioButton group="{streamOpt}"
-													   id="creekRiver" 
-													   label="Creeks and Rivers" 
-													   value="creekRiver" />
+													   selected="true" />
+										<s:CheckBox id="river" 
+													   label="River" />
 									</s:VGroup>
 									<s:HGroup color="0xFFFF99" fontWeight="bold">
-										<s:Label text="Step 4: "/><s:Label text="Select Habitat Response Index" />
-									</s:HGroup>
-									<s:VGroup paddingLeft="25" gap="0" paddingBottom="10">
-										<!--<s:HGroup verticalAlign="middle">
-										<s:RadioButton group="{topicOpt}"
-										id="fish"
-										selected="true"
-										label="Fish" 
-										value="fish" />
-										<mx:Image source="./assets/images/help_tip.png">
-										<mx:toolTip>
-										<![CDATA[<b>Fish</b><p><font color="#0000FF"><br/><b>Thermal Guild – Cold</b></font><br/>Brook Trout<br/>Brown Trout<br/>Mottled Sculpin<br/>Rainbow Trout</p><p><font color="#00FF00"><br/><b>Thermal Guild – Cool</b></font><br/>Blackchin Shiner<br/>Brook Stickleback<br/>Northern Hogsucker<br/>Northern Pike<br/>White Sucker</p><p><font color="#FF0000"><br/><b>Thermal Guild – Warm</b></font><br/>Common Carp<br/>Green Sunfish<br/>Smallmouth Bass<br/>Stonecat</p>]]>
-										</mx:toolTip>
-										</mx:Image>
-										</s:HGroup>
-										<s:VGroup paddingLeft="25" gap="0" paddingBottom="10" visible="{fish.selected}" includeInLayout="{fish.selected}">
-										<s:DropDownList id="speciesSelect" color="black" width="240" visible="{fish.selected &amp;&amp; huc12.selected == false}" includeInLayout="{speciesSelect.visible}" prompt="Select a species or thermal group..." change="speciesSelectChange()" >
-										<s:ArrayCollection>
-										<fx:String>Cold water species</fx:String>
-										<fx:String>Cool water species</fx:String>
-										<fx:String>Warm water species</fx:String>
-										<fx:String>Individual species</fx:String>
-										</s:ArrayCollection>
-										</s:DropDownList>
-										<s:HGroup id="indSelectGroup" paddingLeft="{(huc12.selected) ? 0 : 20}" verticalAlign="middle" visible="{(speciesSelect.selectedItem == 'Individual species') || (fish.selected &amp;&amp; huc12.selected)}" includeInLayout="{speciesSelect.selectedItem == 'Individual species' || (fish.selected &amp;&amp; huc12.selected)}" >
-										<s:Label text="-> " visible="{(huc12.selected) ? false : true}" includeInLayout="{(huc12.selected) ? false : true}" color="white" />
-										<s:DropDownList id="indSpeciesSelect" prompt="Select a species..." color="black" width="{(huc12.selected) ? 240 : 201}">
-										<s:ArrayCollection>
-										<fx:String>Blackchin Shiner</fx:String>
-										<fx:String>Brook Stickleback</fx:String>
-										<fx:String>Brook Trout</fx:String>
-										<fx:String>Brown Trout</fx:String>
-										<fx:String>Common Carp</fx:String>
-										<fx:String>Green Sunfish</fx:String>
-										<fx:String>Mottled Sculpin</fx:String>
-										<fx:String>Northern Hogsucker</fx:String>
-										<fx:String>Northern Pike</fx:String>
-										<fx:String>Rainbow Trout</fx:String>
-										<fx:String>Smallmouth Bass</fx:String>
-										<fx:String>Stonecat</fx:String>
-										<fx:String>White Sucker</fx:String>
-										</s:ArrayCollection>
-										</s:DropDownList>
-										<mx:Image source="./assets/images/help_tip.png" toolTip="{indSpeciesSelect.selectedItem.toolTip}" />
-										</s:HGroup>
-										</s:VGroup>-->
-										<s:RadioButton group="{topicOpt}"
-													   id="landuse"
-													   label="Land use" 
-													   selected="true"
-													   value="landuse" />
-										<s:RadioButton group="{topicOpt}"
-													   id="fragmentation" 
-													   label="Fragmentation" 
-													   value="fragmentation" />
-										<s:RadioButton group="{topicOpt}"
-													   id="waterqualimp" 
-													   label="Water-quality impairment" 
-													   value="waterqualimp" />
-										<s:RadioButton group="{topicOpt}"
-													   id="futureclimate" 
-													   label="Future climate" 
-													   value="futureclimate" />
-										<s:VGroup paddingLeft="25" gap="0" paddingBottom="10" visible="{futureclimate.selected}" includeInLayout="{futureclimate.selected}">
-											<s:DropDownList id="emissionScenario" color="black" width="240" visible="{futureclimate.selected}" includeInLayout="{futureclimate.selected}" prompt="emission scenario" >
-												<s:ArrayCollection>
-													<fx:String>scenario one</fx:String>
-													<fx:String>scenario two</fx:String>
-												</s:ArrayCollection>
-											</s:DropDownList>
-											<s:DropDownList id="GCM" color="black" width="240" visible="{futureclimate.selected}" includeInLayout="{futureclimate.selected}" prompt="GCM" >
-												<s:ArrayCollection>
-													<fx:String>GCM one</fx:String>
-													<fx:String>GCM two</fx:String>
-												</s:ArrayCollection>
-											</s:DropDownList>
-										</s:VGroup>
-									</s:VGroup>
-									<s:HGroup color="0xFFFF99" fontWeight="bold">
-										<s:Label text="Step 5: "/><s:Label text="Select Species" />
+										<s:Label text="Step 4: "/><s:Label text="Select Species" />
 									</s:HGroup>
 									<s:VGroup paddingLeft="25" gap="0" paddingBottom="10">
 										<s:DropDownList id="speciesSelect" color="black" width="240" prompt="Select a species group or individual species..." change="speciesSelectChange()" >
@@ -848,6 +748,47 @@
 											<mx:Image source="./assets/images/help_tip.png" toolTip="{indSpeciesSelect.selectedItem.toolTip}" />
 										</s:HGroup>
 									</s:VGroup>
+									<s:HGroup color="0xFFFF99" fontWeight="bold">
+										<s:Label text="Step 5: "/><s:Label text="Select Habitat Response Index" />
+									</s:HGroup>
+									<s:VGroup paddingLeft="25" gap="0" paddingBottom="10">
+										<s:RadioButton group="{topicOpt}"
+													   id="landuse"
+													   label="Land use" 
+													   selected="true"
+													   value="landuse" />
+										<s:RadioButton group="{topicOpt}"
+													   id="fragmentation" 
+													   label="Fragmentation" 
+													   value="fragmentation" />
+										<s:RadioButton group="{topicOpt}"
+													   id="waterqualimp" 
+													   label="Water-quality impairment" 
+													   visible="{speciesSelect.selectedItem != 'All species'}" 
+													   includeInLayout="{waterqualimp.visible}" 
+													   value="waterqualimp" />
+										<s:RadioButton group="{topicOpt}"
+													   id="futureclimate" 
+													   label="Future climate"
+													   visible="{speciesSelect.selectedItem != 'All species'}" 
+													   includeInLayout="{futureclimate.visible}" 
+													   value="futureclimate" />
+										<!--<s:VGroup paddingLeft="25" gap="0" paddingBottom="10" visible="{futureclimate.selected}" includeInLayout="{futureclimate.selected}">
+											<s:DropDownList id="emissionScenario" color="black" width="240" visible="{futureclimate.selected}" includeInLayout="{futureclimate.selected}" prompt="emission scenario" >
+												<s:ArrayCollection>
+													<fx:String>scenario one</fx:String>
+													<fx:String>scenario two</fx:String>
+												</s:ArrayCollection>
+											</s:DropDownList>
+											<s:DropDownList id="GCM" color="black" width="240" visible="{futureclimate.selected}" includeInLayout="{futureclimate.selected}" prompt="GCM" >
+												<s:ArrayCollection>
+													<fx:String>GCM one</fx:String>
+													<fx:String>GCM two</fx:String>
+												</s:ArrayCollection>
+											</s:DropDownList>
+										</s:VGroup>-->
+									</s:VGroup>
+									
 									
 									<!-- move this to outside of choices to keep it anchored to right side of the larger box -->
 									<s:HGroup right="10" horizontalAlign="right" width="100%" paddingTop="0" paddingBottom="0">
