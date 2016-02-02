@@ -287,11 +287,11 @@ import spark.events.IndexChangeEvent;
 					disturbanceToggle.selected = false;
 				}
 				
-				return;
+				//return;
 				
 				//var speciesSelectVal:String = speciesSelect.selectedItem;
 				//var indSpeciesSelectVal:String = indSpeciesSelect.selectedItem;
-				var timePeriodSelectVal:String = timeOpt.selectedValue.toString();
+				//var timePeriodSelectVal:String = timeOpt.selectedValue.toString();
 				//var responseSelectVal:String = fishResponseLate20Select.selectedItem;
 				
 				var layerName:String = "";
@@ -372,7 +372,7 @@ import spark.events.IndexChangeEvent;
 					}
 				}*/
 				
-				if (timePeriodSelectVal == "Current") {
+				/*if (timePeriodSelectVal == "Current") {
 					timePeriodCode = "T20";
 					C_timePeriod = "Late 20th Century (1961-2000)";
 				} else if (timePeriodSelectVal == "2046 - 2065") {
@@ -381,7 +381,16 @@ import spark.events.IndexChangeEvent;
 				} else if (timePeriodSelectVal == "2081 - 2100") {
 					timePeriodCode = "T20F2";
 					C_timePeriod = "Late 21st Century (2081-2100)";
+				}*/
+				
+				var displayByVal:String = displayByOpt.selectedValue.toString();
+				var responseInd:String = topicOpt.selectedValue.toString();
+				var speciesOpt:String = "";
+				if (speciesSelect.selectedItem = "All species") {
+					speciesOpt = "AS";
 				}
+				
+				layerName = displayByVal + responseInd + speciesOpt;
 				
 				if (huc12.selected) {
 					/*if (streamtemp.selected) {
@@ -716,6 +725,21 @@ import spark.events.IndexChangeEvent;
 					}
 				}
 				
+				var respInd:String = "";
+				switch (responseInd) {
+					case "LU":
+						respInd = "land use";
+						break;
+					case "FR":
+						respInd = "fragmentation by dams and road crossings";
+						break;
+					case "QW":
+						respInd = "303d listed streams";
+						break;
+				}
+				
+				legendTitle = "Risk of habitat degradation due to " + respInd;
+				
 				/*if (buttonLabel == 'go') {
 					browseWarning.visible = true;
 				} else if (buttonLabel == 'clear') {
@@ -744,7 +768,7 @@ import spark.events.IndexChangeEvent;
 							}
 						}
 						scenariosLegend.aLegendService.send();
-						scenariosSmallLegend.aLegendService.send();
+						//scenariosSmallLegend.aLegendService.send();
 						scenariosSmallLegend.legendTitle = legendTitle;
 						scenariosLegend.legendTitle = legendTitle;
 					}
@@ -756,6 +780,12 @@ import spark.events.IndexChangeEvent;
 						for (i = 0; i < scenarioCatchmentsLayerInfos.length; i++) {
 							if (scenarioCatchmentsLayerInfos[i].name == layerName) {
 								scenariosCatchments.visibleLayers = new ArrayCollection([scenarioCatchmentsLayerInfos[i].layerId]);
+								var layerDefs:Array = [];
+								if (stateSelect.selectedIndex != -1){
+									layerDefs[scenarioCatchmentsLayerInfos[i].layerId] = "Statecode = '" + stateSelect.selectedItem.value + "'";
+								}
+								scenariosCatchments.layerDefinitions = layerDefs;
+								scenariosCatchments.visible = true;
 								scenariosCatchments.refresh();
 								needBrowseWarning = false;
 								break;
