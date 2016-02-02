@@ -496,13 +496,11 @@
 			</esri:ArcGISDynamicMapServiceLayer>
 			<esri:ArcGISDynamicMapServiceLayer
 				id="scenariosCatchments"
-				visible="false" > <!-- visible="{resultsTabs.selectedIndex == 0 &amp;&amp; catchment.selected == true &amp;&amp; streamflow.selected == false &amp;&amp; climateProj.selected == false}" -->
-			</esri:ArcGISDynamicMapServiceLayer>
-			<esri:ArcGISDynamicMapServiceLayer
+				visible="false" 
 				alpha="0.7" 
 				updateStart="loadingScreenEnable()"
 				updateEnd="layerUpdateComp(scenariosCatchments)"
-				url="{resourceManager.getString('urls', 'scenariosCatchmentsUrl')}" >
+				url="{resourceManager.getString('urls', 'scenariosCatchmentsUrl')}" > <!-- visible="{resultsTabs.selectedIndex == 0 &amp;&amp; catchment.selected == true &amp;&amp; streamflow.selected == false &amp;&amp; climateProj.selected == false}" -->
 			</esri:ArcGISDynamicMapServiceLayer>
 			<esri:ArcGISDynamicMapServiceLayer
 				id="scenarios"
@@ -514,13 +512,11 @@
 			</esri:ArcGISDynamicMapServiceLayer>
 			<esri:ArcGISDynamicMapServiceLayer
 				id="scenariosSmall"
-				visible="false" > <!-- visible="{(resultsTabs.selectedIndex == 0 &amp;&amp; streamReach.selected == true &amp;&amp; streamflow.selected == false &amp;&amp; climateProj.selected == false) &amp;&amp; map.scale &gt; 1500000}" -->
-			</esri:ArcGISDynamicMapServiceLayer>
-			<esri:ArcGISDynamicMapServiceLayer
+				visible="false"
 				alpha="1"  
 				updateStart="loadingScreenEnable()"
 				updateEnd="layerUpdateComp(scenariosSmall)"
-				url="{resourceManager.getString('urls', 'scenariosSmallUrl')}" >
+				url="{resourceManager.getString('urls', 'scenariosSmallUrl')}" > <!-- visible="{(resultsTabs.selectedIndex == 0 &amp;&amp; streamReach.selected == true &amp;&amp; streamflow.selected == false &amp;&amp; climateProj.selected == false) &amp;&amp; map.scale &gt; 1500000}" -->
 			</esri:ArcGISDynamicMapServiceLayer>
 			<!--<esri:ArcGISDynamicMapServiceLayer
 				id="fishVisSearch"
@@ -670,7 +666,7 @@
 											<s:RadioButton group="{displayByOpt}"
 													   id="catchment"
 													   label="Catchment" 
-													   value="catchment" />
+													   value="CS" />
 											<mx:Image source="./assets/images/help_tip.png" toolTip="Catchment - The area of land draining into a single reach." />
 										</s:HGroup>
 										<s:HGroup verticalAlign="middle">
@@ -703,6 +699,12 @@
 										<s:CheckBox id="upperMidEco" 
 													   label="Upper Midwest" />
 									</s:VGroup>
+									<s:DropDownList id="stateSelect" labelField="text" color="black" prompt="Select a state..." width="265" >
+										<s:ArrayCollection>
+											<fx:Object text="Ohio" value="OH"></fx:Object>
+											<fx:Object text="Wisconsin" value="WI"></fx:Object>
+										</s:ArrayCollection>
+									</s:DropDownList>
 									<s:HGroup color="0xFFFF99" fontWeight="bold">
 										<s:Label text="Step 3: "/><s:Label text="Select Stream Size" />
 									</s:HGroup>
@@ -756,21 +758,21 @@
 													   id="landuse"
 													   label="Land use" 
 													   selected="true"
-													   value="landuse" />
+													   value="LU" />
 										<s:RadioButton group="{topicOpt}"
 													   id="fragmentation" 
 													   label="Fragmentation" 
-													   value="fragmentation" />
+													   value="FR" />
 										<s:RadioButton group="{topicOpt}"
 													   id="waterqualimp" 
 													   label="Water-quality impairment" 
-													   visible="{speciesSelect.selectedItem != 'All species'}" 
+													   visible="{speciesSelect.selectedItem == 'All species'}" 
 													   includeInLayout="{waterqualimp.visible}" 
-													   value="waterqualimp" />
+													   value="QW" />
 										<s:RadioButton group="{topicOpt}"
 													   id="futureclimate" 
 													   label="Future climate"
-													   visible="{speciesSelect.selectedItem != 'All species'}" 
+													   visible="{speciesSelect.selectedItem == 'All species'}" 
 													   includeInLayout="{futureclimate.visible}" 
 													   value="futureclimate" />
 										<!--<s:VGroup paddingLeft="25" gap="0" paddingBottom="10" visible="{futureclimate.selected}" includeInLayout="{futureclimate.selected}">
