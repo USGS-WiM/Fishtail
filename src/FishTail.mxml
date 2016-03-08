@@ -677,13 +677,6 @@
 													   value="reach" />
 											<mx:Image source="./assets/images/help_tip.png" toolTip="Reach - Length of stream uniform with respect to discharge, depth, area, and slope, as defined by the NHDPlus Version 1. This is the basic FishVis modeling unit." />
 										</s:HGroup>
-										<s:HGroup verticalAlign="middle">
-											<s:RadioButton group="{displayByOpt}"
-														   id="streamBuff"
-														   label="Stream buffers" 
-														   value="streambuff" />
-											<mx:Image source="./assets/images/help_tip.png" toolTip="Stream buffer - description" />
-										</s:HGroup>
 									</s:VGroup>
 									<s:HGroup color="0xFFFF99" fontWeight="bold">
 										<s:Label text="Step 2: "/><s:Label text="Select Ecoregion" />
