@@ -738,14 +738,14 @@
 													   value="FR" />
 											<mx:Image source="./assets/images/help_tip.png" toolTip="" />
 										</s:HGroup>
-										<s:HGroup verticalAlign="middle">
+										<s:HGroup verticalAlign="middle" visible="{huc12.selected == false}" includeInLayout="{huc12.selected == false}">
 											<s:RadioButton group="{topicOpt}"
 												   id="waterqualimp" 
 												   label="Water-quality impairment" 
 												   value="QW" />
 											<mx:Image source="./assets/images/help_tip.png" toolTip="{QWTooltip}" />
 										</s:HGroup>
-										<s:VGroup paddingLeft="25" gap="0">
+										<s:VGroup paddingLeft="25" gap="0" visible="{huc12.selected == false}" includeInLayout="{huc12.selected == false}">
 											<s:DropDownList id="stateSelect" visible="{waterqualimp.selected}" includeInLayout="{stateSelect.visible}" labelField="text" color="black" prompt="Select a state..." width="200" >
 												<s:ArrayCollection>
 													<fx:Object text="Connecticut" value="CT"></fx:Object>
