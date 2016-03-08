@@ -285,6 +285,15 @@ import spark.events.IndexChangeEvent;
 					padusToggle.selected = false;
 					landCoverToggle.selected = false;
 					disturbanceToggle.selected = false;
+					
+					northAppEco.selected = false;
+					southAppCoastEco.selected = false;
+					tempPlainsEco.selected = false;
+					upperMidEco.selected = false;
+					creek.selected = false;
+					river.selected = false;
+					landUseSelect.selectedIndex = -1;
+					stateSelect.selectedIndex = -1;
 				}
 				
 				//return;
