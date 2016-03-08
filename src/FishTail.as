@@ -398,7 +398,7 @@ import spark.events.IndexChangeEvent;
 				
 				layerDef = "1 = 1";
 				
-				if (stateSelect.selectedIndex != -1){
+				if (responseInd == "QW" && stateSelect.selectedIndex != -1) {
 					layerDef += " AND Statecode = '" + stateSelect.selectedItem.value + "'";
 				}
 				
