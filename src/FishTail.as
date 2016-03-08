@@ -425,6 +425,26 @@ import spark.events.IndexChangeEvent;
 				
 				layerDef += " AND EcoregCode IN " + ecoSqlArr;
 				
+				var rivArr:Array = [];
+				
+				if (creek.selected) {
+					rivArr.push('C');
+				} 
+				if (river.selected) {
+					rivArr.push('R');
+				} 
+				
+				var rivSqlArr:String = "('";
+				for (var i=0; i<rivArr.length; i++) {
+					if (i == rivArr.length-1) {
+						rivSqlArr += rivArr[i] + "')"; 
+					} else {
+						rivSqlArr += rivArr[i] + "','";
+					}
+				}
+				
+				layerDef += " AND Creek_River IN " + rivSqlArr;
+				
 				if (huc12.selected) {
 					/*if (streamtemp.selected) {
 						if (timePeriodCode == "T20" && hucStreamTempResponseSelect.selectedItem == "Thermal class (length-weighted)") {
