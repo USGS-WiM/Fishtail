@@ -738,7 +738,7 @@
 										</s:HGroup>
 									</s:VGroup>-->
 									<s:HGroup color="0xFFFF99" fontWeight="bold">
-										<s:Label text="Step 5: "/><s:Label text="Select Habitat Response Index" />
+										<s:Label text="Step 4: "/><s:Label text="Select Habitat Response Index" />
 									</s:HGroup>
 									<s:VGroup paddingLeft="25" gap="0" paddingBottom="10">
 										<s:RadioButton group="{topicOpt}"
@@ -755,10 +755,30 @@
 													   label="Water-quality impairment" 
 													   value="QW" />
 										<s:VGroup paddingLeft="25" gap="0">
-											<s:DropDownList id="stateSelect" visible="{topicOpt.selectedValue == 'QW'}" includeInLayout="{stateSelect.visible}" labelField="text" color="black" prompt="Select a state..." width="200" >
+											<s:DropDownList id="stateSelect" visible="{waterqualimp.selected}" includeInLayout="{stateSelect.visible}" labelField="text" color="black" prompt="Select a state..." width="200" >
 												<s:ArrayCollection>
 													<fx:Object text="All States" value="all"></fx:Object>
+													<fx:Object text="Connecticut" value="CT"></fx:Object>
+													<fx:Object text="Delaware" value="DE"></fx:Object>
+													<fx:Object text="Illinois" value="IL"></fx:Object>
+													<fx:Object text="Indiana" value="IN"></fx:Object>
+													<fx:Object text="Iowa" value="IA"></fx:Object>
+													<fx:Object text="Kentucky" value="KY"></fx:Object>
 													<fx:Object text="Ohio" value="OH"></fx:Object>
+													<fx:Object text="Maine" value="ME"></fx:Object>
+													<fx:Object text="Maryland" value="MD"></fx:Object>
+													<fx:Object text="Massachusetts" value="MA"></fx:Object>
+													<fx:Object text="Michigan" value="MI"></fx:Object>
+													<fx:Object text="Minnesota" value="MN"></fx:Object>
+													<fx:Object text="Missouri" value="MO"></fx:Object>
+													<fx:Object text="New Hampshire" value="NH"></fx:Object>
+													<fx:Object text="New Jersey" value="NJ"></fx:Object>
+													<fx:Object text="New York" value="NY"></fx:Object>
+													<fx:Object text="Pennsylvania" value="PA"></fx:Object>
+													<fx:Object text="Rhode Island" value="RI"></fx:Object>
+													<fx:Object text="Vermont" value="VT"></fx:Object>
+													<fx:Object text="Virginia" value="VA"></fx:Object>
+													<fx:Object text="West Virginia" value="WV"></fx:Object>
 													<fx:Object text="Wisconsin" value="WI"></fx:Object>
 												</s:ArrayCollection>
 											</s:DropDownList>
