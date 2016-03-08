@@ -39,7 +39,8 @@
     
     <fx:Style source="assets/styles/main.css"/>
 	<fx:Style source="assets/styles/infoSymbolBox.css"/>
-    <fx:Script source="FishTail.as" />
+	
+	<fx:Script source="FishTail.as" />
 	<fx:Script source="ScenarioModel.as" />
 	<fx:Script source="HabitatModel.as" />
 	
@@ -742,7 +743,7 @@
 											<s:RadioButton group="{topicOpt}"
 												   id="waterqualimp" 
 												   label="Water-quality impairment" 
-												   value="QW" />
+												   value="QW" click="waterqualimp_clickHandler(event)" />
 											<mx:Image source="./assets/images/help_tip.png" toolTip="{QWTooltip}" />
 										</s:HGroup>
 										<s:VGroup paddingLeft="25" gap="0" visible="{huc12.selected == false}" includeInLayout="{huc12.selected == false}">
