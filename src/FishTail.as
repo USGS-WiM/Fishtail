@@ -223,6 +223,17 @@ import spark.events.IndexChangeEvent;
 				trace(map.level);
 			}
 
+			private function waterqualimp_clickHandler(event:MouseEvent):void
+			{
+				northAppEco.selected = true;
+				southAppCoastEco.selected = true;
+				tempPlainsEco.selected = true;
+				upperMidEco.selected = true;
+				
+				creek.selected = true;
+				river.selected = true;
+			}
+
 			private function scenarioClear():void {
 				//will need code for resetting to entire great lakes basin
 				
