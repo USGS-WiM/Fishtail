@@ -287,6 +287,8 @@ import spark.events.IndexChangeEvent;
 					river.selected = false;
 					landUseSelect.selectedIndex = -1;
 					stateSelect.selectedIndex = -1;
+					
+					scenariosCatchments.visible = false;
 				}
 				
 				//return;
@@ -396,7 +398,7 @@ import spark.events.IndexChangeEvent;
 				
 				layerDef = "1 = 1";
 				
-				if (stateSelect.selectedIndex != -1 && stateSelect.selectedItem.value != "all"){
+				if (stateSelect.selectedIndex != -1){
 					layerDef += " AND Statecode = '" + stateSelect.selectedItem.value + "'";
 				}
 				
@@ -835,6 +837,9 @@ import spark.events.IndexChangeEvent;
 						for (i = 0; i < scenarioCatchmentsLayerInfos.length; i++) {
 							if (scenarioCatchmentsLayerInfos[i].name == layerName) {
 								scenariosCatchments.visibleLayers = new ArrayCollection([scenarioCatchmentsLayerInfos[i].layerId]);
+								if (responseInd == "QW" && stateSelect.selectedIndex == -1) {
+									break;
+								}
 								var layerDefs:Array = [];
 								layerDefs[scenarioCatchmentsLayerInfos[i].layerId] = layerDef;
 								scenariosCatchments.layerDefinitions = layerDefs;
