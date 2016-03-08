@@ -14,13 +14,13 @@
   <!--  URLs -->
   <resourceBundle name="urls">
 	<!-- FishVis and wim hosted resources -->
-  	<resource name="scenariosUrl" value="http://ccviewer.wim.usgs.gov/ArcGIS/rest/services/FishVis/scenarios/MapServer" />
-  	<resource name="scenariosSmallUrl" value="http://ccviewer.wim.usgs.gov/ArcGIS/rest/services/FishVis/scenarios_small_scale/MapServer" />
+  	<!-- <resource name="scenariosUrl" value="http://ccviewer.wim.usgs.gov/ArcGIS/rest/services/FishVis/scenarios/MapServer" />
+  	<resource name="scenariosSmallUrl" value="http://ccviewer.wim.usgs.gov/ArcGIS/rest/services/FishVis/scenarios_small_scale/MapServer" /> -->
   	<resource name="scenariosCatchmentsUrl" value="http://ccviewer.wim.usgs.gov/arcgis/rest/services/FishTail/fishtail_catch/MapServer" />
-	<resource name="scenariosHUC12Url" value="http://ccviewer.wim.usgs.gov/arcgis/rest/services/FishVis/scenarios_huc12/MapServer" />
+	<!-- <resource name="scenariosHUC12Url" value="http://ccviewer.wim.usgs.gov/arcgis/rest/services/FishVis/scenarios_huc12/MapServer" />
 	<resource name="streamsForQueryUrl" value="http://ccviewer.wim.usgs.gov/ArcGIS/rest/services/FishVis/streams_for_query/MapServer" />
 	<resource name="climateStreamflow" value="http://ccviewer.wim.usgs.gov/arcgis/rest/services/FishVis/climate_streamflow/MapServer" />
-	<resource name="climateStreamflowSmall" value="http://ccviewer.wim.usgs.gov/arcgis/rest/services/FishVis/climate_streamflow_small_scale/MapServer" />
+	<resource name="climateStreamflowSmall" value="http://ccviewer.wim.usgs.gov/arcgis/rest/services/FishVis/climate_streamflow_small_scale/MapServer" /> -->
   	<!-- changed to FishTail -->
   	<resource name="supplementalLayersUrl" value="http://ccviewer.wim.usgs.gov/ArcGIS/rest/services/FishTail/supplementalLayers/MapServer" />
   	<resource name="streamsCache" value="http://ccviewer.wim.usgs.gov/ArcGIS/rest/services/FishTail/streams_cache/MapServer" />
