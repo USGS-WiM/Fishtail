@@ -665,14 +665,14 @@
 										<s:HGroup verticalAlign="middle">
 											<s:RadioButton group="{displayByOpt}"
 													   id="catchment"
+													   selected="true"
 													   label="Catchment" 
 													   value="CS" />
 											<mx:Image source="./assets/images/help_tip.png" toolTip="Catchment - The area of land draining into a single reach." />
 										</s:HGroup>
 										<s:HGroup verticalAlign="middle">
 											<s:RadioButton group="{displayByOpt}"
-													   id="streamReach" 
-													   selected="true"
+													   id="streamReach"
 													   label="Stream reach" 
 													   value="reach" />
 											<mx:Image source="./assets/images/help_tip.png" toolTip="Reach - Length of stream uniform with respect to discharge, depth, area, and slope, as defined by the NHDPlus Version 1. This is the basic FishVis modeling unit." />
@@ -692,12 +692,6 @@
 										<s:CheckBox id="upperMidEco" 
 													   label="Upper Midwest" />
 									</s:VGroup>
-									<s:DropDownList id="stateSelect" labelField="text" color="black" prompt="Select a state..." width="265" >
-										<s:ArrayCollection>
-											<fx:Object text="Ohio" value="OH"></fx:Object>
-											<fx:Object text="Wisconsin" value="WI"></fx:Object>
-										</s:ArrayCollection>
-									</s:DropDownList>
 									<s:HGroup color="0xFFFF99" fontWeight="bold">
 										<s:Label text="Step 3: "/><s:Label text="Select Stream Size" />
 									</s:HGroup>
@@ -762,6 +756,15 @@
 													   visible="{speciesSelect.selectedItem == 'All species'}" 
 													   includeInLayout="{waterqualimp.visible}" 
 													   value="QW" />
+										<s:VGroup paddingLeft="25" gap="0">
+											<s:DropDownList id="stateSelect" visible="{topicOpt.selectedValue == 'QW'}" includeInLayout="{stateSelect.visible}" labelField="text" color="black" prompt="Select a state..." width="200" >
+												<s:ArrayCollection>
+													<fx:Object text="All States" value="all"></fx:Object>
+													<fx:Object text="Ohio" value="OH"></fx:Object>
+													<fx:Object text="Wisconsin" value="WI"></fx:Object>
+												</s:ArrayCollection>
+											</s:DropDownList>
+										</s:VGroup>
 										<s:RadioButton group="{topicOpt}"
 													   id="futureclimate" 
 													   label="Future climate"

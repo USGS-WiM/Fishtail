@@ -392,6 +392,39 @@ import spark.events.IndexChangeEvent;
 				
 				layerName = displayByVal + responseInd + speciesOpt;
 				
+				layerDef = "1 = 1";
+				
+				if (stateSelect.selectedIndex != -1 && stateSelect.selectedItem.value != "all"){
+					layerDef += " AND Statecode = '" + stateSelect.selectedItem.value + "'";
+				}
+				
+				var ecoRegionArr:Array = [];
+				
+				if (southAppCoastEco.selected) {
+					ecoRegionArr.push('SAP');
+					ecoRegionArr.push('CPL');
+				} 
+				if (tempPlainsEco.selected) {
+					ecoRegionArr.push('TPL');
+				} 
+				if (northAppEco.selected) {
+					ecoRegionArr.push('NAP');
+				} 
+				if (upperMidEco.selected) {
+					ecoRegionArr.push('UMW');
+				}
+				
+				var ecoSqlArr:String = "('";
+				for (var i=0; i<ecoRegionArr.length; i++) {
+					if (i == ecoRegionArr.length-1) {
+						ecoSqlArr += ecoRegionArr[i] + "')"; 
+					} else {
+						ecoSqlArr += ecoRegionArr[i] + "','";
+					}
+				}
+				
+				layerDef += " AND EcoregCode IN " + ecoSqlArr;
+				
 				if (huc12.selected) {
 					/*if (streamtemp.selected) {
 						if (timePeriodCode == "T20" && hucStreamTempResponseSelect.selectedItem == "Thermal class (length-weighted)") {
@@ -781,9 +814,7 @@ import spark.events.IndexChangeEvent;
 							if (scenarioCatchmentsLayerInfos[i].name == layerName) {
 								scenariosCatchments.visibleLayers = new ArrayCollection([scenarioCatchmentsLayerInfos[i].layerId]);
 								var layerDefs:Array = [];
-								if (stateSelect.selectedIndex != -1){
-									layerDefs[scenarioCatchmentsLayerInfos[i].layerId] = "Statecode = '" + stateSelect.selectedItem.value + "'";
-								}
+								layerDefs[scenarioCatchmentsLayerInfos[i].layerId] = layerDef;
 								scenariosCatchments.layerDefinitions = layerDefs;
 								scenariosCatchments.visible = true;
 								scenariosCatchments.refresh();
