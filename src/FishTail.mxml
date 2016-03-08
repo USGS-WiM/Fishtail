@@ -702,7 +702,7 @@
 										<s:CheckBox id="river" 
 													   label="River" />
 									</s:VGroup>
-									<s:HGroup color="0xFFFF99" fontWeight="bold">
+									<!--<s:HGroup color="0xFFFF99" fontWeight="bold">
 										<s:Label text="Step 4: "/><s:Label text="Select Species" />
 									</s:HGroup>
 									<s:VGroup paddingLeft="25" gap="0" paddingBottom="10">
@@ -736,7 +736,7 @@
 											</s:DropDownList>
 											<mx:Image source="./assets/images/help_tip.png" toolTip="{indSpeciesSelect.selectedItem.toolTip}" />
 										</s:HGroup>
-									</s:VGroup>
+									</s:VGroup>-->
 									<s:HGroup color="0xFFFF99" fontWeight="bold">
 										<s:Label text="Step 5: "/><s:Label text="Select Habitat Response Index" />
 									</s:HGroup>
@@ -753,8 +753,6 @@
 										<s:RadioButton group="{topicOpt}"
 													   id="waterqualimp" 
 													   label="Water-quality impairment" 
-													   visible="{speciesSelect.selectedItem == 'All species'}" 
-													   includeInLayout="{waterqualimp.visible}" 
 													   value="QW" />
 										<s:VGroup paddingLeft="25" gap="0">
 											<s:DropDownList id="stateSelect" visible="{topicOpt.selectedValue == 'QW'}" includeInLayout="{stateSelect.visible}" labelField="text" color="black" prompt="Select a state..." width="200" >
@@ -768,8 +766,6 @@
 										<s:RadioButton group="{topicOpt}"
 													   id="futureclimate" 
 													   label="Future climate"
-													   visible="{speciesSelect.selectedItem == 'All species'}" 
-													   includeInLayout="{futureclimate.visible}" 
 													   value="futureclimate" />
 										<!--<s:VGroup paddingLeft="25" gap="0" paddingBottom="10" visible="{futureclimate.selected}" includeInLayout="{futureclimate.selected}">
 											<s:DropDownList id="emissionScenario" color="black" width="240" visible="{futureclimate.selected}" includeInLayout="{futureclimate.selected}" prompt="emission scenario" >
