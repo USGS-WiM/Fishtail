@@ -385,10 +385,10 @@ import spark.events.IndexChangeEvent;
 				
 				var displayByVal:String = displayByOpt.selectedValue.toString();
 				var responseInd:String = topicOpt.selectedValue.toString();
-				var speciesOpt:String = "";
-				if (speciesSelect.selectedItem = "All species") {
+				var speciesOpt:String = "AS";
+				/*if (speciesSelect.selectedItem = "All species") {
 					speciesOpt = "AS";
-				}
+				}*/
 				
 				layerName = displayByVal + responseInd + speciesOpt;
 				
