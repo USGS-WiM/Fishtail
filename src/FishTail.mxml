@@ -668,7 +668,7 @@
 											<s:RadioButton group="{displayByOpt}"
 													   id="huc12"
 													   label="HUC 12" 
-													   value="huc12"/>
+													   value="CS"/>
 											<mx:Image source="./assets/images/help_tip.png" toolTip="HUC 12 - Drainage basins in the United States are divided and sub-divided into successively smaller hydrologic units (HUC), as defined by the USGS Watershed Boundary Dataset. A HUC12 refers to the sixth-level HUC with a 12-digit identification code." />
 										</s:HGroup>
 										<s:HGroup verticalAlign="middle">
@@ -677,18 +677,19 @@
 													   selected="true"
 													   label="Catchment" 
 													   value="CS" />
-											<mx:Image source="./assets/images/help_tip.png" toolTip="Catchment - The area of land draining into a single reach." />
+											<mx:Image source="./assets/images/help_tip.png" toolTip="The area of a landscape that collects precipitation and drains to a stream through surface runoff, shallow groundwater delivery, and the stream’s upstream tributaries.  Catchment boundaries are determined by the topography of the landscape.." />
 										</s:HGroup>
 										<s:HGroup verticalAlign="middle">
 											<s:RadioButton group="{displayByOpt}"
 													   id="streamReach"
 													   label="Stream reach" 
 													   value="CS" />
-											<mx:Image source="./assets/images/help_tip.png" toolTip="Reach - Length of stream uniform with respect to discharge, depth, area, and slope, as defined by the NHDPlus Version 1. This is the basic FishVis modeling unit." />
+											<mx:Image source="./assets/images/help_tip.png" toolTip="A segment of stream that extend from confluence to confluence or to junctions with lakes or reservoirs. In headwater streams, the origin of streams serves as the beginning of reaches that end at their first confluence or junction with a lake or reservoir. This network of confluence to confluence reaches extends to the mouths of rivers for the entire study region." />
 										</s:HGroup>
 									</s:VGroup>
 									<s:HGroup color="0xFFFF99" fontWeight="bold">
 										<s:Label text="Step 2: "/><s:Label text="Select Ecoregion" />
+										<mx:Image source="./assets/images/help_tip.png" toolTip="US Environmental Protection Agency’s (EPA) Wadeable Streams Assessment (WSA) ecoregions are aggregations of Omernik level III terrestrial ecoregions (Omernik 1987) and are defined as large regions of the landscape with broadly similar landform and climate characteristics (https://www.epa.gov/national-aquatic-resource-surveys/wadeable-streams-assessment)." />
 									</s:HGroup>
 									<s:VGroup paddingLeft="25" gap="0" paddingBottom="10">
 										<s:CheckBox id="northAppEco"
@@ -709,12 +710,12 @@
 											<s:CheckBox id="creek"
 													   label="Creek" 
 													   selected="true" />
-											<mx:Image source="./assets/images/help_tip.png" toolTip="" />
+											<mx:Image source="./assets/images/help_tip.png" toolTip="A stream reach with a network catchment area less than 100 square kilometers" />
 										</s:HGroup>
 										<s:HGroup verticalAlign="middle">
 											<s:CheckBox id="river" 
 													   label="River" />
-											<mx:Image source="./assets/images/help_tip.png" toolTip="" />
+											<mx:Image source="./assets/images/help_tip.png" toolTip="A stream reach with a network catchment area greater than 100 square kilometers." />
 										</s:HGroup>
 									</s:VGroup>
 									<s:HGroup color="0xFFFF99" fontWeight="bold">
@@ -727,16 +728,16 @@
 													   label="Land use" 
 													   selected="true"
 													   value="LU" />
-											<mx:Image source="./assets/images/help_tip.png" toolTip="" />
+											<mx:Image source="./assets/images/help_tip.png" toolTip="Streams are scored based on fish species responses to the amounts of human land use in the forms of urban, agricultural, and impervious surface land cover in the catchment. Fish species responses to land use were determined by a dual threshold detection method. The percentage of each human land uses was calculated from the 2006 National Land Cover Database (NLCD 2006)." />
 										</s:HGroup>
 										<s:VGroup paddingLeft="25" gap="0">
 											<s:DropDownList id="landUseSelect" visible="{landuse.selected}" includeInLayout="{landUseSelect.visible}" labelField="text" color="black" prompt="Select a response..." width="200" >
 												<s:ArrayCollection>
-													<fx:Object text="Cumulative" value=""></fx:Object>
-													<fx:Object text="Local buffer" value=""></fx:Object>
-													<fx:Object text="Local catchment" value=""></fx:Object>
-													<fx:Object text="Network buffer" value=""></fx:Object>
-													<fx:Object text="Network catchment" value=""></fx:Object>
+													<fx:Object text="Cumulative" value="AS"></fx:Object>
+													<fx:Object text="Local buffer" value="LB"></fx:Object>
+													<fx:Object text="Local catchment" value="LC"></fx:Object>
+													<fx:Object text="Network buffer" value="NB"></fx:Object>
+													<fx:Object text="Network catchment" value="NC"></fx:Object>
 												</s:ArrayCollection>
 											</s:DropDownList>
 										</s:VGroup>
@@ -745,14 +746,14 @@
 													   id="fragmentation" 
 													   label="Fragmentation" 
 													   value="FR" />
-											<mx:Image source="./assets/images/help_tip.png" toolTip="" />
+											<mx:Image source="./assets/images/help_tip.png" toolTip="Streams are scored based on fish species responses to stream network fragmentation in the forms of both large dams and road crossings. Fish species responses to fragmentation were determined by dual threshold detection.  Fragmentation variables were developed from the National Anthropogenic Barriers Dataset (NABD 2012) and TIGER US roads (2006)." />
 										</s:HGroup>
 										<s:HGroup verticalAlign="middle" visible="{huc12.selected == false}" includeInLayout="{huc12.selected == false}">
 											<s:RadioButton group="{topicOpt}"
 												   id="waterqualimp" 
 												   label="Water-quality impairment" 
 												   value="QW" click="waterqualimp_clickHandler(event)" />
-											<mx:Image source="./assets/images/help_tip.png" toolTip="{QWTooltip}" />
+											<mx:Image source="./assets/images/help_tip.png" toolTip="Streams are scored based on the presence of 303(d) impairments weighted based on the impact of impairments effects on the fish community. Impairment data is drawn from 2002 Impaired Waters Baseline NHDPlus Indexed Dataset, which identifies water bodies that do not meet a state’s defined requirements related to chemical, physical and biological requirements for clean water as part of the Clean Water Act (EPA, 2010). Attention: Please note that these scores should not be used to compare across states, as scores were created on a state by state basis due to differences in sampling protocol and listing thresholds." />
 										</s:HGroup>
 										<s:VGroup paddingLeft="25" gap="0" visible="{huc12.selected == false}" includeInLayout="{huc12.selected == false}">
 											<s:DropDownList id="stateSelect" visible="{waterqualimp.selected}" includeInLayout="{stateSelect.visible}" labelField="text" color="black" prompt="Select a state..." width="200" >
@@ -786,8 +787,8 @@
 											<s:RadioButton group="{topicOpt}"
 														   id="futureclimate" 
 														   label="Future climate"
-														   value="futureclimate" />
-											<mx:Image source="./assets/images/help_tip.png" toolTip="" />
+														   value="CL" />
+											<mx:Image source="./assets/images/help_tip.png" toolTip="Streams are scored based on the risk of change to the fish community due to changes in climate. Risk of change determined based on the number of climate models for which a stream segment exhibits a change in fish community class between current and future climate conditions (Vimont, 2005)." />
 										</s:HGroup>
 										<!--<s:VGroup paddingLeft="25" gap="0" paddingBottom="10" visible="{futureclimate.selected}" includeInLayout="{futureclimate.selected}">
 											<s:DropDownList id="emissionScenario" color="black" width="240" visible="{futureclimate.selected}" includeInLayout="{futureclimate.selected}" prompt="emission scenario" >
@@ -887,10 +888,11 @@
 									<s:Label text="Additional Layers" />
 									<wimControls:LayerToggle id="fishSampleLocationsToggle" layerID="1" serviceLayerID="fishSampleLocations" layerTitle="Fish sampling locations" 
 															 opacBoxBGColor="0x444444" openOpacityRight="true" opacityBoxAlpha="0.9"
-															 moreInfoToolTip="Fish sample collections were acquired from City of Elkhart, Indiana; Indiana Department of Environmental Management; Michigan Department of Natural Resources; Minnesota Pollution Control Agency; New York State Department of Environmental Conservation; Ohio Environmental Protection Agency; Pennsylvania Fish and Boat Commission; and Wisconsin Department of Natural Resources)" 
+															 moreInfoToolTip="A location on a stream reach associated with an electrofishing survey to determine abundances of fish species." 
 															 selected="{fishSampleLocations.visible}" creationComplete="{ fishSampleLocationsToggle.selected=false; }" />
 									<wimControls:LayerToggle id="streamBufferToggle" layerID="1" serviceLayerID="streamBuffer" layerTitle="Stream buffer"
 															 opacBoxBGColor="0x444444" openOpacityRight="true" opacityBoxAlpha="0.9"
+															 moreInfoToolTip="{streamBufferTooltip}"
 															 selected="{streamBuffer.visible}" creationComplete="{ streamBufferToggle.selected=false; }" />
 									<wimControls:LayerToggle id="nhdStreamsToggle" layerID="1" serviceLayerID="nhdStreams" layerTitle="Streams"
 															 opacBoxBGColor="0x444444" openOpacityRight="true" opacityBoxAlpha="0.9"
@@ -910,6 +912,7 @@
 															 selected="{huc12s.visible}" creationComplete="{ huc12Toggle.selected=false; }" />
 									<wimControls:LayerToggle id="ecoregionsToggle" layerID="2" serviceLayerID="ecoregions" layerTitle="Ecoregions (EPA Wadable Streams Assessment)" 
 															 opacBoxBGColor="0x444444" openOpacityRight="true" opacityBoxAlpha="0.9"
+															 moreInfoToolTip="US Environmental Protection Agency’s (EPA) Wadeable Streams Assessment (WSA) ecoregions are aggregations of Omernik level III terrestrial ecoregions (Omernik 1987) and are defined as large regions of the landscape with broadly similar landform and climate characteristics (https://www.epa.gov/national-aquatic-resource-surveys/wadeable-streams-assessment)."
 															 selected="{ecoregions.visible}" creationComplete="{ ecoregionsToggle.selected=false; }"/>
 									<wimControls:LayerToggle id="padusToggle" layerID="0" serviceLayerID="padus" layerTitle="Public land ownership (PAD-US)" 
 															 opacBoxBGColor="0x444444" openOpacityRight="true" opacityBoxAlpha="0.9"
@@ -917,7 +920,7 @@
 															 selected="{padus.visible}" creationComplete="{ padusToggle.selected=false; }"/>
 									<wimControls:LayerToggle id="padusStatusToggle" layerID="0" serviceLayerID="padusStatus" layerTitle="Conservation status (PAD-US)" 
 															 opacBoxBGColor="0x444444" openOpacityRight="true" opacityBoxAlpha="0.9"
-															 moreInfoToolTip=""
+															 moreInfoToolTip="These designations are based off the Protected Areas Database of the United States (PAD-US), the official inventory of protected open space in the United States (http://gapanalysis.usgs.gov/padus/)."
 															 selected="{padusStatus.visible}" creationComplete="{ padusStatusToggle.selected=false; }"/>
 									<wimControls:LayerToggle id="landCoverToggle" layerID="2" serviceLayerID="landCover2006" layerTitle="Land use/land cover (NLCD 2006)" 
 															 opacBoxBGColor="0x444444" openOpacityRight="true" opacityBoxAlpha="0.9"
@@ -930,7 +933,7 @@
 															 selected="{disturbance.visible}" creationComplete="{ disturbanceToggle.selected=false; }"/>
 									<wimControls:LayerToggle id="lccToggle" layerID="2" serviceLayerID="lcc" layerTitle="USFWS Landscape Conservation Cooperatives" 
 															 opacBoxBGColor="0x444444" openOpacityRight="true" opacityBoxAlpha="0.9"
-															 moreInfoToolTip="need description and link?"
+															 moreInfoToolTip="Landscape Conservation Cooperatives (LCCs) were created to better integrate science and management to address environmental issues, such as climate change and other landscape scale issues, over large regions that make-up multiple states and territories to insure sustaining natural and cultural resources."
 															 clickURL=""
 															 selected="{lcc.visible}" creationComplete="{ lccToggle.selected=false; }"/>
 								</s:VGroup>
@@ -1001,9 +1004,8 @@
 					<mx:htmlText>
 						<![CDATA[
 						<font size='12' color='#000000'>
-						<p>The entire FishTail dataset is available for download. Spatial data is provided as a file geodatabase, and 
-						associated metadata is provided in an Excel file. <font size='12' color='#948A54'><b><a target='_blank' href='https://www.sciencebase.gov/catalog/item/52138cf2e4b0b08f44619be8?community=Northeast+CSC'>Click here</a></b></font> to access the download site.</p>
-						
+						<p>Current and future disturbances indices, as well as variables, used to create indices are available for download. Variables include current human landscape disturbances and future climate projections.  Distributions of priority fish species by HUC-12 watersheds will also be available. Spatial data are provided as a file geodatabase with Federal Geographic Data Committee (FGDC) compliant metadata. 
+						<font size='12' color='#948A54'><b><a target='_blank' href='https://www.sciencebase.gov/catalog/item/52138cf2e4b0b08f44619be8?community=Northeast+CSC'>Click here</a></b></font> to access the download site.</p>
 						]]>
 					</mx:htmlText> <!--   -->
 				</mx:Text>
@@ -1034,12 +1036,7 @@
 					<mx:htmlText>
 						<![CDATA[
 						<font size='12' color='#000000'>
-						<p>This map was created using a predictive model, which may
-						not accurately reflect local conditions.</p>
-						<br/>
-						<p>To learn more about model uncertainty and read expert
-						reviews of this map, visit the <font size='12' color='#990033'><b><a target='_blank' href='https://www.sciencebase.gov/catalog/item/52138cf2e4b0b08f44619be8?community=Northeast+CSC'>FishTail project documentation.</a></b></p>
-						</font>
+						<p>Indices were created based on results of analyses to detect associations between human landscape disturbances and projected changes in climate with stream fish abundances. Fish species selected for this assessment were identified as priorities by NECSC stakeholders. Assessment results are characterized as “risk of current habitat degradation” for current human disturbance variables and should be interpreted as reflecting the relative degree of threats to aquatic habitats in a particular region. Water quality scores should not be compared across state boundaries due to differences in sampling protocols. Additionally, water quality impairments data were only available as locations with impairments, therefore locations with “Very low” risk scores either were sampled and did not have any impairment or were never sampled. Assessment results for projected changes in climate are characterized as “risk of change” and reflect the relative degree of change in climate in a particular region.</p>
 						]]>
 					</mx:htmlText> <!--   -->
 				</mx:Text>
@@ -1094,21 +1091,21 @@
 				<mx:Text width="100%" textAlign="left" condenseWhite="true">
 					<mx:htmlText>
 						<![CDATA[<font size='12' color='#000000'><p>
-						<p><b>ABOUT FISHTAIL:  A decision support mapper for conserving stream fish habitats of the NECSC region</b></p><br/>
+						<p><b>ABOUT FISHTAIL:  A decision support mapper for conserving stream fish habitats of the Northeast Climate Science Center (NECSC) region</b></p><br/>
 						<p><b><i>Assessing current and future condition of fluvial habitats</i></b></p><br/>
-						<p>Human impacts occurring throughout the Northeast U.S. that include urbanization, agriculture, and dams have multiple effects on the region’s streams which support economically and socially valuable stream fishes.  Changes in climate are expected to cause additional changes in stream habitats, including changing water temperatures, which will potentially alter future stream fish assemblages. To manage streams for current impacts as well as future changes, managers need region-wide information for decision-making and development of proactive management strategies.  Our project helps to meet that need by integrating results of a current condition assessment of stream habitats based on fish response to human land uses, water quality impairment, and fragmentation by dams with estimates of which stream habitats may change in their ability to support current fish assemblages with changing climate.  This decision support mapper, FISHTAIL, will allow users to evaluate how fish may respond to current and future condition of fish habitats so managers can better protect and conserve stream fishes.</p><br/>
-						<p>Users of FISHTAIL have the capability of viewing a variety of information to support decision making, which can be displayed for different spatial units such as the stream reach or for large watersheds; views of information can be tailored to the entire study region, individual states, or ecoregions; and results can reflect response of entire groups of species or key species of interest to management. Types of information that can be displayed with FISHTAIL include:</p><br/>
+						<p>Human landscape disturbances occurring throughout the Northeast U.S. that include urbanization, agriculture, and dams have multiple effects on the region’s streams which support economically and socially valuable stream fishes.  Changes in climate are expected to cause additional changes in stream habitats, including changing water temperatures, which will potentially alter future stream fish assemblages. To manage streams for current human disturbances as well as future changes, managers need region-wide information for decision-making and development of proactive management strategies.  Our project helps to meet that need by integrating results of a current condition assessment of stream habitats based on fish response to human landscape disturbances, water quality impairment, and fragmentation by dams with estimates of which stream habitats may change in their ability to support current fish assemblages with changing climate.  This decision support mapper, FISHTAIL, will allow users to evaluate how fish may respond to current and future condition of fish habitats so managers can better protect and conserve stream fishes.</p><br/>
+						<p>Users of FISHTAIL have the capability of viewing a variety of information to support decision making, which can be displayed for different spatial units such as the stream reach or large watersheds; views of information can be tailored to the entire study region, individual states, or ecoregions; and results can reflect response of groups of species or key species of interest to management. Types of information that can be displayed with FISHTAIL include:</p><br/>
 						<p><b><i>Current condition of fish habitats</i></b></p><br/>
-						<p><ul><li>An index characterizing stream fish response to urban and agricultural land use</li>
+						<p><ul><li>An index characterizing stream fish response to urban and agricultural land use as characterized by the 2006 National Land Cover Dataset</li>
 						<li>An index characterizing stream fish response to river fragmentation by large dams</li>
-						<li>An index characterizing stream fish response to water quality impairment as reflected by 303d listings in waterbodies related to mercury, other metals, nutrients, organic enrichment/oxygen depletion, and pathogens.</li>
+						<li>An index characterizing stream fish response to water quality impairment as reflected by 303d listings in waterbodies</li>
 						<br/>
 						<p><b><i>Future condition of fish habitats</i></b></p><br/>
-						<p><ul><li>An index characterizing the likelihood of stream habitat to change in its ability to support species of interest with projected changes in climate</li>
+						<p><ul><li>An index characterizing the likelihood of stream habitat to change in ability to support thermally and hydrologically sensitive fish species with projected changes in climate</li>
 						<br/>
 						<p><b><i>Additional information to support decision making</i></b></p><br/>
-						<p><ul><li>Locations of currently protected lands throughout the NECSC region</li>
-						<li>National Fish Habitat Partnership fish habitat condition assessment scores for 2015</li>
+						<p><ul><li>Locations of protected lands throughout the NECSC region</li>
+						<li>Fish habitat condition scores developed for streams of the conterminous United States in support of the National Fish Habitat Partnership 2015 Assessment</li>
 						<br/>
 						<br/>
 						]]>

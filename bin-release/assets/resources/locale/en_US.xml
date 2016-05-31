@@ -18,8 +18,8 @@
   	<!-- <resource name="scenariosSmallUrl" value="https://gis.wim.usgs.gov/ArcGIS/rest/services/FishVis/scenarios_small_scale/MapServer" /> -->
   	<resource name="scenariosCatchmentsUrl" value="http://gis.wim.usgs.gov/arcgis/rest/services/Fishtail/fishtail_catch/MapServer" />
 	<resource name="scenariosCatchmentsSmallUrl" value="http://gis.wim.usgs.gov/arcgis/rest/services/Fishtail/fishtail_catch_simple/MapServer" />
-	<!-- <resource name="scenariosHUC12Url" value="https://gis.wim.usgs.gov/arcgis/rest/services/FishVis/scenarios_huc12/MapServer" />
-	<resource name="streamsForQueryUrl" value="https://gis.wim.usgs.gov/ArcGIS/rest/services/FishVis/streams_for_query/MapServer" />
+	<resource name="scenariosHUC12Url" value="https://gis.wim.usgs.gov/arcgis/rest/services/Fishtail/fishtail_huc12/MapServer" />
+	<!-- <resource name="streamsForQueryUrl" value="https://gis.wim.usgs.gov/ArcGIS/rest/services/FishVis/streams_for_query/MapServer" />
 	<resource name="climateStreamflow" value="https://gis.wim.usgs.gov/arcgis/rest/services/FishVis/climate_streamflow/MapServer" />
 	<resource name="climateStreamflowSmall" value="https://gis.wim.usgs.gov/arcgis/rest/services/FishVis/climate_streamflow_small_scale/MapServer" /> -->
   	<!-- changed to FishTail -->
@@ -40,7 +40,7 @@
   
   <!-- UI graphics -->
   <resourceBundle name="ui.graphics">
-    <resource name="headerLogo" value="assets/images/lcc-logo_banner.png" />
+    <resource name="headerLogo" value="assets/images/usgsLogoSm.jpg" />
     <resource name="wimLogo" value="assets/images/wim_logo_sm_4c.gif" />    
   </resourceBundle>
   
