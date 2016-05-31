@@ -94,6 +94,7 @@ import spark.events.IndexChangeEvent;
 
 			private var scenarioLayerInfos:Array;
 			private var scenarioCatchmentsLayerInfos:Array;
+			private var scenarioCatchmentsSmallLayerInfos:Array;
 			private var scenarioHUC12LayerInfos:Array;
 			private var streamTempLayerInfos:Array;
 			private var climateStreamflowLayerInfos:Array;
@@ -126,6 +127,7 @@ import spark.events.IndexChangeEvent;
 				
 				scenarioLayerInfos = scenarios.layerInfos;
 				scenarioCatchmentsLayerInfos = scenariosCatchments.layerInfos;
+				scenarioCatchmentsSmallLayerInfos = scenariosCatchmentsSmall.layerInfos;
 				scenarioHUC12LayerInfos = scenariosHUC12.layerInfos;
 				
 				//fishVisSearchLayerInfos = fishVisSearch.layerInfos;
@@ -328,6 +330,8 @@ import spark.events.IndexChangeEvent;
 				scenariosSmall.refresh();
 				scenariosCatchments.visibleLayers = new ArrayCollection();
 				scenariosCatchments.refresh();
+				scenariosCatchmentsSmall.visibleLayers = new ArrayCollection();
+				scenariosCatchmentsSmall.refresh();
 				scenariosHUC12.visibleLayers = new ArrayCollection();
 				scenariosHUC12.refresh();
 				climateStreamflow.visibleLayers = new ArrayCollection();
@@ -438,7 +442,12 @@ import spark.events.IndexChangeEvent;
 					}
 				}
 				
-				layerDef += " AND EcoregCode IN " + ecoSqlArr;
+				if (catchment.selected) {
+					layerDef += " AND EcoregCode IN " + ecoSqlArr;
+				} else if (streamReach.selected) {
+					layerDef += " AND Ecoreg_Code IN " + ecoSqlArr;
+				}
+				
 				
 				var rivArr:Array = [];
 				
@@ -823,9 +832,13 @@ import spark.events.IndexChangeEvent;
 						for (i = 0; i < scenarioLayerInfos.length; i++) {
 							if (scenarioLayerInfos[i].name == layerName) {
 								scenarios.visibleLayers = new ArrayCollection([scenarioLayerInfos[i].layerId]);
+								var layerDefs:Array = [];
+								layerDefs[scenarioLayerInfos[i].layerId] = layerDef;
+								scenarios.layerDefinitions = layerDefs;
+								scenarios.visible = true;
 								scenarios.refresh();
-								scenariosSmall.visibleLayers = new ArrayCollection([scenarioLayerInfos[i].layerId]);
-								scenariosSmall.refresh();
+								//scenariosSmall.visibleLayers = new ArrayCollection([scenarioLayerInfos[i].layerId]);
+								//scenariosSmall.refresh();
 								needBrowseWarning = false;
 								break;
 							} else {
@@ -848,6 +861,7 @@ import spark.events.IndexChangeEvent;
 						for (i = 0; i < scenarioCatchmentsLayerInfos.length; i++) {
 							if (scenarioCatchmentsLayerInfos[i].name == layerName) {
 								scenariosCatchments.visibleLayers = new ArrayCollection([scenarioCatchmentsLayerInfos[i].layerId]);
+								scenariosCatchmentsSmall.visibleLayers = new ArrayCollection([scenarioCatchmentsLayerInfos[i].layerId]);
 								if (responseInd == "QW" && stateSelect.selectedIndex == -1) {
 									break;
 								}
@@ -856,6 +870,9 @@ import spark.events.IndexChangeEvent;
 								scenariosCatchments.layerDefinitions = layerDefs;
 								scenariosCatchments.visible = true;
 								scenariosCatchments.refresh();
+								scenariosCatchmentsSmall.layerDefinitions = layerDefs;
+								scenariosCatchmentsSmall.visible = true;
+								scenariosCatchmentsSmall.refresh();
 								needBrowseWarning = false;
 								break;
 							} else {
@@ -865,6 +882,7 @@ import spark.events.IndexChangeEvent;
 						}
 						scenariosCatchmentsLegend.aLegendService.send();
 						scenariosCatchmentsLegend.legendTitle = legendTitle;
+						scenariosCatchmentsSmallLegend.legendTitle = legendTitle;
 					}
 				}
 				

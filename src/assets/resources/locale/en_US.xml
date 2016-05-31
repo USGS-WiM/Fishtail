@@ -13,10 +13,11 @@
   
   <!--  URLs -->
   <resourceBundle name="urls">
-	<!-- FishVis and wim hosted resources -->
-  	<!-- <resource name="scenariosUrl" value="https://gis.wim.usgs.gov/ArcGIS/rest/services/FishVis/scenarios/MapServer" />
-  	<resource name="scenariosSmallUrl" value="https://gis.wim.usgs.gov/ArcGIS/rest/services/FishVis/scenarios_small_scale/MapServer" /> -->
+	<!-- Fishtail and wim hosted resources -->
+  	<resource name="scenariosUrl" value="https://gis.wim.usgs.gov/ArcGIS/rest/services/Fishtail/fishtail_reach/MapServer" />
+  	<!-- <resource name="scenariosSmallUrl" value="https://gis.wim.usgs.gov/ArcGIS/rest/services/FishVis/scenarios_small_scale/MapServer" /> -->
   	<resource name="scenariosCatchmentsUrl" value="http://gis.wim.usgs.gov/arcgis/rest/services/Fishtail/fishtail_catch/MapServer" />
+	<resource name="scenariosCatchmentsSmallUrl" value="http://gis.wim.usgs.gov/arcgis/rest/services/Fishtail/fishtail_catch_simple/MapServer" />
 	<!-- <resource name="scenariosHUC12Url" value="https://gis.wim.usgs.gov/arcgis/rest/services/FishVis/scenarios_huc12/MapServer" />
 	<resource name="streamsForQueryUrl" value="https://gis.wim.usgs.gov/ArcGIS/rest/services/FishVis/streams_for_query/MapServer" />
 	<resource name="climateStreamflow" value="https://gis.wim.usgs.gov/arcgis/rest/services/FishVis/climate_streamflow/MapServer" />
@@ -30,11 +31,11 @@
   	<resource name="roadStreamsCache" value="http://gis.wim.usgs.gov/ArcGIS/rest/services/FishVis/roads_stream_crossing_cache/MapServer" />
   	
   	<!-- non wim hosted resources -->
-  	<resource name="padusUrl" value="https://gis1.usgs.gov/arcgis/rest/services/gap/PADUS_Owner/MapServer" />
-  	<resource name="padusStatusUrl" value="https://gis1.usgs.gov/arcgis/rest/services/gap/PADUS_Status/MapServer" />
-  	<resource name="landCover2006Url" value="https://raster.nationalmap.gov/arcgis/rest/services/LandCover/conus_06/MapServer" />
-  	<resource name="lccUrl" value="https://www.sciencebase.gov/arcgis/rest/services/Catalog/55b943ade4b09a3b01b65d78/MapServer" />
-  	<resource name="disturbanceUrl" value="https://gis1.usgs.gov/arcgis/rest/services/nfhap/nfhap_scores_tiled_huc12_PROD/MapServer/" />
+  	<resource name="padusUrl" value="http://gis1.usgs.gov/arcgis/rest/services/gap/PADUS_Owner/MapServer" />
+  	<resource name="padusStatusUrl" value="http://gis1.usgs.gov/arcgis/rest/services/gap/PADUS_Status/MapServer" />
+  	<resource name="landCover2006Url" value="http://raster.nationalmap.gov/arcgis/rest/services/LandCover/conus_06/MapServer" />
+  	<resource name="lccUrl" value="http://www.sciencebase.gov/arcgis/rest/services/Catalog/55b943ade4b09a3b01b65d78/MapServer" />
+  	<resource name="disturbanceUrl" value="http://gis1.usgs.gov/arcgis/rest/services/nfhap/nfhap_scores_tiled_huc12_PROD/MapServer/" />
   </resourceBundle>
   
   <!-- UI graphics -->
