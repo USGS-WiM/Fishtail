@@ -504,6 +504,14 @@
 				url="{resourceManager.getString('urls', 'scenariosCatchmentsUrl')}" > <!-- visible="{resultsTabs.selectedIndex == 0 &amp;&amp; catchment.selected == true &amp;&amp; streamflow.selected == false &amp;&amp; climateProj.selected == false}" -->
 			</esri:ArcGISDynamicMapServiceLayer>
 			<esri:ArcGISDynamicMapServiceLayer
+				id="scenariosCatchmentsSmall"
+				visible="false"
+				alpha="0.7"  
+				updateStart="loadingScreenEnable()"
+				updateEnd="layerUpdateComp(scenariosCatchmentsSmall)"
+				url="{resourceManager.getString('urls', 'scenariosCatchmentsSmallUrl')}" > <!-- visible="{(resultsTabs.selectedIndex == 0 &amp;&amp; streamReach.selected == true &amp;&amp; streamflow.selected == false &amp;&amp; climateProj.selected == false) &amp;&amp; map.scale &gt; 1500000}" -->
+			</esri:ArcGISDynamicMapServiceLayer>
+			<esri:ArcGISDynamicMapServiceLayer
 				id="scenarios"
 				visible="false"
 				alpha="1" 
@@ -675,7 +683,7 @@
 											<s:RadioButton group="{displayByOpt}"
 													   id="streamReach"
 													   label="Stream reach" 
-													   value="reach" />
+													   value="CS" />
 											<mx:Image source="./assets/images/help_tip.png" toolTip="Reach - Length of stream uniform with respect to discharge, depth, area, and slope, as defined by the NHDPlus Version 1. This is the basic FishVis modeling unit." />
 										</s:HGroup>
 									</s:VGroup>
@@ -831,6 +839,7 @@
 							<localControls:MapServiceLegend id="scenariosLegend" map="{map}" visible="{scenarios.visible &amp;&amp; (scenarios.visibleLayers != null &amp;&amp; scenarios.visibleLayers.length != 0)}" needsUpdates="true" includeInLayout="{scenarios.visible &amp;&amp; (scenarios.visibleLayers != null &amp;&amp; scenarios.visibleLayers.length != 0)}" serviceLayer="{scenarios}" legendWidth="245" />
 							<localControls:MapServiceLegend id="scenariosSmallLegend" map="{map}" visible="{scenariosSmall.visible &amp;&amp; (scenariosSmall.visibleLayers != null &amp;&amp; scenariosSmall.visibleLayers.length != 0)}" needsUpdates="true" includeInLayout="{scenariosSmall.visible &amp;&amp; (scenariosSmall.visibleLayers != null &amp;&amp; scenariosSmall.visibleLayers.length != 0)}" serviceLayer="{scenariosSmall}" legendWidth="245" />
 							<localControls:MapServiceLegend id="scenariosCatchmentsLegend" map="{map}" visible="{scenariosCatchments.visible &amp;&amp; (scenariosCatchments.visibleLayers != null &amp;&amp; scenariosCatchments.visibleLayers.length != 0)}" needsUpdates="true" includeInLayout="{scenariosCatchments.visible &amp;&amp; (scenariosCatchments.visibleLayers != null &amp;&amp; scenariosCatchments.visibleLayers.length != 0)}" serviceLayer="{scenariosCatchments}" legendWidth="245" />
+							<localControls:MapServiceLegend id="scenariosCatchmentsSmallLegend" map="{map}" visible="{scenariosCatchmentsSmall.visible &amp;&amp; (scenariosCatchmentsSmall.visibleLayers != null &amp;&amp; scenariosCatchmentsSmall.visibleLayers.length != 0)}" needsUpdates="true" includeInLayout="{scenariosCatchmentsSmall.visible &amp;&amp; (scenariosCatchmentsSmall.visibleLayers != null &amp;&amp; scenariosCatchmentsSmall.visibleLayers.length != 0)}" serviceLayer="{scenariosCatchmentsSmall}" legendWidth="245" />
 							<localControls:MapServiceLegend id="scenariosHUC12Legend" map="{map}" visible="{scenariosHUC12.visible &amp;&amp; (scenariosHUC12.visibleLayers != null &amp;&amp; scenariosHUC12.visibleLayers.length != 0)}" needsUpdates="true" includeInLayout="{scenariosHUC12.visible &amp;&amp; (scenariosHUC12.visibleLayers != null &amp;&amp; scenariosHUC12.visibleLayers.length != 0)}" serviceLayer="{scenariosHUC12}" legendWidth="245" />
 							<localControls:MapServiceLegend id="climateStreamflowLegend" map="{map}" visible="{climateStreamflow.visible &amp;&amp; (climateStreamflow.visibleLayers != null &amp;&amp; climateStreamflow.visibleLayers.length != 0)}" needsUpdates="true" includeInLayout="{climateStreamflowLegend.visible}" serviceLayer="{climateStreamflow}" legendWidth="245" />
 							<localControls:MapServiceLegend id="climateStreamflowSmallLegend" map="{map}" visible="{climateStreamflowSmall.visible &amp;&amp; (climateStreamflowSmall.visibleLayers != null &amp;&amp; climateStreamflowSmall.visibleLayers.length != 0)}" needsUpdates="true" includeInLayout="{climateStreamflowSmallLegend.visible}" serviceLayer="{climateStreamflowSmall}" legendWidth="245" />
