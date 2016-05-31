@@ -412,7 +412,7 @@ import spark.events.IndexChangeEvent;
 				var landUseType:String = "";
 				if (landUseSelect.selectedIndex != -1 && landuse.selected) {
 					landUseType = landUseSelect.selectedItem.value;
-				} else {
+				} else if (!landuse.selected) {
 					landUseType = "AS";
 				}
 				
