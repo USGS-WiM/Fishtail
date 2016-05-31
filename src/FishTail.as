@@ -113,7 +113,7 @@ import spark.events.IndexChangeEvent;
 			private var npsUrlTemplate:String = "http://{subDomain}.tiles.mapbox.com/v3/nps.pt-shaded-relief,nps.pt-urban-areas,nps.pt-river-lines,nps.pt-admin-lines,nps.pt-park-poly,nps.pt-mask,nps.pt-hydro-features,nps.pt-admin-labels,nps.pt-roads,nps.pt-road-shields,nps.pt-park-points,nps.pt-hydro-labels,nps.pt-city-labels,nps.pt-park-labels/{level}/{col}/{row}.png"
 			private static const ABCD:Array = [ "a", "b", "c", "d" ];
 
-			private var QWTooltip:String = '<p><b>Attention: </b>Please note that these scores should not be used to compare across states, as scores were created on a state by state basis due to differences in sampling protocol and listing thresholds.</p><br/><br/><p>Placeholder for WQ description</p>';
+			private var streamBufferTooltip:String = '<p>A buffer describes a narrow area of the landscape running adjacent to a stream on both banks.</p><br/><p>a. Local buffer:  A local buffer is the region of the landscape occurring out to 90 m on either side s reach.</p><br/><p>b. Network buffer:  A network buffer is the region of the landscape occurring out to 90 m on either side of a stream reach and including the regions for all of the reaches draining to it within the reach’s network catchment.  The network buffer for a particular stream reach includes that reach’s local buffer.</p>';
 			
 				
 
@@ -301,7 +301,12 @@ import spark.events.IndexChangeEvent;
 					landUseSelect.selectedIndex = -1;
 					stateSelect.selectedIndex = -1;
 					
+					scenarios.visible = false;
 					scenariosCatchments.visible = false;
+					scenariosCatchmentsSmall.visible = false;
+					scenariosHUC12.visible = false;
+					
+					return;
 				}
 				
 				//return;
@@ -404,12 +409,18 @@ import spark.events.IndexChangeEvent;
 				
 				var displayByVal:String = displayByOpt.selectedValue.toString();
 				var responseInd:String = topicOpt.selectedValue.toString();
-				var speciesOpt:String = "AS";
+				var landUseType:String = "";
+				if (landUseSelect.selectedIndex != -1 && landuse.selected) {
+					landUseType = landUseSelect.selectedItem.value;
+				} else {
+					landUseType = "AS";
+				}
+				
 				/*if (speciesSelect.selectedItem = "All species") {
 					speciesOpt = "AS";
 				}*/
 				
-				layerName = displayByVal + responseInd + speciesOpt;
+				layerName = displayByVal + responseInd + landUseType;
 				
 				layerDef = "1 = 1";
 				
@@ -444,7 +455,7 @@ import spark.events.IndexChangeEvent;
 				
 				if (catchment.selected) {
 					layerDef += " AND EcoregCode IN " + ecoSqlArr;
-				} else if (streamReach.selected) {
+				} else if (streamReach.selected || huc12.selected) {
 					layerDef += " AND Ecoreg_Code IN " + ecoSqlArr;
 				}
 				
@@ -466,8 +477,6 @@ import spark.events.IndexChangeEvent;
 						rivSqlArr += rivArr[i] + "','";
 					}
 				}
-				
-				layerDef += " AND Creek_River IN " + rivSqlArr;
 				
 				if (huc12.selected) {
 					/*if (streamtemp.selected) {
@@ -823,6 +832,16 @@ import spark.events.IndexChangeEvent;
 					browseWarning.visible = false;
 				}*/
 				
+				if (!southAppCoastEco.selected && !tempPlainsEco.selected && !northAppEco.selected && !upperMidEco.selected) {
+					Alert.show("You have not entered enough information to display a map. Check your selections and try again.");
+					return;
+				}
+				
+				if (!creek.selected && !river.selected) {
+					Alert.show("You have not entered enough information to display a map. Check your selections and try again.");
+					return;
+				}
+				
 				var needBrowseWarning:Boolean = true;
 				
 				//Code for determining layers and updating appropriate layers
@@ -892,6 +911,10 @@ import spark.events.IndexChangeEvent;
 						for (i = 0; i < scenarioHUC12LayerInfos.length; i++) {
 							if (scenarioHUC12LayerInfos[i].name == layerName) {
 								scenariosHUC12.visibleLayers = new ArrayCollection([scenarioHUC12LayerInfos[i].layerId]);
+								var layerDefs:Array = [];
+								layerDefs[scenarioHUC12LayerInfos[i].layerId] = layerDef;
+								scenariosHUC12.layerDefinitions = layerDefs;
+								scenariosHUC12.visible = true;
 								scenariosHUC12.refresh();
 								needBrowseWarning = false;
 								break;
