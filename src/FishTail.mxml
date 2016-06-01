@@ -479,22 +479,22 @@
 				updateEnd="layerUpdateComp(scenariosHUC12)"
 				url="{resourceManager.getString('urls', 'scenariosHUC12Url')}" >
 			</esri:ArcGISDynamicMapServiceLayer>
-			<esri:ArcGISDynamicMapServiceLayer
+			<!--<esri:ArcGISDynamicMapServiceLayer
 				id="climateStreamflow"
 				visible="false" 
 				alpha="0.7"
 				updateStart="loadingScreenEnable()"
 				updateEnd="layerUpdateComp(climateStreamflow)"
-				url="{resourceManager.getString('urls', 'climateStreamflow')}" > <!--visible="{resultsTabs.selectedIndex == 0 &amp;&amp; (climateProj.selected || streamflow.selected) &amp;&amp; map.scale &lt; 1500000}"-->
-			</esri:ArcGISDynamicMapServiceLayer>
+				url="{resourceManager.getString('urls', 'climateStreamflow')}" > --><!--visible="{resultsTabs.selectedIndex == 0 &amp;&amp; (climateProj.selected || streamflow.selected) &amp;&amp; map.scale &lt; 1500000}"-->
+			<!--</esri:ArcGISDynamicMapServiceLayer>
 			<esri:ArcGISDynamicMapServiceLayer
 				id="climateStreamflowSmall"
 				visible="false"
 				alpha="0.7"
 				updateStart="loadingScreenEnable()"
 				updateEnd="layerUpdateComp(climateStreamflowSmall)"
-				url="{resourceManager.getString('urls', 'climateStreamflowSmall')}" > <!--visible="{resultsTabs.selectedIndex == 0 &amp;&amp; (climateProj.selected || streamflow.selected) &amp;&amp; map.scale &gt; 1500000}"-->
-			</esri:ArcGISDynamicMapServiceLayer>
+				url="{resourceManager.getString('urls', 'climateStreamflowSmall')}" >--> <!--visible="{resultsTabs.selectedIndex == 0 &amp;&amp; (climateProj.selected || streamflow.selected) &amp;&amp; map.scale &gt; 1500000}"-->
+			<!--</esri:ArcGISDynamicMapServiceLayer>-->
 			<esri:ArcGISDynamicMapServiceLayer
 				id="scenariosCatchments"
 				visible="false" 
@@ -519,14 +519,14 @@
 				updateEnd="layerUpdateComp(scenarios)"
 				url="{resourceManager.getString('urls', 'scenariosUrl')}" > <!-- visible="{(resultsTabs.selectedIndex == 0 &amp;&amp; streamReach.selected == true &amp;&amp; streamflow.selected == false &amp;&amp; climateProj.selected == false) &amp;&amp; map.scale &lt; 1500000}" -->
 			</esri:ArcGISDynamicMapServiceLayer>
-			<esri:ArcGISDynamicMapServiceLayer
+			<!--<esri:ArcGISDynamicMapServiceLayer
 				id="scenariosSmall"
 				visible="false"
 				alpha="1"  
 				updateStart="loadingScreenEnable()"
 				updateEnd="layerUpdateComp(scenariosSmall)"
-				url="{resourceManager.getString('urls', 'scenariosSmallUrl')}" > <!-- visible="{(resultsTabs.selectedIndex == 0 &amp;&amp; streamReach.selected == true &amp;&amp; streamflow.selected == false &amp;&amp; climateProj.selected == false) &amp;&amp; map.scale &gt; 1500000}" -->
-			</esri:ArcGISDynamicMapServiceLayer>
+				url="{resourceManager.getString('urls', 'scenariosSmallUrl')}" > --><!-- visible="{(resultsTabs.selectedIndex == 0 &amp;&amp; streamReach.selected == true &amp;&amp; streamflow.selected == false &amp;&amp; climateProj.selected == false) &amp;&amp; map.scale &gt; 1500000}" -->
+			<!--</esri:ArcGISDynamicMapServiceLayer>-->
 			<!--<esri:ArcGISDynamicMapServiceLayer
 				id="fishVisSearch"
 				visible="{resultsTabs.selectedIndex == 1}"
@@ -838,13 +838,13 @@
 						<s:VGroup id="legendControls" paddingTop="5" paddingLeft="5" paddingRight="5" paddingBottom="5" gap="0">
 							<!-- Begin legends for browse tab results -->
 							<localControls:MapServiceLegend id="scenariosLegend" map="{map}" visible="{scenarios.visible &amp;&amp; (scenarios.visibleLayers != null &amp;&amp; scenarios.visibleLayers.length != 0)}" needsUpdates="true" includeInLayout="{scenarios.visible &amp;&amp; (scenarios.visibleLayers != null &amp;&amp; scenarios.visibleLayers.length != 0)}" serviceLayer="{scenarios}" legendWidth="245" />
-							<localControls:MapServiceLegend id="scenariosSmallLegend" map="{map}" visible="{scenariosSmall.visible &amp;&amp; (scenariosSmall.visibleLayers != null &amp;&amp; scenariosSmall.visibleLayers.length != 0)}" needsUpdates="true" includeInLayout="{scenariosSmall.visible &amp;&amp; (scenariosSmall.visibleLayers != null &amp;&amp; scenariosSmall.visibleLayers.length != 0)}" serviceLayer="{scenariosSmall}" legendWidth="245" />
-							<localControls:MapServiceLegend id="scenariosCatchmentsLegend" map="{map}" visible="{scenariosCatchments.visible &amp;&amp; (scenariosCatchments.visibleLayers != null &amp;&amp; scenariosCatchments.visibleLayers.length != 0)}" needsUpdates="true" includeInLayout="{scenariosCatchments.visible &amp;&amp; (scenariosCatchments.visibleLayers != null &amp;&amp; scenariosCatchments.visibleLayers.length != 0)}" serviceLayer="{scenariosCatchments}" legendWidth="245" />
+							<!--<localControls:MapServiceLegend id="scenariosSmallLegend" map="{map}" visible="{scenariosSmall.visible &amp;&amp; (scenariosSmall.visibleLayers != null &amp;&amp; scenariosSmall.visibleLayers.length != 0)}" needsUpdates="true" includeInLayout="{scenariosSmall.visible &amp;&amp; (scenariosSmall.visibleLayers != null &amp;&amp; scenariosSmall.visibleLayers.length != 0)}" serviceLayer="{scenariosSmall}" legendWidth="245" />
+							--><localControls:MapServiceLegend id="scenariosCatchmentsLegend" map="{map}" visible="{scenariosCatchments.visible &amp;&amp; (scenariosCatchments.visibleLayers != null &amp;&amp; scenariosCatchments.visibleLayers.length != 0)}" needsUpdates="true" includeInLayout="{scenariosCatchments.visible &amp;&amp; (scenariosCatchments.visibleLayers != null &amp;&amp; scenariosCatchments.visibleLayers.length != 0)}" serviceLayer="{scenariosCatchments}" legendWidth="245" />
 							<localControls:MapServiceLegend id="scenariosCatchmentsSmallLegend" map="{map}" visible="{scenariosCatchmentsSmall.visible &amp;&amp; (scenariosCatchmentsSmall.visibleLayers != null &amp;&amp; scenariosCatchmentsSmall.visibleLayers.length != 0)}" needsUpdates="true" includeInLayout="{scenariosCatchmentsSmall.visible &amp;&amp; (scenariosCatchmentsSmall.visibleLayers != null &amp;&amp; scenariosCatchmentsSmall.visibleLayers.length != 0)}" serviceLayer="{scenariosCatchmentsSmall}" legendWidth="245" />
 							<localControls:MapServiceLegend id="scenariosHUC12Legend" map="{map}" visible="{scenariosHUC12.visible &amp;&amp; (scenariosHUC12.visibleLayers != null &amp;&amp; scenariosHUC12.visibleLayers.length != 0)}" needsUpdates="true" includeInLayout="{scenariosHUC12.visible &amp;&amp; (scenariosHUC12.visibleLayers != null &amp;&amp; scenariosHUC12.visibleLayers.length != 0)}" serviceLayer="{scenariosHUC12}" legendWidth="245" />
-							<localControls:MapServiceLegend id="climateStreamflowLegend" map="{map}" visible="{climateStreamflow.visible &amp;&amp; (climateStreamflow.visibleLayers != null &amp;&amp; climateStreamflow.visibleLayers.length != 0)}" needsUpdates="true" includeInLayout="{climateStreamflowLegend.visible}" serviceLayer="{climateStreamflow}" legendWidth="245" />
+							<!--<localControls:MapServiceLegend id="climateStreamflowLegend" map="{map}" visible="{climateStreamflow.visible &amp;&amp; (climateStreamflow.visibleLayers != null &amp;&amp; climateStreamflow.visibleLayers.length != 0)}" needsUpdates="true" includeInLayout="{climateStreamflowLegend.visible}" serviceLayer="{climateStreamflow}" legendWidth="245" />
 							<localControls:MapServiceLegend id="climateStreamflowSmallLegend" map="{map}" visible="{climateStreamflowSmall.visible &amp;&amp; (climateStreamflowSmall.visibleLayers != null &amp;&amp; climateStreamflowSmall.visibleLayers.length != 0)}" needsUpdates="true" includeInLayout="{climateStreamflowSmallLegend.visible}" serviceLayer="{climateStreamflowSmall}" legendWidth="245" />
-							<!-- End legends for browse tab results -->
+							--><!-- End legends for browse tab results -->
 							
 							<!-- Begin legends for search tab results -->
 							<!--<localControls:MapServiceLegend id="searchLegend" map="{map}" visible="{fishVisSearch.visible &amp;&amp; fishVisSearch.visibleLayers.length &gt; 0}" legendTitle="{(fishVisSearch.visibleLayers.getItemAt(0) == 0) ? 'Reaches' : 'Catchments'} that meet search criteria" needsUpdates="true" includeInLayout="{fishVisSearch.visible}" serviceLayer="{fishVisSearch}" legendWidth="245" />

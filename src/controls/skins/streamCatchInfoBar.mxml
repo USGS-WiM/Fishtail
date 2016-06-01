@@ -77,18 +77,10 @@
 				<s:Label fontSize="12" fontWeight="bold" width="155" text="{(hostComponent.dataObj.GNIS_NAME == ' ' || hostComponent.dataObj.GNIS_NAME == '') ? hostComponent.dataObj.COMID : hostComponent.dataObj.GNIS_NAME}" />
 				<s:Label fontSize="10" text="(stream or COMID)" />
 				<s:HGroup paddingTop="10" >
-					<!-- this may be more location info at some point -->
-					<s:Label text="State: {state}" />
-				</s:HGroup>
-				<s:VGroup>
-					<s:Label width="150" text="HUC12 Code: {hostComponent.dataObj.HUC_12}" />
-					<s:Label width="150" text="HUC12 Name: {hostComponent.dataObj.HU_12_NAME}" />
-				</s:VGroup>
-				<s:HGroup>
 					<s:Label text="Reach COMID: " />
 					<s:Label text="{hostComponent.dataObj.COMID}" />
 				</s:HGroup>
-				<s:VGroup paddingTop="10" visible="{hostComponent.dataObj.hasOwnProperty('Length_mi')}" includeInLayout="{hostComponent.dataObj.hasOwnProperty('Length_mi')}">
+				<s:VGroup visible="{hostComponent.dataObj.hasOwnProperty('Length_mi')}" includeInLayout="{hostComponent.dataObj.hasOwnProperty('Length_mi')}">
 					<s:Label text="Reach length: " />
 					<s:Label paddingLeft="5" text="  {Number(hostComponent.dataObj.Length_mi).toFixed(2)} miles" />
 				</s:VGroup>
@@ -99,6 +91,18 @@
 				<s:VGroup visible="{hostComponent.dataObj.hasOwnProperty('AreaN_sqmi')}" includeInLayout="{hostComponent.dataObj.hasOwnProperty('AreaN_sqmi')}">
 					<s:Label text="Network catchment area: " />
 					<s:Label paddingLeft="5" text="  {Number(hostComponent.dataObj.AreaN_sqmi).toFixed(2)} square miles" />
+				</s:VGroup>
+				<s:HGroup paddingTop="10">
+					<!-- this may be more location info at some point -->
+					<s:Label text="State: {state}" />
+				</s:HGroup>
+				<s:VGroup>
+					<s:Label width="150" text="HUC12 Code: {hostComponent.dataObj.HUC_12}" />
+					<s:Label width="150" text="HUC12 Name: {hostComponent.dataObj.HUC_12_NAME}" />
+				</s:VGroup>
+				<s:VGroup>
+					<s:Label width="150" text="Ecoregion: {hostComponent.dataObj.Ecoreg_Name}" />
+					<s:Label width="150" text="Ecoregion Code: {hostComponent.dataObj.Ecoreg_Code}" />
 				</s:VGroup>
 			</s:VGroup>
 		</mx:VBox>
