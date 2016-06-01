@@ -69,12 +69,8 @@
 			[Bindable]
 			private var tempClassBlue:uint = 0x0000FF;
 			
-			private var streamTempTooltip:String = "<b>July mean:</b> July daily mean stream temperature (Late 20th century values were predicted using observed values; Mid and Late 21st century values were predicted using downscaled climate projections from 13 general circulation models)<br/><b>Thermal class:</b> classified by July mean stream temperature (in degrees celsius), where Cold = &lt; 17.5°C; Cold transition = 17.5 - 19.5°C; Warm transition = 19.5 - 21°C; and Warm Water = &gt; 21°C)<br/><b>Change in thermal class:</b> Comparison of present thermal class to future time period thermal class<br/><b>Change in degrees:</b> Difference in July mean stream temperature between present and future time period (in degrees Farenheit)";
-			private var fishSummaryTooltip:String = "<p><b>Predicted occurrence:</b> Indicates whether a fish thermal group or species are present or absent (where predicted probability of occurrence &gt; = 50%, species were classified as being present; otherwise species were classified as being absent)</p><br/><p><b>Number of species lost:</b> Number of species lost in a future time period compared to the present</p><br/><p><b>Number of species gained:</b> Number of species gained in a future time period compared to the present</p><br/><p><b>Number of species lost or gained:</b> Total number of species lost and gained in a future time period compared to the present</p><br/><p><b>Percent of species lost:</b> Percent of species lost in a future time period compared to the present</p><br/><p><b>Percent of species gained:</b> Percent of species gained in a future time period compared to the present</p>"
-			private var fishIndSpeciesTooltip:String = "<p><b>Predicted occurrence:</b> Indicates whether a fish thermal group or species are present or absent (where predicted probability of occurrence &gt; = 50%, species were classified as being present; otherwise species were classified as being absent)";
-			private var streamflowTooltip:String = "<p><b>Annual Q50 flow:</b> Streamflow is at least this high 50% of the year (medium flow). Measured in cubic feet per second.</p><p><b>Annual Q50 yield:</b> Annual Q50 streamflow (medium flow) divided by drainage area. Measured in cubic feet per second per square mile.</p><p><b>August Q90 flow:</b> Streamflow is at least this high 90% of the year (low flow). Measured in cubic feet per second.</p><p><b>August Q90 yield:</b> August Q90 streamflow (low flow) divided by drainage area. Measured in cubic feet per second per square mile.</p>";
-			private var climateAvgTooltip:String = "<p><b>Mean annual air temperature:</b> Average yearly temperature (Late 20th century, Mid, and Late 21st century values were projected from downscaled climatedata from 13 general circulation models (GCMs))</p><p><b>Change in mean annual air temperature:</b> Difference in average yearly temperature/precipitation between present and future time period</p><p><b>Mean annual precipitation:</b> Average yearly precipitation (Late 20th century, Mid, and Late 21st century values were projected from downscaled climate data from 13 general circulation models (GCMs))</p><p><b>Change in mean annual precipitation:</b> Difference in average yearly precipitation between present and future time period</p>";
-			private var climateRawTooltip:String = "<p><b>Mean annual air temperature:</b> Average yearly temperature (Late 20th century, Mid, and Late 21st century values were projected from downscaled climate data from one global circulation model (GCM))</p><p><b>Change in mean annual air temperature:</b> Difference in average yearly temperature/precipitation between present and future time period</p><p><b>Mean annual precipitation:</b> Average yearly precipitation (Late 20th century, Mid, and Late 21st century values were projected from downscaled climate data from one global circulation model (GCM))</p><p><b>Change in mean annual precipitation:</b> Difference in average yearly precipitation between present and future time period</p>";
+			private var qwTooltip:String = "";
+			private var climateTooltip:String = "";
 			
 			protected function componentLoad():void
 			{
@@ -130,18 +126,6 @@
 				return numb;
 			}
 			
-			private function speciesClick(event:MouseEvent) {
-				indFishResponseContent.visible = true;
-				
-				fishResponse.speciesName = event.currentTarget.speciesName;
-				fishResponse.speciesNumber = event.currentTarget.speciesNumber;
-				fishResponse.tempClass = event.currentTarget.tempClass;
-				fishResponse.tempClassColor = event.currentTarget.tempClassColor;
-				fishResponse.dataObj = event.currentTarget.dataObj;
-				
-				fishResponse.updated(event);
-			}
-			
 			private function roundValues(fieldValue:String,decPlaces:Number):String {
 				var outputValue:String;
 				
@@ -173,1023 +157,218 @@
 		]]>
 	</fx:Script>
 	
-	<mx:TabNavigator id="infoTabs" width="100%" height="100%" selectedIndex="0">
-		<mx:HBox id="streamTempResponse" includeIn="streams" label="Stream temperature"
-				 paddingBottom="10" paddingLeft="5" paddingRight="5" paddingTop="5">
-			<localControls:streamCatchInfoBar height="100%" dataObj="{data[0]}"/>
-			<s:VGroup>
-				<mx:HBox width="100%" backgroundColor="0xDDDDDD" paddingBottom="5" paddingLeft="5"
-						 paddingRight="5" paddingTop="5" verticalAlign="middle">
-					<s:Label fontWeight="bold" text="Stream Temperature Responses"/>
-					<mx:Image source="./assets/images/help_tip.png" width="100%" toolTip="{streamTempTooltip}" horizontalAlign="right" />
-				</mx:HBox>
-				<s:VGroup textAlign="center">
-					<s:HGroup width="100%" height="100%" fontWeight="bold" horizontalAlign="center"
-							  textAlign="center" verticalAlign="bottom">
-						<s:Label width="200"/>
-						<s:Label width="120" text="Late 20th Century (1961-2000)"/>
-						<s:Label width="120" text="Mid 21st Century (2046-2065)"/>
-						<s:Label width="120" text="Late 21st Century (2081-2100)"/>
-					</s:HGroup>
-					
-					<mx:HRule width="100%"/>
-					
-					<s:HGroup width="100%" height="100%" horizontalAlign="center" paddingTop="2"
-							  textAlign="center">
-						<s:Label width="200" text="July mean (degrees)" textAlign="left"/>
-						<s:HGroup width="120" horizontalAlign="center">
-							<s:Label text="{roundValues(data[1]['hJXnow'],1)}°C"/>
-							<s:Label text="({convertToFah(roundValues(data[1]['hJXnow'],1))}°F)"/>
-						</s:HGroup>
-						<s:HGroup width="120" horizontalAlign="center">
-							<s:Label text="{roundValues(data[1]['JXF1'],1)}°C"/>
-							<s:Label text="({convertToFah(roundValues(data[1]['JXF1'],1))}°F)"/>
-						</s:HGroup>
-						<s:HGroup width="120" horizontalAlign="center">
-							<s:Label text="{roundValues(data[1]['JXF2'],1)}°C"/>
-							<s:Label text="({convertToFah(roundValues(data[1]['JXF2'],1))}°F)"/>
-						</s:HGroup>
-					</s:HGroup>
-					
-					<mx:HRule width="100%"/>
-					
-					<s:HGroup width="100%" height="100%" horizontalAlign="center" paddingTop="2"
-							  textAlign="center">
-						<s:Label width="200" text="Change in degrees (from late 20th century)" textAlign="left"/>
-						<s:HGroup width="120" horizontalAlign="center">
-							<s:Label text="--"/>
-						</s:HGroup>
-						<s:HGroup width="120" horizontalAlign="center">
-							<s:Label text="{roundValues(data[1]['CH_JULXF1'],1)}°C"/>
-							<s:Label text="({convertToFah(roundValues(data[1]['CH_JULXF1'],1))}°F)"/>
-						</s:HGroup>
-						<s:HGroup width="120" horizontalAlign="center">
-							<s:Label text="{roundValues(data[1]['CH_JULXF2'],1)}°C"/>
-							<s:Label text="({convertToFah(roundValues(data[1]['CH_JULXF2'],1))}°F)"/>
-						</s:HGroup>
-					</s:HGroup>
-					
-					<mx:HRule width="100%"/>
-					
-					<s:HGroup width="100%" height="100%" horizontalAlign="center" paddingTop="2"
-							  textAlign="center">
-						<s:Label width="200" text="Stream temperature class" textAlign="left"/>
-						<s:HGroup width="120" horizontalAlign="center">
-							<s:Label text="{data[1]['JULclass']}"/>
-						</s:HGroup>
-						<s:HGroup width="120" horizontalAlign="center">
-							<s:Label text="{data[1]['JLCLF1']}"/>
-						</s:HGroup>
-						<s:HGroup width="120" horizontalAlign="center">
-							<s:Label text="{data[1]['JLCLF2']}"/>
-						</s:HGroup>
-					</s:HGroup>
-					
-					<mx:HRule width="100%"/>
-					
-					<s:HGroup width="100%" height="100%" horizontalAlign="center" paddingTop="2"
-							  textAlign="center">
-						<s:Label width="200" text="Change in class (from late 20th century)" textAlign="left"/>
-						<s:HGroup width="120" horizontalAlign="center">
-							<s:Label text="--"/>
-						</s:HGroup>
-						<s:HGroup width="120" horizontalAlign="center">
-							<s:Label width="120" text="{updateClassChange(data[1]['CHJLCLF1'])}"/>
-						</s:HGroup>
-						<s:HGroup width="120" horizontalAlign="center">
-							<s:Label width="120" text="{updateClassChange(data[1]['CHJLCLF2'])}"/>
-						</s:HGroup>
-					</s:HGroup>
-					
-					<mx:HRule width="100%"/>
-					
-				</s:VGroup>
-			</s:VGroup>
-		</mx:HBox>
-		<mx:HBox id="streamTempResponseCatch" includeIn="catchments" label="Stream temperature"
-				 paddingBottom="10" paddingLeft="5" paddingRight="5" paddingTop="5">
-			<localControls:streamCatchInfoBar height="100%" dataObj="{data[0]}"/>
-			<s:VGroup>
-				<mx:HBox width="100%" backgroundColor="0xDDDDDD" paddingBottom="5" paddingLeft="5"
-						 paddingRight="5" paddingTop="5" verticalAlign="middle">
-					<s:Label fontWeight="bold" text="Stream Temperature Responses"/>
-					<mx:Image source="./assets/images/help_tip.png" width="100%" toolTip="{streamTempTooltip}" horizontalAlign="right" />
-				</mx:HBox>
-				<s:VGroup textAlign="center">
-					<s:HGroup width="100%" height="100%" fontWeight="bold" horizontalAlign="center"
-							  textAlign="center" verticalAlign="bottom">
-						<s:Label width="200"/>
-						<s:Label width="120" text="Late 20th Century (1961-2000)"/>
-						<s:Label width="120" text="Mid 21st Century (2046-2065)"/>
-						<s:Label width="120" text="Late 21st Century (2081-2100)"/>
-					</s:HGroup>
-					
-					<mx:HRule width="100%"/>
-					
-					<s:HGroup width="100%" height="100%" horizontalAlign="center" paddingTop="2"
-							  textAlign="center">
-						<s:Label width="200" text="July mean (degrees)" textAlign="left"/>
-						<s:HGroup width="120" horizontalAlign="center">
-							<s:Label text="{roundValues(data[0]['hJXnow'],1)}°C"/>
-							<s:Label text="({convertToFah(roundValues(data[0]['hJXnow'],1))}°F)"/>
-						</s:HGroup>
-						<s:HGroup width="120" horizontalAlign="center">
-							<s:Label text="{roundValues(data[0]['JXF1'],1)}°C"/>
-							<s:Label text="({convertToFah(roundValues(data[0]['JXF1'],1))}°F)"/>
-						</s:HGroup>
-						<s:HGroup width="120" horizontalAlign="center">
-							<s:Label text="{roundValues(data[0]['JXF2'],1)}°C"/>
-							<s:Label text="({convertToFah(roundValues(data[0]['JXF2'],1))}°F)"/>
-						</s:HGroup>
-					</s:HGroup>
-					
-					<mx:HRule width="100%"/>
-					
-					<s:HGroup width="100%" height="100%" horizontalAlign="center" paddingTop="2"
-							  textAlign="center">
-						<s:Label width="200" text="Change in degrees (from Late 20th Century)" textAlign="left"/>
-						<s:HGroup width="120" horizontalAlign="center">
-							<s:Label text="--"/>
-						</s:HGroup>
-						<s:HGroup width="120" horizontalAlign="center">
-							<s:Label text="{roundValues(data[0]['CH_JULXF1'],1)}°C"/>
-							<s:Label text="({convertToFah(roundValues(data[0]['CH_JULXF1'],1))}°F)"/>
-						</s:HGroup>
-						<s:HGroup width="120" horizontalAlign="center">
-							<s:Label text="{roundValues(data[0]['CH_JULXF2'],1)}°C"/>
-							<s:Label text="({convertToFah(roundValues(data[0]['CH_JULXF2'],1))}°F)"/>
-						</s:HGroup>
-					</s:HGroup>
-					
-					<mx:HRule width="100%"/>
-					
-					<s:HGroup width="100%" height="100%" horizontalAlign="center" paddingTop="2"
-							  textAlign="center">
-						<s:Label width="200" text="Stream temperature class" textAlign="left"/>
-						<s:HGroup width="120" horizontalAlign="center">
-							<s:Label text="{data[0]['JULclass']}"/>
-						</s:HGroup>
-						<s:HGroup width="120" horizontalAlign="center">
-							<s:Label text="{data[0]['JLCLF1']}"/>
-						</s:HGroup>
-						<s:HGroup width="120" horizontalAlign="center">
-							<s:Label text="{data[0]['JLCLF2']}"/>
-						</s:HGroup>
-					</s:HGroup>
-					
-					<mx:HRule width="100%"/>
-					
-					<s:HGroup width="100%" height="100%" horizontalAlign="center" paddingTop="2"
-							  textAlign="center">
-						<s:Label width="200" text="Change in class (from Late 20th Century)" textAlign="left"/>
-						<s:HGroup width="120" horizontalAlign="center">
-							<s:Label text="--"/>
-						</s:HGroup>
-						<s:HGroup width="120" horizontalAlign="center">
-							<s:Label width="120" text="{updateClassChange(data[0]['CHJLCLF1'])}"/>
-						</s:HGroup>
-						<s:HGroup width="120" horizontalAlign="center">
-							<s:Label width="120" text="{updateClassChange(data[0]['CHJLCLF2'])}"/>
-						</s:HGroup>
-					</s:HGroup>
-					
-					<mx:HRule width="100%"/>
-					
-				</s:VGroup>
-			</s:VGroup>
-		</mx:HBox>
-		<mx:HBox id="fishSummary" label="Fish summary" paddingBottom="10" paddingLeft="5"
+	<mx:TabNavigator id="infoTabs" width="100%" height="100%" selectedIndex="1">
+		<mx:HBox id="climate" label="Climate" paddingBottom="10" paddingLeft="5"
 				 paddingRight="5" paddingTop="5">
 			<localControls:streamCatchInfoBar height="100%" dataObj="{data[0]}"/>
-			<s:VGroup id="fishSummaryContent" width="100%" maxHeight="470"
+			<s:VGroup id="climateContent" width="100%" maxHeight="470"
 					  clipAndEnableScrolling="true" paddingBottom="10" paddingLeft="10"
 					  paddingRight="10" paddingTop="10">
 				<mx:HBox width="100%" backgroundColor="0xDDDDDD" paddingBottom="5" paddingLeft="5"
 						 paddingRight="5" paddingTop="5">
 					<s:Label text="All fish species:"/>
-					<s:Label text="Statistics include all 13 modeled fish species"/>
-					<mx:Image source="./assets/images/help_tip.png" width="100%" toolTip="{fishSummaryTooltip}" horizontalAlign="right" />
+					<s:Label text="summary response based on all climate models"/>
+					<mx:Image source="./assets/images/help_tip.png" width="100%" toolTip="{climateTooltip}" horizontalAlign="right" />
 				</mx:HBox>
-				<s:VGroup textAlign="center">
-					<s:HGroup width="100%" height="100%" fontWeight="bold" horizontalAlign="center"
-							  textAlign="center">
-						<s:Label width="200" text=""/>
-						<s:Label width="100" text="Late 20th Century"/>
-						<s:Label width="100" text="Mid 21st Century"/>
-						<s:Label width="100" text="Late 21st Century"/>
-					</s:HGroup>
-					<s:HGroup width="100%" height="100%" fontWeight="bold" horizontalAlign="center"
-							  textAlign="center">
-						<s:Label width="200" text=""/>
-						<s:Label width="100" text="(1961-2000)"/>
-						<s:Label width="100" text="(2046-2065)"/>
-						<s:Label width="100" text="(2081-2100)"/>
+				<s:VGroup textAlign="center" paddingTop="10" paddingBottom="10">
+					<s:HGroup width="100%" height="100%" horizontalAlign="center">
+						<s:Label width="200" text="Risk of stream class change" textAlign="left"/>
+						<s:Label width="100" text="{data[0].CSCLTEXT}"/>
 					</s:HGroup>
 					<s:HGroup width="100%" height="100%" horizontalAlign="center">
-						<s:Label width="200" text="Number of species present" textAlign="left"/>
-						<s:Label width="100"
-								 text="{checkValue(data[0].CdPCnt)+checkValue(data[0].ClPCnt)+checkValue(data[0].WmPCnt)}"/>
-						<s:Label width="100"
-								 text="{checkValue(data[0].CdPCnt)+checkValue(data[0].ClPCnt)+checkValue(data[0].WmPCnt)+checkValue(data[0].AbCdO) + checkValue(data[0].AbClO) + checkValue(data[0].AbWmO) - checkValue(data[0].AbCdV) - checkValue(data[0].AbClV) - checkValue(data[0].AbWmV)}"/>
-						<s:Label width="100"
-								 text="{checkValue(data[0].CdPCnt)+checkValue(data[0].ClPCnt)+checkValue(data[0].WmPCnt)+checkValue(data[0].AbCdOF2) + checkValue(data[0].AbClOF2) + checkValue(data[0].AbWmOF2) - checkValue(data[0].AbCdVF2) - checkValue(data[0].AbClVF2) - checkValue(data[0].AbWmVF2)}"/>
-					</s:HGroup>
-					<s:HGroup width="100%" height="100%" horizontalAlign="center">
-						<s:Label width="200" text="Number of species lost" textAlign="left"/>
-						<s:Label width="100" text="--"/>
-						<s:Label width="100"
-								 text="{'-'+(checkValue(data[0].AbCdV) + checkValue(data[0].AbClV) + checkValue(data[0].AbWmV)).toString()}"/>
-						<s:Label width="100"
-								 text="{'-'+(checkValue(data[0].AbCdVF2) + checkValue(data[0].AbClVF2) + checkValue(data[0].AbWmVF2)).toString()}"/>
-					</s:HGroup>
-					<s:HGroup width="100%" height="100%" horizontalAlign="center">
-						<s:Label width="200" text="Number of species gained" textAlign="left"/>
-						<s:Label width="100" text="--"/>
-						<s:Label width="100"
-								 text="{'+'+(checkValue(data[0].AbCdO) + checkValue(data[0].AbClO) + checkValue(data[0].AbWmO)).toString()}"/>
-						<s:Label width="100"
-								 text="{'+'+(checkValue(data[0].AbCdOF2) + checkValue(data[0].AbClOF2) + checkValue(data[0].AbWmOF2)).toString()}"/>
-					</s:HGroup>
-					<s:HGroup width="100%" height="100%" horizontalAlign="center">
-						<s:Label width="200" text="Number of species lost or gained" textAlign="left"/>
-						<s:Label width="100" text="--"/>
-						<s:Label width="100"
-								 text="{checkValue(data[0].AbCdS) + checkValue(data[0].AbClS) + checkValue(data[0].AbWmS)}"/>
-						<s:Label width="100"
-								 text="{checkValue(data[0].AbCdSF2) + checkValue(data[0].AbClSF2) + checkValue(data[0].AbWmSF2)}"/>
-					</s:HGroup>
-					<s:HGroup width="100%" height="100%" horizontalAlign="center">
-						<s:Label width="200" text="Percent of species lost" textAlign="left"/>
-						<s:Label width="100" text="--"/>
-						<s:Label width="100"
-								 text="{'-'+roundValues((((checkValue(data[0].AbCdV) + checkValue(data[0].AbClV) + checkValue(data[0].AbWmV))/13)*100).toString(),0).toString()+'%'}"/>
-						<s:Label width="100"
-								 text="{'-'+roundValues((((checkValue(data[0].AbCdVF2) + checkValue(data[0].AbClVF2) + checkValue(data[0].AbWmVF2))/13)*100).toString(),0).toString()+'%'}"/>
-					</s:HGroup>
-					<s:HGroup width="100%" height="100%" horizontalAlign="center">
-						<s:Label width="200" text="Percent of species gained" textAlign="left"/>
-						<s:Label width="100" text="--"/>
-						<s:Label width="100"
-								 text="{'+'+roundValues((((checkValue(data[0].AbCdO) + checkValue(data[0].AbClO) + checkValue(data[0].AbWmO))/13)*100).toString(),0).toString()+'%'}"/>
-						<s:Label width="100"
-								 text="{'+'+roundValues((((checkValue(data[0].AbCdOF2) + checkValue(data[0].AbClOF2) + checkValue(data[0].AbWmOF2))/13)*100).toString(),0).toString()+'%'}"/>
-					</s:HGroup>
-					</s:VGroup>
-				<mx:HBox width="100%" backgroundColor="0xDDDDDD" paddingBottom="5" paddingLeft="5"
-						 paddingRight="5" paddingTop="5">
-					<s:Label text="Cold thermal guild fish species"/>
-				</mx:HBox>
-				<s:VGroup textAlign="center">
-					<s:HGroup width="100%" height="100%" fontWeight="bold" horizontalAlign="center"
-							  textAlign="center">
-						<s:Label width="200" text=""/>
-						<s:Label width="100" text="Late 20th Century"/>
-						<s:Label width="100" text="Mid 21st Century"/>
-						<s:Label width="100" text="Late 21st Century"/>
-					</s:HGroup>
-					<s:HGroup width="100%" height="100%" fontWeight="bold" horizontalAlign="center"
-							  textAlign="center">
-						<s:Label width="200" text=""/>
-						<s:Label width="100" text="(1961-2000)"/>
-						<s:Label width="100" text="(2046-2065)"/>
-						<s:Label width="100" text="(2081-2100)"/>
-					</s:HGroup>
-					<s:HGroup width="100%" height="100%" horizontalAlign="center">
-						<s:Label width="200" text="Predicted occurrence" textAlign="left"/>
-						<s:HGroup width="100" horizontalAlign="center">
-							<s:Ellipse visible="{(data[0].CdPA == 'P') ? true : false}" width="5"
-									   height="5">
-								<s:stroke>
-									<s:SolidColorStroke color="0x000000" weight="1"/>
-								</s:stroke>
-								<s:fill>
-									<s:SolidColor color="0x000000"/>
-								</s:fill>
-							</s:Ellipse>
-						</s:HGroup>
-						<s:HGroup width="100" horizontalAlign="center">
-							<s:Ellipse visible="{(((checkValue(data[0].CdPCnt) - checkValue(data[0].AbCdV)) + checkValue(data[0].AbCdO)) &gt; 0) ? true : false}"
-									   width="5" height="5">
-								<s:stroke>
-									<s:SolidColorStroke color="0x000000" weight="1"/>
-								</s:stroke>
-								<s:fill>
-									<s:SolidColor color="0x000000"/>
-								</s:fill>
-							</s:Ellipse>
-						</s:HGroup>
-						<s:HGroup width="100" horizontalAlign="center">
-							<s:Ellipse visible="{(((checkValue(data[0].CdPCnt) - checkValue(data[0].AbCdVF2)) + checkValue(data[0].AbCdOF2)) &gt; 0) ? true : false}"
-									   width="5" height="5">
-								<s:stroke>
-									<s:SolidColorStroke color="0x000000" weight="1"/>
-								</s:stroke>
-								<s:fill>
-									<s:SolidColor color="0x000000"/>
-								</s:fill>
-							</s:Ellipse>
-						</s:HGroup>
-					</s:HGroup>
-					<s:HGroup width="100%" height="100%" horizontalAlign="center">
-						<s:Label width="200" text="Number of species present" textAlign="left"/>
-						<s:Label width="100" text="{data[0].CdPCnt}"/>
-						<s:Label width="100"
-								 text="{((checkValue(data[0].CdPCnt) - checkValue(data[0].AbCdV)) + checkValue(data[0].AbCdO)).toString()}"/>
-						<s:Label width="100"
-								 text="{((checkValue(data[0].CdPCnt) - checkValue(data[0].AbCdVF2)) + checkValue(data[0].AbCdOF2)).toString()}"/>
-					</s:HGroup>
-					<s:HGroup width="100%" height="100%" horizontalAlign="center">
-						<s:Label width="200" text="Number of species lost" textAlign="left"/>
-						<s:Label width="100" text="--"/>
-						<s:Label width="100" text="{'-'+checkValue(data[0].AbCdV).toString()}"/>
-						<s:Label width="100" text="{'-'+checkValue(data[0].AbCdVF2).toString()}"/>
-					</s:HGroup>
-					<s:HGroup width="100%" height="100%" horizontalAlign="center">
-						<s:Label width="200" text="Number of species gained" textAlign="left"/>
-						<s:Label width="100" text="--"/>
-						<s:Label width="100" text="{'+'+checkValue(data[0].AbCdO).toString()}"/>
-						<s:Label width="100" text="{'+'+checkValue(data[0].AbCdOF2).toString()}"/>
-					</s:HGroup>
-					<s:HGroup width="100%" height="100%" horizontalAlign="center">
-						<s:Label width="200" text="Number of species lost or gained" textAlign="left"/>
-						<s:Label width="100" text="--"/>
-						<s:Label width="100" text="{checkValue(data[0].AbCdS)}"/>
-						<s:Label width="100" text="{checkValue(data[0].AbCdSF2)}"/>
-					</s:HGroup>
-					<s:HGroup width="100%" height="100%" horizontalAlign="center">
-						<s:Label width="200" text="Percent of species lost" textAlign="left"/>
-						<s:Label width="100" text="--"/>
-						<s:Label width="100"
-								 text="{'-'+(roundValues(checkValue(data[0].AbPCdV).toString(),0)).toString()+'%'}"/>
-						<s:Label width="100"
-								 text="{'-'+(roundValues(checkValue(data[0].AbPCdVF2).toString(),0)).toString()+'%'}"/>
-					</s:HGroup>
-					<s:HGroup width="100%" height="100%" horizontalAlign="center">
-						<s:Label width="200" text="Percent of species gained" textAlign="left"/>
-						<s:Label width="100" text="--"/>
-						<s:Label width="100"
-								 text="{'+'+(roundValues(checkValue(data[0].AbPCdO).toString(),0)).toString()+'%'}"/>
-						<s:Label width="100"
-								 text="{'+'+(roundValues(checkValue(data[0].AbPCdOF2).toString(),0)).toString()+'%'}"/>
-					</s:HGroup>
-					<s:HGroup width="100%" height="100%" horizontalAlign="center">
-						<s:Label width="200" text="Vulnerability" textAlign="left"/>
-						<s:Label width="100" text="--"/>
-						<s:Label width="100" text="{roundValues(data[0]['VCdT20F1'],0)}%"/>
-						<s:Label width="100" text="{roundValues(data[0]['VCdT20F2'],0)}%"/>
-					</s:HGroup>
-					<s:HGroup width="100%" height="100%" horizontalAlign="center">
-						<s:Label width="200" text="Opportunity" textAlign="left"/>
-						<s:Label width="100" text="--"/>
-						<s:Label width="100" text="{roundValues(data[0]['OCdT20F1'],0)}%"/>
-						<s:Label width="100" text="{roundValues(data[0]['OCdT20F2'],0)}%"/>
-					</s:HGroup>
-					<s:HGroup width="100%" height="100%" horizontalAlign="center">
-						<s:Label width="200" text="Sensitivity" textAlign="left"/>
-						<s:Label width="100" text="--"/>
-						<s:Label width="100" text="{roundValues(data[0]['SCdT20F1'],0)}%"/>
-						<s:Label width="100" text="{roundValues(data[0]['SCdT20F2'],0)}%"/>
+						<s:Label width="200" text="Model change count" textAlign="left"/>
+						<s:Label width="100" text="{data[0].CSCLAS}"/>
 					</s:HGroup>
 				</s:VGroup>
-				<mx:HBox width="100%" backgroundColor="0xDDDDDD" paddingBottom="5" paddingLeft="5"
+				<mx:HBox width="100%" backgroundColor="0xDDDDDD" paddingBottom="5" paddingLeft="10"
 						 paddingRight="5" paddingTop="5">
-					<s:Label text="Cool thermal guild fish species"/>
+					<s:Label text="All fish species:"/>
+					<s:Label text="response based on individual climate models"/>
 				</mx:HBox>
-				<s:VGroup textAlign="center">
-					<s:HGroup width="100%" height="100%" fontWeight="bold" horizontalAlign="center"
-							  textAlign="center">
-						<s:Label width="200" text=""/>
-						<s:Label width="100" text="Late 20th Century"/>
-						<s:Label width="100" text="Mid 21st Century"/>
-						<s:Label width="100" text="Late 21st Century"/>
-					</s:HGroup>
-					<s:HGroup width="100%" height="100%" fontWeight="bold" horizontalAlign="center"
-							  textAlign="center">
-						<s:Label width="200" text=""/>
-						<s:Label width="100" text="(1961-2000)"/>
-						<s:Label width="100" text="(2046-2065)"/>
-						<s:Label width="100" text="(2081-2100)"/>
+				<s:VGroup textAlign="center" gap="15" paddingBottom="25">
+					<s:HGroup horizontalAlign="center" paddingTop="10" verticalAlign="bottom" fontWeight="bold" textAlign="center" height="100%" width="100%">
+						<s:Label width="200" text="FishTail climate model code" textAlign="left"/>
+						<s:Label width="150" text="Present stream class" />
+						<s:Label width="150" text="Future stream class" />
 					</s:HGroup>
 					<s:HGroup width="100%" height="100%" horizontalAlign="center">
-						<s:Label width="200" text="Predicted occurrence" textAlign="left"/>
-						<s:HGroup width="100" horizontalAlign="center">
-							<s:Ellipse visible="{(data[0].ClPA == 'P') ? true : false}" width="5"
-									   height="5">
-								<s:stroke>
-									<s:SolidColorStroke color="0x000000" weight="1"/>
-								</s:stroke>
-								<s:fill>
-									<s:SolidColor color="0x000000"/>
-								</s:fill>
-							</s:Ellipse>
-						</s:HGroup>
-						<s:HGroup width="100" horizontalAlign="center">
-							<s:Ellipse visible="{(((checkValue(data[0].ClPCnt) - checkValue(data[0].AbClV)) + checkValue(data[0].AbClO)) &gt; 0) ? true : false}"
-									   width="5" height="5">
-								<s:stroke>
-									<s:SolidColorStroke color="0x000000" weight="1"/>
-								</s:stroke>
-								<s:fill>
-									<s:SolidColor color="0x000000"/>
-								</s:fill>
-							</s:Ellipse>
-						</s:HGroup>
-						<s:HGroup width="100" horizontalAlign="center">
-							<s:Ellipse visible="{(((checkValue(data[0].ClPCnt) - checkValue(data[0].AbClVF2)) + checkValue(data[0].AbClOF2)) &gt; 0) ? true : false}"
-									   width="5" height="5">
-								<s:stroke>
-									<s:SolidColorStroke color="0x000000" weight="1"/>
-								</s:stroke>
-								<s:fill>
-									<s:SolidColor color="0x000000"/>
-								</s:fill>
-							</s:Ellipse>
-						</s:HGroup>
+						<s:Label width="200" text="MRI_CGCM2_3_2A" textAlign="left"/>
+						<s:Label width="150" text="{data[0].GCM_1_P}"/>
+						<s:Label width="150" text="{data[0].GCM_1_F}"/>
 					</s:HGroup>
 					<s:HGroup width="100%" height="100%" horizontalAlign="center">
-						<s:Label width="200" text="Number of species present" textAlign="left"/>
-						<s:Label width="100" text="{data[0].ClPCnt}"/>
-						<s:Label width="100"
-								 text="{((checkValue(data[0].ClPCnt) - checkValue(data[0].AbClV)) + checkValue(data[0].AbClO)).toString()}"/>
-						<s:Label width="100"
-								 text="{((checkValue(data[0].ClPCnt) - checkValue(data[0].AbClVF2)) + checkValue(data[0].AbClOF2)).toString()}"/>
+						<s:Label width="200" text="CCCMA_CGCM3_1" textAlign="left"/>
+						<s:Label width="150" text="{data[0].GCM_2_P}"/>
+						<s:Label width="150" text="{data[0].GCM_2_F}"/>
 					</s:HGroup>
 					<s:HGroup width="100%" height="100%" horizontalAlign="center">
-						<s:Label width="200" text="Number of species lost" textAlign="left"/>
-						<s:Label width="100" text="--"/>
-						<s:Label width="100" text="{'-'+checkValue(data[0].AbClV).toString()}"/>
-						<s:Label width="100" text="{'-'+checkValue(data[0].AbClVF2).toString()}"/>
+						<s:Label width="200" text="CNRM_CM3" textAlign="left"/>
+						<s:Label width="150" text="{data[0].GCM_3_P}"/>
+						<s:Label width="150" text="{data[0].GCM_3_F}"/>
 					</s:HGroup>
 					<s:HGroup width="100%" height="100%" horizontalAlign="center">
-						<s:Label width="200" text="Number of species gained" textAlign="left"/>
-						<s:Label width="100" text="--"/>
-						<s:Label width="100" text="{'+'+checkValue(data[0].AbClO).toString()}"/>
-						<s:Label width="100" text="{'+'+checkValue(data[0].AbClOF2).toString()}"/>
+						<s:Label width="200" text="CSIRO_MK3_0" textAlign="left"/>
+						<s:Label width="150" text="{data[0].GCM_4_P}"/>
+						<s:Label width="150" text="{data[0].GCM_4_F}"/>
 					</s:HGroup>
 					<s:HGroup width="100%" height="100%" horizontalAlign="center">
-						<s:Label width="200" text="Number of species lost or gained" textAlign="left"/>
-						<s:Label width="100" text="--"/>
-						<s:Label width="100" text="{checkValue(data[0].AbClS)}"/>
-						<s:Label width="100" text="{checkValue(data[0].AbClSF2)}"/>
+						<s:Label width="200" text="CSIRO_MK3_5" textAlign="left"/>
+						<s:Label width="150" text="{data[0].GCM_5_P}"/>
+						<s:Label width="150" text="{data[0].GCM_5_F}"/>
 					</s:HGroup>
 					<s:HGroup width="100%" height="100%" horizontalAlign="center">
-						<s:Label width="200" text="Percent of species lost" textAlign="left"/>
-						<s:Label width="100" text="--"/>
-						<s:Label width="100"
-								 text="{'-'+(roundValues(checkValue(data[0].AbPClV).toString(),0)).toString()+'%'}"/>
-						<s:Label width="100"
-								 text="{'-'+(roundValues(checkValue(data[0].AbPClVF2).toString(),0)).toString()+'%'}"/>
+						<s:Label width="200" text="GFDL_CM2" textAlign="left"/>
+						<s:Label width="150" text="{data[0].GCM_6_P}"/>
+						<s:Label width="150" text="{data[0].GCM_6_F}"/>
 					</s:HGroup>
 					<s:HGroup width="100%" height="100%" horizontalAlign="center">
-						<s:Label width="200" text="Percent of species gained" textAlign="left"/>
-						<s:Label width="100" text="--"/>
-						<s:Label width="100"
-								 text="{'+'+(roundValues(checkValue(data[0].AbPClO).toString(),0)).toString()+'%'}"/>
-						<s:Label width="100"
-								 text="{'+'+(roundValues(checkValue(data[0].AbPClOF2).toString(),0)).toString()+'%'}"/>
+						<s:Label width="200" text="GISS_MODEL_E_R" textAlign="left"/>
+						<s:Label width="150" text="{data[0].GCM_7_P}"/>
+						<s:Label width="150" text="{data[0].GCM_7_F}"/>
 					</s:HGroup>
 					<s:HGroup width="100%" height="100%" horizontalAlign="center">
-						<s:Label width="200" text="Vulnerability" textAlign="left"/>
-						<s:Label width="100" text="--"/>
-						<s:Label width="100" text="{roundValues(data[0]['VClT20F1'],0)}%"/>
-						<s:Label width="100" text="{roundValues(data[0]['VClT20F2'],0)}%"/>
-					</s:HGroup>
-					<s:HGroup width="100%" height="100%" horizontalAlign="center">
-						<s:Label width="200" text="Opportunity" textAlign="left"/>
-						<s:Label width="100" text="--"/>
-						<s:Label width="100" text="{roundValues(data[0]['OClT20F1'],0)}%"/>
-						<s:Label width="100" text="{roundValues(data[0]['OClT20F2'],0)}%"/>
-					</s:HGroup>
-					<s:HGroup width="100%" height="100%" horizontalAlign="center">
-						<s:Label width="200" text="Sensitivity" textAlign="left"/>
-						<s:Label width="100" text="--"/>
-						<s:Label width="100" text="{roundValues(data[0]['SClT20F1'],0)}%"/>
-						<s:Label width="100" text="{roundValues(data[0]['SClT20F2'],0)}%"/>
+						<s:Label width="200" text="MPI_ECHAM5" textAlign="left"/>
+						<s:Label width="150" text="{data[0].GCM_8_P}"/>
+						<s:Label width="150" text="{data[0].GCM_8_F}"/>
 					</s:HGroup>
 				</s:VGroup>
-				<mx:HBox width="100%" backgroundColor="0xDDDDDD" paddingBottom="5" paddingLeft="5"
-						 paddingRight="5" paddingTop="5">
-					<s:Label text="Warm thermal guild fish species"/>
-				</mx:HBox>
-				<s:VGroup textAlign="center">
-					<s:HGroup width="100%" height="100%" fontWeight="bold" horizontalAlign="center"
-							  textAlign="center">
-						<s:Label width="200" text=""/>
-						<s:Label width="100" text="Late 20th Century"/>
-						<s:Label width="100" text="Mid 21st Century"/>
-						<s:Label width="100" text="Late 21st Century"/>
-					</s:HGroup>
-					<s:HGroup width="100%" height="100%" fontWeight="bold" horizontalAlign="center"
-							  textAlign="center">
-						<s:Label width="200" text=""/>
-						<s:Label width="100" text="(1961-2000)"/>
-						<s:Label width="100" text="(2046-2065)"/>
-						<s:Label width="100" text="(2081-2100)"/>
+				<mx:HRule width="100%"/>
+				<s:VGroup textAlign="center" gap="15">
+					<s:HGroup horizontalAlign="center" paddingTop="10" verticalAlign="bottom" fontWeight="bold" textAlign="center" height="100%" width="100%">
+						<s:Label width="100" text="Stream class" textAlign="left"/>
+						<s:Label width="400" text="Stream class Description" textAlign="left"/>
 					</s:HGroup>
 					<s:HGroup width="100%" height="100%" horizontalAlign="center">
-						<s:Label width="200" text="Predicted occurrence" textAlign="left"/>
-						<s:HGroup width="100" horizontalAlign="center">
-							<s:Ellipse visible="{(data[0].WmPA == 'P') ? true : false}" width="5"
-									   height="5">
-								<s:stroke>
-									<s:SolidColorStroke color="0x000000" weight="1"/>
-								</s:stroke>
-								<s:fill>
-									<s:SolidColor color="0x000000"/>
-								</s:fill>
-							</s:Ellipse>
-						</s:HGroup>
-						<s:HGroup width="100" horizontalAlign="center">
-							<s:Ellipse visible="{(((checkValue(data[0].WmPCnt) - checkValue(data[0].AbWmV)) + checkValue(data[0].AbWmO)) &gt; 0) ? true : false}"
-									   width="5" height="5">
-								<s:stroke>
-									<s:SolidColorStroke color="0x000000" weight="1"/>
-								</s:stroke>
-								<s:fill>
-									<s:SolidColor color="0x000000"/>
-								</s:fill>
-							</s:Ellipse>
-						</s:HGroup>
-						<s:HGroup width="100" horizontalAlign="center">
-							<s:Ellipse visible="{(((checkValue(data[0].WmPCnt) - checkValue(data[0].AbWmVF2)) + checkValue(data[0].AbWmOF2)) &gt; 0) ? true : false}"
-									   width="5" height="5">
-								<s:stroke>
-									<s:SolidColorStroke color="0x000000" weight="1"/>
-								</s:stroke>
-								<s:fill>
-									<s:SolidColor color="0x000000"/>
-								</s:fill>
-							</s:Ellipse>
-						</s:HGroup>
+						<s:Label width="100" text="Class" textAlign="left"/>
+						<s:Label width="400" text="Class description" textAlign="left"/>
 					</s:HGroup>
-					<s:HGroup width="100%" height="100%" horizontalAlign="center">
-						<s:Label width="200" text="Number of species present" textAlign="left"/>
-						<s:Label width="100" text="{data[0].WmPCnt}"/>
-						<s:Label width="100"
-								 text="{((checkValue(data[0].WmPCnt) - checkValue(data[0].AbWmV)) + checkValue(data[0].AbWmO)).toString()}"/>
-						<s:Label width="100"
-								 text="{((checkValue(data[0].WmPCnt) - checkValue(data[0].AbWmVF2)) + checkValue(data[0].AbWmOF2)).toString()}"/>
-					</s:HGroup>
-					<s:HGroup width="100%" height="100%" horizontalAlign="center">
-						<s:Label width="200" text="Number of species lost" textAlign="left"/>
-						<s:Label width="100" text="--"/>
-						<s:Label width="100" text="{'-'+checkValue(data[0].AbWmV).toString()}"/>
-						<s:Label width="100" text="{'-'+checkValue(data[0].AbWmVF2).toString()}"/>
-					</s:HGroup>
-					<s:HGroup width="100%" height="100%" horizontalAlign="center">
-						<s:Label width="200" text="Number of species gained" textAlign="left"/>
-						<s:Label width="100" text="--"/>
-						<s:Label width="100" text="{'+'+checkValue(data[0].AbWmO).toString()}"/>
-						<s:Label width="100" text="{'+'+checkValue(data[0].AbWmOF2).toString()}"/>
-					</s:HGroup>
-					<s:HGroup width="100%" height="100%" horizontalAlign="center">
-						<s:Label width="200" text="Number of species lost or gained" textAlign="left"/>
-						<s:Label width="100" text="--"/>
-						<s:Label width="100" text="{checkValue(data[0].AbWmS)}"/>
-						<s:Label width="100" text="{checkValue(data[0].AbWmSF2)}"/>
-					</s:HGroup>
-					<s:HGroup width="100%" height="100%" horizontalAlign="center">
-						<s:Label width="200" text="Percent of species lost" textAlign="left"/>
-						<s:Label width="100" text="--"/>
-						<s:Label width="100"
-								 text="{'-'+(roundValues(checkValue(data[0].AbPWmV).toString(),0)).toString()+'%'}"/>
-						<s:Label width="100"
-								 text="{'-'+(roundValues(checkValue(data[0].AbPWmVF2).toString(),0)).toString()+'%'}"/>
-					</s:HGroup>
-					<s:HGroup width="100%" height="100%" horizontalAlign="center">
-						<s:Label width="200" text="Percent of species gained" textAlign="left"/>
-						<s:Label width="100" text="--"/>
-						<s:Label width="100"
-								 text="{'+'+(roundValues(checkValue(data[0].AbPWmO).toString(),0)).toString()+'%'}"/>
-						<s:Label width="100"
-								 text="{'+'+(roundValues(checkValue(data[0].AbPWmOF2).toString(),0)).toString()+'%'}"/>
-					</s:HGroup>
-					<s:HGroup width="100%" height="100%" horizontalAlign="center">
-						<s:Label width="200" text="Vulnerability" textAlign="left"/>
-						<s:Label width="100" text="--"/>
-						<s:Label width="100" text="{roundValues(data[0]['VWmT20F1'],0)}%"/>
-						<s:Label width="100" text="{roundValues(data[0]['VWmT20F2'],0)}%"/>
-					</s:HGroup>
-					<s:HGroup width="100%" height="100%" horizontalAlign="center">
-						<s:Label width="200" text="Opportunity" textAlign="left"/>
-						<s:Label width="100" text="--"/>
-						<s:Label width="100" text="{roundValues(data[0]['OWmT20F1'],0)}%"/>
-						<s:Label width="100" text="{roundValues(data[0]['OWmT20F2'],0)}%"/>
-					</s:HGroup>
-					<s:HGroup width="100%" height="100%" horizontalAlign="center">
-						<s:Label width="200" text="Sensitivity" textAlign="left"/>
-						<s:Label width="100" text="--"/>
-						<s:Label width="100" text="{roundValues(data[0]['SWmT20F1'],0)}%"/>
-						<s:Label width="100" text="{roundValues(data[0]['SWmT20F2'],0)}%"/>
-					</s:HGroup>
-					
 				</s:VGroup>
 			</s:VGroup>
-			<s:VScrollBar height="{fishSummaryContent.height}" viewport="{fishSummaryContent}"/>
+			<s:VScrollBar height="{climateContent.height}" viewport="{climateContent}"/>
 		</mx:HBox>
-		<mx:HBox id="fishSpeciesResponse" label="Individual fish species" paddingBottom="10"
+		<mx:HBox id="waterquality" label="Water quality" paddingBottom="10"
 				 paddingLeft="5" paddingRight="5" paddingTop="5">
 			<localControls:streamCatchInfoBar height="100%" dataObj="{data[0]}"/>
-			<s:VGroup id="groupFishResponseContent" visible="{!indFishResponseContent.visible}"
-					  width="100%" maxHeight="500" clipAndEnableScrolling="true"
-					  includeInLayout="{groupFishResponseContent.visible}" paddingBottom="10"
-					  paddingLeft="10" paddingRight="10" paddingTop="10">
-				<!--<s:HGroup paddingBottom="5" verticalAlign="middle">
-					<s:Label fontWeight="bold" text="Select:"/>
-					<s:DropDownList id="fishResponseSelect" width="265" color="black"
-									prompt="Select a response type..." selectedIndex="0">
-						<s:ArrayCollection>
-							<fx:String>Predicted occurrence</fx:String>
-						</s:ArrayCollection>
-					</s:DropDownList>
-				</s:HGroup>-->
+			<s:VGroup id="qwContent" width="100%" maxHeight="470"
+					  clipAndEnableScrolling="true" paddingBottom="10" paddingLeft="10"
+					  paddingRight="10" paddingTop="10">
 				<mx:HBox width="100%" backgroundColor="0xDDDDDD" paddingBottom="5" paddingLeft="5"
-						 paddingRight="5" paddingTop="5" verticalAlign="middle">
-					<s:Label fontWeight="bold" text="Predicted Occurrence:"/>
-					<s:Label fontSize="9"
-							 text="Shows if an individual fish species is likely to be present (over 80% of the models agree)" width="420"/>
-					<mx:Image source="./assets/images/help_tip.png" width="100%" toolTip="{fishIndSpeciesTooltip}" horizontalAlign="right" />
+						 paddingRight="5" paddingTop="5">
+					<s:Label text="All fish species"/>
+					<mx:Image source="./assets/images/help_tip.png" width="100%" toolTip="{qwTooltip}" horizontalAlign="right" />
 				</mx:HBox>
-				<s:VGroup textAlign="center">
-					<s:HGroup width="100%" height="100%" fontWeight="bold" horizontalAlign="center"
-							  textAlign="center">
-						<s:Label width="220" text=""/>
-						<s:Label width="340" text="Predicted Occurrence"/>
+				<s:VGroup textAlign="center" paddingTop="10" paddingBottom="10">
+					<s:HGroup width="100%" height="100%" horizontalAlign="center">
+						<s:Label width="200" text="Risk of stream habitat degradation" textAlign="left"/>
+						<s:Label width="100" text="{data[0].CSQWTEXT}"/>
 					</s:HGroup>
-					<s:HGroup width="100%" height="100%" fontWeight="bold" horizontalAlign="center"
-							  textAlign="center">
-						<s:Label width="120" text="Fish Species"/>
-						<s:Label width="100" text="Fish Thermal Guild"/>
-						<s:Label width="100" text="Late 20th Century (1961-2000)"/>
-						<s:Label width="120" text="Mid 21st Century (2046-2065)"/> 
-						<s:Label width="120" text="Late 21st Century (2081-2100)"/> 
+					<s:HGroup width="100%" height="100%" horizontalAlign="center">
+						<s:Label width="200" text="Water-quality impairment score" textAlign="left"/>
+						<s:Label width="100" text="{data[0].CSQWAS}"/>
 					</s:HGroup>
-					
-					<s:VGroup gap="0">
-						<!-- cold species -->
-						<localControls:FishSpeciesEntry id="sp1" click="speciesClick(event)"
-														dataObj="{data[0]}"
-														speciesName="Brook Trout" speciesNumber="S1"
-														tempClass="Cold"
-														tempClassColor="{tempClassBlue}"/>
-						<mx:HRule width="100%"/>
-						<localControls:FishSpeciesEntry id="sp2" click="speciesClick(event)"
-														dataObj="{data[0]}"
-														speciesName="Brown Trout" speciesNumber="S2"
-														tempClass="Cold"
-														tempClassColor="{tempClassBlue}"/>
-						<mx:HRule width="100%"/>
-						<localControls:FishSpeciesEntry id="sp3" click="speciesClick(event)"
-														dataObj="{data[0]}"
-														speciesName="Mottled Sculpin"
-														speciesNumber="S3" tempClass="Cold"
-														tempClassColor="{tempClassBlue}"/>
-						<mx:HRule width="100%"/>
-						<localControls:FishSpeciesEntry id="sp4" click="speciesClick(event)"
-														dataObj="{data[0]}"
-														speciesName="Rainbow Trout"
-														speciesNumber="S4" tempClass="Cold"
-														tempClassColor="{tempClassBlue}"/>
-						<mx:HRule width="100%"/>
-						<!-- cool species -->
-						<localControls:FishSpeciesEntry id="sp6" click="speciesClick(event)"
-														dataObj="{data[0]}"
-														speciesName="Blackchin Shiner"
-														speciesNumber="S6" tempClass="Cool"
-														tempClassColor="{tempClassGreen}"/>
-						<mx:HRule width="100%"/>
-						<localControls:FishSpeciesEntry id="sp7" click="speciesClick(event)"
-														dataObj="{data[0]}"
-														speciesName="Brook Stickleback"
-														speciesNumber="S7" tempClass="Cool"
-														tempClassColor="{tempClassGreen}"/>
-						<mx:HRule width="100%"/>
-						<localControls:FishSpeciesEntry id="sp8" click="speciesClick(event)"
-														dataObj="{data[0]}"
-														speciesName="Northern Hogsucker"
-														speciesNumber="S8" tempClass="Cool"
-														tempClassColor="{tempClassGreen}"/>
-						<mx:HRule width="100%"/>
-						<localControls:FishSpeciesEntry id="sp9" click="speciesClick(event)"
-														dataObj="{data[0]}"
-														speciesName="Northern Pike"
-														speciesNumber="S9" tempClass="Cool"
-														tempClassColor="{tempClassGreen}"/>
-						<mx:HRule width="100%"/>
-						<localControls:FishSpeciesEntry id="sp11" click="speciesClick(event)"
-														dataObj="{data[0]}"
-														speciesName="White Sucker"
-														speciesNumber="S11" tempClass="Cool"
-														tempClassColor="{tempClassGreen}"/>
-						<mx:HRule width="100%"/>
-						<!-- warm species -->
-						<localControls:FishSpeciesEntry id="sp12" click="speciesClick(event)"
-														dataObj="{data[0]}"
-														speciesName="Common Carp"
-														speciesNumber="S12" tempClass="Warm"
-														tempClassColor="{tempClassRed}"/>
-						<mx:HRule width="100%"/>
-						<localControls:FishSpeciesEntry id="sp13" click="speciesClick(event)"
-														dataObj="{data[0]}"
-														speciesName="Green Sunfish"
-														speciesNumber="S13" tempClass="Warm"
-														tempClassColor="{tempClassRed}"/>
-						<mx:HRule width="100%"/>
-						<localControls:FishSpeciesEntry id="sp15" click="speciesClick(event)"
-														dataObj="{data[0]}"
-														speciesName="Smallmouth Bass"
-														speciesNumber="S15" tempClass="Warm"
-														tempClassColor="{tempClassRed}"/>
-						<mx:HRule width="100%"/>
-						<localControls:FishSpeciesEntry id="sp16" click="speciesClick(event)"
-														dataObj="{data[0]}" speciesName="Stonecat"
-														speciesNumber="S16" tempClass="Warm"
-														tempClassColor="{tempClassRed}"/>
-						
-					</s:VGroup>
-					
 				</s:VGroup>
-			</s:VGroup>
-			
-			<s:VGroup id="indFishResponseContent" visible="false" width="100%" maxHeight="500"
-					  clipAndEnableScrolling="true" includeInLayout="false" paddingBottom="10"
-					  paddingLeft="10" paddingRight="10" paddingTop="10">
-				<localControls:IndFishResponse id="fishResponse"/> 
-			</s:VGroup>
-		</mx:HBox>
-		<mx:HBox id="streamflow" label="Streamflow exceedance" paddingBottom="10" paddingLeft="5"
-				 paddingRight="5" paddingTop="5">
-			<localControls:streamCatchInfoBar height="100%" dataObj="{data[0]}"/>
-			<s:VGroup>
-				<mx:HBox width="100%" backgroundColor="0xDDDDDD" paddingBottom="5" paddingLeft="5"
-						 paddingRight="5" paddingTop="5" verticalAlign="middle">
-					<s:Label fontWeight="bold" text="Streamflow Exceedance"/>
-					<mx:Image source="./assets/images/help_tip.png" width="100%" toolTip="{streamflowTooltip}" horizontalAlign="right" />
+				<mx:HBox width="100%" backgroundColor="0xDDDDDD" paddingBottom="5" paddingLeft="10"
+						 paddingRight="5" paddingTop="5">
+					<s:Label text="Water quality impairment"/>
 				</mx:HBox>
-				<s:VGroup textAlign="center">
-					<s:HGroup width="100%" height="100%" fontWeight="bold" horizontalAlign="center"
-							  textAlign="center" verticalAlign="bottom">
-						<s:Label width="200"/>
-						<s:Label width="120" text="Late 20th Century (1961-2000)"/>
-						<s:Label width="120" text="Mid 21st Century (2046-2065)"/>
-						<s:Label width="120" text="Late 21st Century (2081-2100)"/>
+				<s:VGroup textAlign="center" gap="5" paddingBottom="25" paddingTop="10">
+					<s:HGroup width="100%" height="100%" horizontalAlign="center" visible="{data[0].WQ_1 == 1}" includeInLayout="{data[0].WQ_1 == 1}">
+						<s:Label width="500" text="Algal growth" textAlign="left"/>
 					</s:HGroup>
-					
-					<mx:HRule width="100%"/>
-					
-					<s:Label width="100%" fontWeight="bold" text="REACH" textAlign="left"/>
-					
-					<mx:HRule width="100%"/>
-					
-					<s:HGroup width="100%" height="100%" horizontalAlign="center" paddingTop="2"
-							  textAlign="center">
-						<s:Label width="200"
-								 text="Annual Q50 flow (median flow, cubic feet per second)"
-								 textAlign="left"/>
-						<s:HGroup width="120" horizontalAlign="center">
-							<s:Label text="{roundValues(data[0]['ANQ50CFS'],2)}"/>
-						</s:HGroup>
-						<s:HGroup width="120" horizontalAlign="center">
-							<s:Label text="{roundValues(data[0]['ANQ50CFSF1'],2)}"/>
-						</s:HGroup>
-						<s:HGroup width="120" horizontalAlign="center">
-							<s:Label text="{roundValues(data[0]['ANQ50CFSF2'],2)}"/>
-						</s:HGroup>
+					<s:HGroup width="100%" height="100%" horizontalAlign="center" visible="{data[0].WQ_2 == 1}" includeInLayout="{data[0].WQ_2 == 1}">
+						<s:Label width="500" text="Ammonia" textAlign="left"/>
 					</s:HGroup>
-					
-					<mx:HRule width="100%"/>
-					
-					<s:HGroup width="100%" height="100%" horizontalAlign="center" paddingTop="2"
-							  textAlign="center">
-						<s:Label width="200" text="Annual Q90 flow (low flow, cubic feet per second)"
-								 textAlign="left"/>
-						<s:HGroup width="120" horizontalAlign="center">
-							<s:Label text="{roundValues(data[0]['AGQ90CFS'],2)}"/>
-						</s:HGroup>
-						<s:HGroup width="120" horizontalAlign="center">
-							<s:Label text="{roundValues(data[0]['AGQ90CFSF1'],2)}"/>
-						</s:HGroup>
-						<s:HGroup width="120" horizontalAlign="center">
-							<s:Label text="{roundValues(data[0]['AGQ90CFSF2'],2)}"/>
-						</s:HGroup>
+					<s:HGroup width="100%" height="100%" horizontalAlign="center" visible="{data[0].WQ_4 == 1}" includeInLayout="{data[0].WQ_4 == 1}">
+						<s:Label width="500" text="Cause unknown - fish kills" textAlign="left"/>
 					</s:HGroup>
-					
-					<mx:HRule width="100%"/>
-					
-					<s:Label width="100%" fontWeight="bold" text="CATCHMENT" textAlign="left"/>
-					
-					<mx:HRule width="100%"/>
-					
-					<s:HGroup width="100%" height="100%" horizontalAlign="center" paddingTop="2"
-							  textAlign="center">
-						<s:Label width="200"
-								 text="Annual Q50 yield (median flow, cubic feet per second per square mile)"
-								 textAlign="left"/>
-						<s:HGroup width="120" horizontalAlign="center">
-							<s:Label text="{roundValues(data[0]['ANQ50YLF'],2)}"/>
-						</s:HGroup>
-						<s:HGroup width="120" horizontalAlign="center">
-							<s:Label text="{roundValues(data[0]['ANQ50YLFF1'],2)}"/>
-						</s:HGroup>
-						<s:HGroup width="120" horizontalAlign="center">
-							<s:Label text="{roundValues(data[0]['ANQ50YLFF2'],2)}"/>
-						</s:HGroup>
+					<s:HGroup width="100%" height="100%" horizontalAlign="center" visible="{data[0].WQ_5 == 1}" includeInLayout="{data[0].WQ_5 == 1}">
+						<s:Label width="500" text="Cause unknown - impaired biota" textAlign="left"/>
 					</s:HGroup>
-					
-					<mx:HRule width="100%"/>
-					
-					<s:HGroup width="100%" height="100%" horizontalAlign="center" paddingTop="2"
-							  textAlign="center">
-						<s:Label width="200"
-								 text="Annual Q90 yield (low flow, cubic feet per second per square mile)"
-								 textAlign="left"/>
-						<s:HGroup width="120" horizontalAlign="center">
-							<s:Label text="{roundValues(data[0]['AGQ90YLF'],2)}"/>
-						</s:HGroup>
-						<s:HGroup width="120" horizontalAlign="center">
-							<s:Label text="{roundValues(data[0]['AGQ90YLFF1'],2)}"/>
-						</s:HGroup>
-						<s:HGroup width="120" horizontalAlign="center">
-							<s:Label text="{roundValues(data[0]['AGQ90YLFF2'],2)}"/>
-						</s:HGroup>
+					<s:HGroup width="100%" height="100%" horizontalAlign="center" visible="{data[0].WQ_6 == 1}" includeInLayout="{data[0].WQ_6 == 1}">
+						<s:Label width="500" text="Chlorine" textAlign="left"/>
 					</s:HGroup>
-					
-					<mx:HRule width="100%"/>
-					
+					<s:HGroup width="100%" height="100%" horizontalAlign="center" visible="{data[0].WQ_7 == 1}" includeInLayout="{data[0].WQ_7 == 1}">
+						<s:Label width="500" text="Dioxins" textAlign="left"/>
+					</s:HGroup>
+					<s:HGroup width="100%" height="100%" horizontalAlign="center" visible="{data[0].WQ_8 == 1}" includeInLayout="{data[0].WQ_8 == 1}">
+						<s:Label width="500" text="Fish consumption advisory" textAlign="left"/>
+					</s:HGroup>
+					<s:HGroup width="100%" height="100%" horizontalAlign="center" visible="{data[0].WQ_9 == 1}" includeInLayout="{data[0].WQ_9 == 1}">
+						<s:Label width="500" text="Flow alteration" textAlign="left"/>
+					</s:HGroup>
+					<s:HGroup width="100%" height="100%" horizontalAlign="center" visible="{data[0].WQ_10 == 1}" includeInLayout="{data[0].WQ_10 == 1}">
+						<s:Label width="500" text="Habitat alteration" textAlign="left"/>
+					</s:HGroup>
+					<s:HGroup width="100%" height="100%" horizontalAlign="center" visible="{data[0].WQ_11 == 1}" includeInLayout="{data[0].WQ_11 == 1}">
+						<s:Label width="500" text="Mercury" textAlign="left"/>
+					</s:HGroup>
+					<s:HGroup width="100%" height="100%" horizontalAlign="center" visible="{data[0].WQ_12 == 1}" includeInLayout="{data[0].WQ_12 == 1}">
+						<s:Label width="500" text="Metals (other than mercury)" textAlign="left"/>
+					</s:HGroup>
+					<s:HGroup width="100%" height="100%" horizontalAlign="center" visible="{data[0].WQ_13 == 1}" includeInLayout="{data[0].WQ_13 == 1}">
+						<s:Label width="500" text="Noxious aquatic plants" textAlign="left"/>
+					</s:HGroup>
+					<s:HGroup width="100%" height="100%" horizontalAlign="center" visible="{data[0].WQ_14 == 1}" includeInLayout="{data[0].WQ_14 == 1}">
+						<s:Label width="500" text="Nuisance exotic species" textAlign="left"/>
+					</s:HGroup>
+					<s:HGroup width="100%" height="100%" horizontalAlign="center" visible="{data[0].WQ_15 == 1}" includeInLayout="{data[0].WQ_15 == 1}">
+						<s:Label width="500" text="Nuisance native species" textAlign="left"/>
+					</s:HGroup>
+					<s:HGroup width="100%" height="100%" horizontalAlign="center" visible="{data[0].WQ_16 == 1}" includeInLayout="{data[0].WQ_16 == 1}">
+						<s:Label width="500" text="Nutrients" textAlign="left"/>
+					</s:HGroup>
+					<s:HGroup width="100%" height="100%" horizontalAlign="center" visible="{data[0].WQ_17 == 1}" includeInLayout="{data[0].WQ_17 == 1}">
+						<s:Label width="500" text="Oil and grease" textAlign="left"/>
+					</s:HGroup>
+					<s:HGroup width="100%" height="100%" horizontalAlign="center" visible="{data[0].WQ_18 == 1}" includeInLayout="{data[0].WQ_18 == 1}">
+						<s:Label width="500" text="Organic enrichment/oxygen depletion" textAlign="left"/>
+					</s:HGroup>
+					<s:HGroup width="100%" height="100%" horizontalAlign="center" visible="{data[0].WQ_20 == 1}" includeInLayout="{data[0].WQ_20 == 1}">
+						<s:Label width="500" text="Pathogens" textAlign="left"/>
+					</s:HGroup>
+					<s:HGroup width="100%" height="100%" horizontalAlign="center" visible="{data[0].WQ_21 == 1}" includeInLayout="{data[0].WQ_21 == 1}">
+						<s:Label width="500" text="Pesticides" textAlign="left"/>
+					</s:HGroup>
+					<s:HGroup width="100%" height="100%" horizontalAlign="center" visible="{data[0].WQ_22 == 1}" includeInLayout="{data[0].WQ_22 == 1}">
+						<s:Label width="500" text="pH, acidity, caustic conditions" textAlign="left"/>
+					</s:HGroup>
+					<s:HGroup width="100%" height="100%" horizontalAlign="center" visible="{data[0].WQ_23 == 1}" includeInLayout="{data[0].WQ_23 == 1}">
+						<s:Label width="500" text="Polychlorinated biphenyls (PCBs)" textAlign="left"/>
+					</s:HGroup>
+					<s:HGroup width="100%" height="100%" horizontalAlign="center" visible="{data[0].WQ_24 == 1}" includeInLayout="{data[0].WQ_24 == 1}">
+						<s:Label width="500" text="Radiation" textAlign="left"/>
+					</s:HGroup>
+					<s:HGroup width="100%" height="100%" horizontalAlign="center" visible="{data[0].WQ_25 == 1}" includeInLayout="{data[0].WQ_25 == 1}">
+						<s:Label width="500" text="Salinity, total dissolved solids, chlorides, sulfates" textAlign="left"/>
+					</s:HGroup>
+					<s:HGroup width="100%" height="100%" horizontalAlign="center" visible="{data[0].WQ_26 == 1}" includeInLayout="{data[0].WQ_26 == 1}">
+						<s:Label width="500" text="Sediment" textAlign="left"/>
+					</s:HGroup>
+					<s:HGroup width="100%" height="100%" horizontalAlign="center" visible="{data[0].WQ_27 == 1}" includeInLayout="{data[0].WQ_27 == 1}">
+						<s:Label width="500" text="Taste, color, odor" textAlign="left"/>
+					</s:HGroup>
+					<s:HGroup width="100%" height="100%" horizontalAlign="center" visible="{data[0].WQ_28 == 1}" includeInLayout="{data[0].WQ_28 == 1}">
+						<s:Label width="500" text="Temperature" textAlign="left"/>
+					</s:HGroup>
+					<s:HGroup width="100%" height="100%" horizontalAlign="center" visible="{data[0].WQ_29 == 1}" includeInLayout="{data[0].WQ_29 == 1}">
+						<s:Label width="500" text="Total toxics" textAlign="left"/>
+					</s:HGroup>
+					<s:HGroup width="100%" height="100%" horizontalAlign="center" visible="{data[0].WQ_30 == 1}" includeInLayout="{data[0].WQ_30 == 1}">
+						<s:Label width="500" text="Toxic inorganics" textAlign="left"/>
+					</s:HGroup>
+					<s:HGroup width="100%" height="100%" horizontalAlign="center" visible="{data[0].WQ_31 == 1}" includeInLayout="{data[0].WQ_31 == 1}">
+						<s:Label width="500" text="Toxic organics" textAlign="left"/>
+					</s:HGroup>
+					<s:HGroup width="100%" height="100%" horizontalAlign="center" visible="{data[0].WQ_32 == 1}" includeInLayout="{data[0].WQ_32 == 1}">
+						<s:Label width="500" text="Turbidity" textAlign="left"/>
+					</s:HGroup>
+					<s:HGroup width="100%" height="100%" horizontalAlign="center" visible="{data[0].WQ_19 == 1}" includeInLayout="{data[0].WQ_19 == 1}">
+						<s:Label width="500" text="Other cause" textAlign="left"/>
+					</s:HGroup>
+					<s:HGroup width="100%" height="100%" horizontalAlign="center" visible="{data[0].WQ_3 == 1}" includeInLayout="{data[0].WQ_3 == 1}">
+						<s:Label width="500" text="Cause unknown" textAlign="left"/>
+					</s:HGroup>
 				</s:VGroup>
-			</s:VGroup>
-		</mx:HBox>
-		<mx:HBox id="climateProjections" includeIn="catchments" label="Climate" paddingBottom="10"
-				 paddingLeft="5" paddingRight="5" paddingTop="5">
-			<localControls:streamCatchInfoBar height="100%" dataObj="{data[0]}"/>
-			<s:VGroup>
-				<mx:HBox width="100%" backgroundColor="0xDDDDDD" paddingBottom="5" paddingLeft="5"
-						 paddingRight="5" paddingTop="5" verticalAlign="middle">
-					<s:Label width="550" fontWeight="bold"
-							 text="Climate Responses: Average of 13 Global Climate Models (GCMs), adjusted to present-day meterological observations"/>
-					<mx:Image source="./assets/images/help_tip.png" width="100%" toolTip="{climateAvgTooltip}" horizontalAlign="right" />
-				</mx:HBox>
-				
-				<s:VGroup paddingBottom="50" textAlign="center">
-					<s:HGroup width="100%" height="100%" fontWeight="bold" horizontalAlign="center"
-							  textAlign="center" verticalAlign="bottom">
-						<s:Label width="200"/>
-						<s:Label width="120" text="Late 20th Century (1961-2000)"/>
-						<s:Label width="120" text="Mid 21st Century (2046-2065)"/>
-						<s:Label width="120" text="Late 21st Century (2081-2100)"/>
-					</s:HGroup>
-					
-					<mx:HRule width="100%"/>
-					
-					<s:HGroup width="100%" height="100%" horizontalAlign="center" paddingTop="2"
-							  textAlign="center">
-						<s:Label width="200" text="Mean annual air temperature" textAlign="left"/>
-						<s:HGroup width="120" horizontalAlign="center">
-							<s:Label text="{roundValues(data[0]['AT20X'],2)}°F"/>
-						</s:HGroup>
-						<s:HGroup width="120" horizontalAlign="center">
-							<s:Label text="{roundValues(data[0]['ATF1X'],2)}°F"/>
-						</s:HGroup>
-						<s:HGroup width="120" horizontalAlign="center">
-							<s:Label text="{roundValues(data[0]['ATF2X'],2)}°F"/>
-						</s:HGroup>
-					</s:HGroup>
-					
-					<mx:HRule width="100%"/>
-					
-					<s:HGroup width="100%" height="100%" horizontalAlign="center" paddingTop="2"
-							  textAlign="center">
-						<s:Label width="200" text="Change in mean annual air temperature"
-								 textAlign="left"/>
-						<s:HGroup width="120" horizontalAlign="center">
-							<s:Label text="--"/>
-						</s:HGroup>
-						<s:HGroup width="120" horizontalAlign="center">
-							<s:Label text="{roundValues(data[0]['CHAT20F1X'],2)}°F"/>
-						</s:HGroup>
-						<s:HGroup width="120" horizontalAlign="center">
-							<s:Label text="{roundValues(data[0]['CHAT20F2X'],2)}°F"/>
-						</s:HGroup>
-					</s:HGroup>
-					
-					<mx:HRule width="100%"/>
-					
-					<s:HGroup width="100%" height="100%" horizontalAlign="center" paddingTop="2"
-							  textAlign="center">
-						<s:Label width="200" text="Mean annual precipitation (inches)"
-								 textAlign="left"/>
-						<s:HGroup width="120" horizontalAlign="center">
-							<s:Label text="{roundValues(data[0]['PR20X'],2)}"/>
-						</s:HGroup>
-						<s:HGroup width="120" horizontalAlign="center">
-							<s:Label text="{roundValues(data[0]['PRF1X'],2)}"/>
-						</s:HGroup>
-						<s:HGroup width="120" horizontalAlign="center">
-							<s:Label text="{roundValues(data[0]['PRF2X'],2)}"/>
-						</s:HGroup>
-					</s:HGroup>
-					
-					<mx:HRule width="100%"/>
-					
-					<s:HGroup width="100%" height="100%" horizontalAlign="center" paddingTop="2"
-							  textAlign="center">
-						<s:Label width="200" text="Change in mean annual precipitation (inches)"
-								 textAlign="left"/>
-						<s:HGroup width="120" horizontalAlign="center">
-							<s:Label text="--"/>
-						</s:HGroup>
-						<s:HGroup width="120" horizontalAlign="center">
-							<s:Label width="120" text="{roundValues(data[0]['CHPR20F1X'],2)}"/>
-						</s:HGroup>
-						<s:HGroup width="120" horizontalAlign="center">
-							<s:Label width="120" text="{roundValues(data[0]['CHPR20F2X'],2)}"/>
-						</s:HGroup>
-					</s:HGroup>
-					
-					<mx:HRule width="100%"/>
-					
-				</s:VGroup>
-				
-				<mx:HBox width="100%" backgroundColor="0xDDDDDD" paddingBottom="5" paddingLeft="5"
-						 paddingRight="5" paddingTop="5" verticalAlign="middle">
-					<s:Label width="550" fontWeight="bold"
-							 text="Climate Responses: Raw data from the 13 Global Climate Models (GCMs) used in the FishVis models"/>
-					<mx:Image source="./assets/images/help_tip.png" width="100%" toolTip="{climateRawTooltip}" horizontalAlign="right" />
-				</mx:HBox>
-				
-				
-				<localControls:IndClimateResponse dataObj="{data[0]}" modelNumber="CCC"/>
-				<localControls:IndClimateResponse dataObj="{data[0]}" modelNumber="T63"/>
-				<localControls:IndClimateResponse dataObj="{data[0]}" modelNumber="MIR"/>
-				<localControls:IndClimateResponse dataObj="{data[0]}" modelNumber="C30"/>
-				<localControls:IndClimateResponse dataObj="{data[0]}" modelNumber="C35"/>
-				<localControls:IndClimateResponse dataObj="{data[0]}" modelNumber="IAP"/>
-				<localControls:IndClimateResponse dataObj="{data[0]}" modelNumber="MPI"/>
-				<localControls:IndClimateResponse dataObj="{data[0]}" modelNumber="CNR"/>
-				<localControls:IndClimateResponse dataObj="{data[0]}" modelNumber="MIU"/>
-				<localControls:IndClimateResponse dataObj="{data[0]}" modelNumber="MRI"/>
-				<localControls:IndClimateResponse dataObj="{data[0]}" modelNumber="AOM"/>
-				<localControls:IndClimateResponse dataObj="{data[0]}" modelNumber="GER"/>
-				<localControls:IndClimateResponse dataObj="{data[0]}" modelNumber="GFD"/>
-				
-				
-			</s:VGroup>
-		</mx:HBox>
-		<mx:HBox id="climateModels" label="Climate models" paddingBottom="10" paddingLeft="5"
-				 paddingRight="5" paddingTop="5">
-			<s:VGroup width="100%">
-				<mx:VBox width="100%" backgroundColor="0xDDDDDD" paddingBottom="10" paddingLeft="5"
-						 paddingRight="5" paddingTop="10" verticalAlign="middle">
-					<s:Label width="100%" fontWeight="bold"
-							 text="CMIP3 Climate Model Intercomparison Project version 3 - Model documentation, references, and links"/>
-					<s:Label width="100%" buttonMode="true"
-							 click="navigateToURL(new URLRequest('http://www-pcmdi.llnl.gov/ipcc/model_documentation/ipcc_model_documentation.php'))"
-							 color="blue" fontStyle="italic" mouseChildren="false"
-							 text="http://www-pcmdi.llnl.gov/ipcc/model_documentation/ipcc_model_documentation.php"
-							 useHandCursor="true"/>
-				</mx:VBox>
-				
-				<s:Label paddingBottom="10" paddingTop="10"
-						 text="The following table provides reference information about the 13 CMIP3 global climate models (GCMs) used in the FishVis study."/>
-
-				<s:HGroup width="100%" height="100%" fontWeight="bold" paddingBottom="0"
-						  paddingLeft="2" paddingRight="2" paddingTop="2" textAlign="center">
-					<s:Label width="300" text="Originating Group" textAlign="left"/>
-					<s:Label width="70" text="Country"/>
-					<s:Label width="60" text="FishVis GCM code"/>
-					<s:Label width="100" text="CMIP3 I.D."/> 
-					<s:Label width="120" text="Documentation"/> 
-					<s:Label width="90" text="Additional information"/>
-				</s:HGroup>
-				
-				<mx:HRule width="100%"/>
-				<localControls:IndClimateModel modelNumber="ccc"/>
-				<mx:HRule width="100%"/>
-				<localControls:IndClimateModel modelNumber="t63"/>
-				<mx:HRule width="100%"/>
-				<localControls:IndClimateModel modelNumber="mir"/>
-				<mx:HRule width="100%"/>
-				<localControls:IndClimateModel modelNumber="c30"/>
-				<mx:HRule width="100%"/>
-				<localControls:IndClimateModel modelNumber="c35"/>
-				<mx:HRule width="100%"/>
-				<localControls:IndClimateModel modelNumber="iap"/>
-				<mx:HRule width="100%"/>
-				<localControls:IndClimateModel modelNumber="mpi"/>
-				<mx:HRule width="100%"/>
-				<localControls:IndClimateModel modelNumber="cnr"/>
-				<mx:HRule width="100%"/>
-				<localControls:IndClimateModel modelNumber="miu"/>
-				<mx:HRule width="100%"/>
-				<localControls:IndClimateModel modelNumber="mri"/>
-				<mx:HRule width="100%"/>
-				<localControls:IndClimateModel modelNumber="aom"/>
-				<mx:HRule width="100%"/>
-				<localControls:IndClimateModel modelNumber="ger"/>
-				<mx:HRule width="100%"/>
-				<localControls:IndClimateModel modelNumber="gfd"/>
-				<mx:HRule width="100%"/>
-				
 			</s:VGroup>
 		</mx:HBox>
 		

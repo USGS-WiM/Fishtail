@@ -140,7 +140,7 @@ import spark.events.IndexChangeEvent;
 				scenarios.addEventListener(FlexEvent.UPDATE_COMPLETE, getScenarioLayerInfos);
 				scenariosCatchments.addEventListener(FlexEvent.UPDATE_COMPLETE, getScenariosCatchmentsLayerInfos);
 				scenariosHUC12.addEventListener(FlexEvent.UPDATE_COMPLETE, getScenariosHUC12LayerInfos);
-				climateStreamflow.addEventListener(FlexEvent.UPDATE_COMPLETE, getClimateStreamflowLayerInfos);
+				//climateStreamflow.addEventListener(FlexEvent.UPDATE_COMPLETE, getClimateStreamflowLayerInfos);
 				//fishVisSearch.addEventListener(FlexEvent.UPDATE_COMPLETE, getFishVisSearchLayerInfos);
 			}
 
@@ -172,13 +172,13 @@ import spark.events.IndexChangeEvent;
 				}
 			}
 
-			private function getClimateStreamflowLayerInfos(event:FlexEvent):void {
+			/*private function getClimateStreamflowLayerInfos(event:FlexEvent):void {
 				if (climateStreamflowLayerInfos == null) {
 					climateStreamflowLayerInfos = climateStreamflow.layerInfos;
 				} else {
 					climateStreamflow.removeEventListener(FlexEvent.UPDATE_COMPLETE, getClimateStreamflowLayerInfos);
 				}
-			}
+			}*/
 
 			private function getFishVisSearchLayerInfos(event:FlexEvent):void {
 				if (fishVisSearchLayerInfos == null) {
@@ -331,18 +331,18 @@ import spark.events.IndexChangeEvent;
 				
 				scenarios.visibleLayers = new ArrayCollection();
 				scenarios.refresh();
-				scenariosSmall.visibleLayers = new ArrayCollection();
-				scenariosSmall.refresh();
+				//scenariosSmall.visibleLayers = new ArrayCollection();
+				//scenariosSmall.refresh();
 				scenariosCatchments.visibleLayers = new ArrayCollection();
 				scenariosCatchments.refresh();
 				scenariosCatchmentsSmall.visibleLayers = new ArrayCollection();
 				scenariosCatchmentsSmall.refresh();
 				scenariosHUC12.visibleLayers = new ArrayCollection();
 				scenariosHUC12.refresh();
-				climateStreamflow.visibleLayers = new ArrayCollection();
+				/*climateStreamflow.visibleLayers = new ArrayCollection();
 				climateStreamflow.refresh();
 				climateStreamflowSmall.visibleLayers = new ArrayCollection();
-				climateStreamflowSmall.refresh();
+				climateStreamflowSmall.refresh();*/
 				
 				/*if (indSelectGroup.visible == false) {
 					if (speciesSelectVal == "Cold water species") {
@@ -822,6 +822,8 @@ import spark.events.IndexChangeEvent;
 					case "QW":
 						respInd = "303d listed streams";
 						break;
+					case "CL":
+						respInd = "future climate change";
 				}
 				
 				legendTitle = "Risk of habitat degradation due to " + respInd;
@@ -863,13 +865,13 @@ import spark.events.IndexChangeEvent;
 							} else {
 								scenarios.visibleLayers = new ArrayCollection();
 								scenarios.refresh();
-								scenariosSmall.visibleLayers = new ArrayCollection();
-								scenariosSmall.refresh();
+								//scenariosSmall.visibleLayers = new ArrayCollection();
+								//scenariosSmall.refresh();
 							}
 						}
 						scenariosLegend.aLegendService.send();
 						//scenariosSmallLegend.aLegendService.send();
-						scenariosSmallLegend.legendTitle = legendTitle;
+						//scenariosSmallLegend.legendTitle = legendTitle;
 						scenariosLegend.legendTitle = legendTitle;
 					}
 				}
@@ -1174,8 +1176,7 @@ import spark.events.IndexChangeEvent;
 	    			var infoGraphicsSymbol:InfoSymbol = singleGraphicSym;	    							    	
 	    				
 	    			
-    				if ((scenarios.visibleLayers != null && scenarios.visibleLayers.length > 0) || (scenariosCatchments.visibleLayers != null && scenariosCatchments.visibleLayers.length > 0)
-						|| (climateStreamflow.visibleLayers != null && climateStreamflow.visibleLayers.length > 0) || (climateStreamflowSmall.visibleLayers != null && climateStreamflowSmall.visibleLayers.length > 0)) {
+    				if ((scenarios.visibleLayers != null && scenarios.visibleLayers.length > 0) || (scenariosCatchments.visibleLayers != null && scenariosCatchments.visibleLayers.length > 0)) {
 					
 						//Create query object to for currently selected layer    			
 		    		
@@ -1190,7 +1191,7 @@ import spark.events.IndexChangeEvent;
 						identifyParameters.spatialReference = map.spatialReference;	
 						
 						if (scenarios.visibleLayers != null && scenarios.visibleLayers.length > 0) {
-							var identifyTask:IdentifyTask = new IdentifyTask(resourceManager.getString('urls', 'streamsForQueryUrl'));
+							var identifyTask:IdentifyTask = new IdentifyTask(resourceManager.getString('urls', 'scenariosUrl'));
 							identifyTask.showBusyCursor = true;
 							identifyTask.execute( identifyParameters, new AsyncResponder(infoSingleResult, infoFault, new ArrayCollection([{eventX: event.stageX, eventY: event.stageY}])) );
 						} else if (scenariosCatchments.visibleLayers != null && scenariosCatchments.visibleLayers.length > 0) {
@@ -1199,7 +1200,7 @@ import spark.events.IndexChangeEvent;
 							identifyParameters.layerIds = [0];
 							identifyTask.showBusyCursor = true;
 							identifyTask.execute( identifyParameters, new AsyncResponder(infoSingleResult, infoFault, new ArrayCollection([{eventX: event.stageX, eventY: event.stageY}])) );
-						} else if (climateStreamflow.visibleLayers != null && climateStreamflow.visibleLayers.length > 0 && climateStreamflow.visible == true && streamReach.selected) {
+						} /*else if (climateStreamflow.visibleLayers != null && climateStreamflow.visibleLayers.length > 0 && climateStreamflow.visible == true && streamReach.selected) {
 							var identifyTask:IdentifyTask = new IdentifyTask(resourceManager.getString('urls', 'climateStreamflow'));
 							identifyParameters.layerOption = "top";
 							identifyParameters.layerIds = [0];
@@ -1223,7 +1224,7 @@ import spark.events.IndexChangeEvent;
 							identifyParameters.layerIds = [climateStreamflow.layerInfos.length-1];
 							identifyTask.showBusyCursor = true;
 							identifyTask.execute( identifyParameters, new AsyncResponder(infoSingleResult, infoFault, new ArrayCollection([{eventX: event.stageX, eventY: event.stageY}])) );
-						} 
+						} */
 					} else if (scenariosHUC12.visibleLayers != null && scenariosHUC12.visibleLayers.length > 0) {
 						var identifyParameters:IdentifyParameters = new IdentifyParameters();
 						identifyParameters.returnGeometry = true;
