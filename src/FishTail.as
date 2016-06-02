@@ -148,6 +148,18 @@ import spark.events.IndexChangeEvent;
 				mapLoadingScreen.visible = true;
 			}
 
+			private function layerUpdateComp(layer:ArcGISDynamicMapServiceLayer):void {
+				if (layer.visible) {
+					mapLoadingScreen.visible = false;
+				}
+				
+				/*if (layer == scenarios) {
+				//scenariosLegend.getLegends(FlexEvent.
+				} else if (layer == streamTemp) {
+				//streamTempLegend.getLegends(evt)
+				}*/
+			}
+
 			private function getScenarioLayerInfos(event:FlexEvent):void {
 				if (scenarioLayerInfos == null) {
 					scenarioLayerInfos = scenarios.layerInfos;
@@ -330,14 +342,18 @@ import spark.events.IndexChangeEvent;
 				var F_addInfo:String = "";
 				
 				scenarios.visibleLayers = new ArrayCollection();
+				scenarios.visible = false;
 				scenarios.refresh();
 				//scenariosSmall.visibleLayers = new ArrayCollection();
 				//scenariosSmall.refresh();
 				scenariosCatchments.visibleLayers = new ArrayCollection();
+				scenariosCatchments.visible = false;
 				scenariosCatchments.refresh();
 				scenariosCatchmentsSmall.visibleLayers = new ArrayCollection();
+				scenariosCatchmentsSmall.visible = false;
 				scenariosCatchmentsSmall.refresh();
 				scenariosHUC12.visibleLayers = new ArrayCollection();
+				scenariosHUC12.visible = false;
 				scenariosHUC12.refresh();
 				/*climateStreamflow.visibleLayers = new ArrayCollection();
 				climateStreamflow.refresh();
@@ -476,6 +492,10 @@ import spark.events.IndexChangeEvent;
 					} else {
 						rivSqlArr += rivArr[i] + "','";
 					}
+				}
+				
+				if (catchment.selected || streamReach.selected) {
+					layerDef += " AND Creek_River IN " + rivSqlArr;
 				}
 				
 				if (huc12.selected) {
@@ -1520,18 +1540,6 @@ import spark.events.IndexChangeEvent;
 			private function getLegends(event:FlexEvent):void {
 				fishSampleLocationsLegend.getLegends(event);
 				catchmentsLegend.getLegends(event);
-			}
-
-			private function layerUpdateComp(layer:ArcGISDynamicMapServiceLayer):void {
-				if (layer.visible) {
-					mapLoadingScreen.visible = false;
-				}
-				
-				/*if (layer == scenarios) {
-					//scenariosLegend.getLegends(FlexEvent.
-				} else if (layer == streamTemp) {
-					//streamTempLegend.getLegends(evt)
-				}*/
 			}
 
 			protected function showUSGSPopUpBox(event:MouseEvent, popupName:String):void
