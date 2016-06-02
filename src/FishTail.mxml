@@ -499,6 +499,7 @@
 				id="scenariosCatchments"
 				visible="false" 
 				alpha="0.7" 
+				minScale="1000000"
 				updateStart="loadingScreenEnable()"
 				updateEnd="layerUpdateComp(scenariosCatchments)"
 				url="{resourceManager.getString('urls', 'scenariosCatchmentsUrl')}" > <!-- visible="{resultsTabs.selectedIndex == 0 &amp;&amp; catchment.selected == true &amp;&amp; streamflow.selected == false &amp;&amp; climateProj.selected == false}" -->
@@ -506,7 +507,8 @@
 			<esri:ArcGISDynamicMapServiceLayer
 				id="scenariosCatchmentsSmall"
 				visible="false"
-				alpha="0.7"  
+				alpha="0.7"
+				maxScale="1000000"
 				updateStart="loadingScreenEnable()"
 				updateEnd="layerUpdateComp(scenariosCatchmentsSmall)"
 				url="{resourceManager.getString('urls', 'scenariosCatchmentsSmallUrl')}" > <!-- visible="{(resultsTabs.selectedIndex == 0 &amp;&amp; streamReach.selected == true &amp;&amp; streamflow.selected == false &amp;&amp; climateProj.selected == false) &amp;&amp; map.scale &gt; 1500000}" -->

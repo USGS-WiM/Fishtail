@@ -31,11 +31,11 @@
   	<resource name="roadStreamsCache" value="http://gis.wim.usgs.gov/ArcGIS/rest/services/FishVis/roads_stream_crossing_cache/MapServer" />
   	
   	<!-- non wim hosted resources -->
-  	<resource name="padusUrl" value="http://gis1.usgs.gov/arcgis/rest/services/gap/PADUS_Owner/MapServer" />
-  	<resource name="padusStatusUrl" value="http://gis1.usgs.gov/arcgis/rest/services/gap/PADUS_Status/MapServer" />
+  	<resource name="padusUrl" value="https://gis1.usgs.gov/arcgis/rest/services/gap/PADUS_Owner/MapServer" />
+  	<resource name="padusStatusUrl" value="https://gis1.usgs.gov/arcgis/rest/services/gap/PADUS_Status/MapServer" />
   	<resource name="landCover2006Url" value="http://raster.nationalmap.gov/arcgis/rest/services/LandCover/conus_06/MapServer" />
-  	<resource name="lccUrl" value="http://www.sciencebase.gov/arcgis/rest/services/Catalog/55b943ade4b09a3b01b65d78/MapServer" />
-  	<resource name="disturbanceUrl" value="http://gis1.usgs.gov/arcgis/rest/services/nfhap/nfhap_scores_tiled_huc12_PROD/MapServer/" />
+  	<resource name="lccUrl" value="https://www.sciencebase.gov/arcgis/rest/services/Catalog/55b943ade4b09a3b01b65d78/MapServer" />
+  	<resource name="disturbanceUrl" value="https://gis1.usgs.gov/arcgis/rest/services/nfhap/nfhap_scores_tiled_huc12_PROD/MapServer/" />
   </resourceBundle>
   
   <!-- UI graphics -->
