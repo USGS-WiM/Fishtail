@@ -1005,7 +1005,7 @@
 						<![CDATA[
 						<font size='12' color='#000000'>
 						<p>Current and future disturbances indices, as well as variables, used to create indices are available for download. Variables include current human landscape disturbances and future climate projections.  Distributions of priority fish species by HUC-12 watersheds will also be available. Spatial data are provided as a file geodatabase with Federal Geographic Data Committee (FGDC) compliant metadata. 
-						<font size='12' color='#948A54'><b><a target='_blank' href='https://www.sciencebase.gov/catalog/item/52138cf2e4b0b08f44619be8?community=Northeast+CSC'>Click here</a></b></font> to access the download site.</p>
+						<font size='12' color='#948A54'><b><a target='_blank' href='https://www.sciencebase.gov/catalog/item/52138cf2e4b0b08f44619be8?community=Northeast+CSC'>Click here</a></b></font> to access and download the data.</p>
 						]]>
 					</mx:htmlText> <!--   -->
 				</mx:Text>
@@ -1105,7 +1105,9 @@
 						<br/>
 						<p><b><i>Additional information to support decision making</i></b></p><br/>
 						<p><ul><li>Locations of protected lands throughout the NECSC region</li>
-						<li>Fish habitat condition scores developed for streams of the conterminous United States in support of the National Fish Habitat Partnership 2015 Assessment</li>
+						<li>Fish habitat condition scores developed for streams of the conterminous United States in support of the National Fish Habitat Partnership 2015 Assessment</li><br/><br/>
+						<p><b><i>Acknowlegdements</i></b></p><br/>
+						<p>The FishTail web-based decision support mapping application was developed by the USGS Wisconsin Internet Mapping (WiM) team. Support for this project was provided by the U.S. Department of Interior Northeast Climate Science Center (NECSC). The University of Missouri U.S. Geological Survey (USGS) Cooperative Fish and Wildlife (Coop) Unit, Michigan State University, USGS Wisconsin Water Science Center, and Pennsylvania State University Coop Unit collaborated on this project.</p>
 						<br/>
 						<br/>
 						]]>
