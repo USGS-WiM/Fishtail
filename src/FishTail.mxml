@@ -919,7 +919,7 @@
 									<wimControls:LayerToggle id="padusToggle" layerID="0" serviceLayerID="padus" layerTitle="Public land ownership (PAD-US)" 
 															 opacBoxBGColor="0x444444" openOpacityRight="true" opacityBoxAlpha="0.9"
 															 moreInfoToolTip="Created as part of the USGS Gap Analysis Program, the Protected Areas Database of the United States (PAD-US) illustrates and describes public land ownership, management and conservation lands nationally, including voluntarily provided privately protected areas."
-															 selected="{padus.visible}" creationComplete="{ padusToggle.selected=false; }"/>
+															 selected="{padus.visible}" /> <!--creationComplete="{ padusToggle.selected=false; }"/>-->
 									<wimControls:LayerToggle id="padusStatusToggle" layerID="0" serviceLayerID="padusStatus" layerTitle="Conservation status (PAD-US)" 
 															 opacBoxBGColor="0x444444" openOpacityRight="true" opacityBoxAlpha="0.9"
 															 moreInfoToolTip="These designations are based off the Protected Areas Database of the United States (PAD-US), the official inventory of protected open space in the United States (http://gapanalysis.usgs.gov/padus/)."
