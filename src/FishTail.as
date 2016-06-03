@@ -100,7 +100,8 @@ import spark.events.IndexChangeEvent;
 			private var climateStreamflowLayerInfos:Array;
 			private var fishVisSearchLayerInfos:Array;
 
-			private var layerDef:String;
+			public var layerDef:String;
+			public var currentResponseIndex:String;
 			
 			[Bindable]
 			private var anyLayerDrew:Boolean;
@@ -425,6 +426,7 @@ import spark.events.IndexChangeEvent;
 				
 				var displayByVal:String = displayByOpt.selectedValue.toString();
 				var responseInd:String = topicOpt.selectedValue.toString();
+				currentResponseIndex = responseInd;
 				var landUseType:String = "";
 				if (landUseSelect.selectedIndex != -1 && landuse.selected) {
 					landUseType = landUseSelect.selectedItem.value;
@@ -1196,7 +1198,7 @@ import spark.events.IndexChangeEvent;
 	    			var infoGraphicsSymbol:InfoSymbol = singleGraphicSym;	    							    	
 	    				
 	    			
-    				if ((scenarios.visibleLayers != null && scenarios.visibleLayers.length > 0) || (scenariosCatchments.visibleLayers != null && scenariosCatchments.visibleLayers.length > 0)) {
+    				if ((scenarios.visibleLayers != null && scenarios.visibleLayers.length > 0) || (scenariosCatchments.visibleLayers != null && scenariosCatchments.visibleLayers.length > 0) || (scenariosCatchmentsSmall.visibleLayers != null && scenariosCatchmentsSmall.visibleLayers.length > 0)) {
 					
 						//Create query object to for currently selected layer    			
 		    		
@@ -1216,6 +1218,12 @@ import spark.events.IndexChangeEvent;
 							identifyTask.execute( identifyParameters, new AsyncResponder(infoSingleResult, infoFault, new ArrayCollection([{eventX: event.stageX, eventY: event.stageY}])) );
 						} else if (scenariosCatchments.visibleLayers != null && scenariosCatchments.visibleLayers.length > 0) {
 							var identifyTask:IdentifyTask = new IdentifyTask(resourceManager.getString('urls', 'scenariosCatchmentsUrl'));
+							identifyParameters.layerOption = "top";
+							identifyParameters.layerIds = [0];
+							identifyTask.showBusyCursor = true;
+							identifyTask.execute( identifyParameters, new AsyncResponder(infoSingleResult, infoFault, new ArrayCollection([{eventX: event.stageX, eventY: event.stageY}])) );
+						} else if (scenariosCatchmentsSmall.visibleLayers != null && scenariosCatchmentsSmall.visibleLayers.length > 0) {
+							var identifyTask:IdentifyTask = new IdentifyTask(resourceManager.getString('urls', 'scenariosCatchmentsSmallUrl'));
 							identifyParameters.layerOption = "top";
 							identifyParameters.layerIds = [0];
 							identifyTask.showBusyCursor = true;
@@ -1245,7 +1253,7 @@ import spark.events.IndexChangeEvent;
 							identifyTask.showBusyCursor = true;
 							identifyTask.execute( identifyParameters, new AsyncResponder(infoSingleResult, infoFault, new ArrayCollection([{eventX: event.stageX, eventY: event.stageY}])) );
 						} */
-					} else if (scenariosHUC12.visibleLayers != null && scenariosHUC12.visibleLayers.length > 0) {
+					} /*else if (scenariosHUC12.visibleLayers != null && scenariosHUC12.visibleLayers.length > 0) {
 						var identifyParameters:IdentifyParameters = new IdentifyParameters();
 						identifyParameters.returnGeometry = true;
 						identifyParameters.tolerance = 4;
@@ -1259,7 +1267,7 @@ import spark.events.IndexChangeEvent;
 						
 						var identifyTask:IdentifyTask = new IdentifyTask(resourceManager.getString('urls', 'scenariosHUC12Url'));
 						identifyTask.execute( identifyParameters, new AsyncResponder(huc12Result, infoFault, new ArrayCollection([{eventX: event.stageX, eventY: event.stageY}])) );
-					}
+					}*/
 			    	
 			}
     		
