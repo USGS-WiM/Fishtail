@@ -16,19 +16,19 @@
 	<!-- Fishtail and wim hosted resources -->
   	<resource name="scenariosUrl" value="https://gis.wim.usgs.gov/ArcGIS/rest/services/Fishtail/fishtail_reach/MapServer" />
   	<!-- <resource name="scenariosSmallUrl" value="https://gis.wim.usgs.gov/ArcGIS/rest/services/FishVis/scenarios_small_scale/MapServer" /> -->
-  	<resource name="scenariosCatchmentsUrl" value="http://gis.wim.usgs.gov/arcgis/rest/services/Fishtail/fishtail_catch/MapServer" />
-	<resource name="scenariosCatchmentsSmallUrl" value="http://gis.wim.usgs.gov/arcgis/rest/services/Fishtail/fishtail_catch_simple/MapServer" />
+  	<resource name="scenariosCatchmentsUrl" value="https://gis.wim.usgs.gov/arcgis/rest/services/Fishtail/fishtail_catch/MapServer" />
+	<resource name="scenariosCatchmentsSmallUrl" value="https://gis.wim.usgs.gov/arcgis/rest/services/Fishtail/fishtail_catch_simple/MapServer" />
 	<resource name="scenariosHUC12Url" value="https://gis.wim.usgs.gov/arcgis/rest/services/Fishtail/fishtail_huc12/MapServer" />
 	<!-- <resource name="streamsForQueryUrl" value="https://gis.wim.usgs.gov/ArcGIS/rest/services/FishVis/streams_for_query/MapServer" />
 	<resource name="climateStreamflow" value="https://gis.wim.usgs.gov/arcgis/rest/services/FishVis/climate_streamflow/MapServer" />
 	<resource name="climateStreamflowSmall" value="https://gis.wim.usgs.gov/arcgis/rest/services/FishVis/climate_streamflow_small_scale/MapServer" /> -->
   	<!-- changed to FishTail -->
-  	<resource name="supplementalLayersUrl" value="http://gis.wim.usgs.gov/ArcGIS/rest/services/Fishtail/supplementalLayers/MapServer" />
-  	<resource name="streamsCache" value="http://gis.wim.usgs.gov/ArcGIS/rest/services/Fishtail/streams_cache/MapServer" />
-  	<resource name="catchmentsCache" value="http://gis.wim.usgs.gov/ArcGIS/rest/services/Fishtail/catchments_cache/MapServer" />
-  	<resource name="streamBuffersCache" value="http://gis.wim.usgs.gov/ArcGIS/rest/services/Fishtail/streamBuffers_cache/MapServer" />
+  	<resource name="supplementalLayersUrl" value="https://gis.wim.usgs.gov/ArcGIS/rest/services/Fishtail/supplementalLayers/MapServer" />
+  	<resource name="streamsCache" value="https://gis.wim.usgs.gov/ArcGIS/rest/services/Fishtail/streams_cache/MapServer" />
+  	<resource name="catchmentsCache" value="https://gis.wim.usgs.gov/ArcGIS/rest/services/Fishtail/catchments_cache/MapServer" />
+  	<resource name="streamBuffersCache" value="https://gis.wim.usgs.gov/ArcGIS/rest/services/Fishtail/streamBuffers_cache/MapServer" />
   	<!-- end changed to FishTail -->
-  	<resource name="roadStreamsCache" value="http://gis.wim.usgs.gov/ArcGIS/rest/services/FishVis/roads_stream_crossing_cache/MapServer" />
+  	<resource name="roadStreamsCache" value="https://gis.wim.usgs.gov/ArcGIS/rest/services/FishVis/roads_stream_crossing_cache/MapServer" />
   	
   	<!-- non wim hosted resources -->
   	<resource name="padusUrl" value="https://gis1.usgs.gov/arcgis/rest/services/gap/PADUS_Owner/MapServer" />
