@@ -110,7 +110,7 @@ import spark.events.IndexChangeEvent;
 			private var popUpBoxes:Object = new Object();
 
 			[Bindable]
-			private var npsUrlTemplate:String = "http://{subDomain}.tiles.mapbox.com/v3/nps.pt-shaded-relief,nps.pt-urban-areas,nps.pt-river-lines,nps.pt-admin-lines,nps.pt-park-poly,nps.pt-mask,nps.pt-hydro-features,nps.pt-admin-labels,nps.pt-roads,nps.pt-road-shields,nps.pt-park-points,nps.pt-hydro-labels,nps.pt-city-labels,nps.pt-park-labels/{level}/{col}/{row}.png"
+			private var npsUrlTemplate:String = "https://{subDomain}.tiles.mapbox.com/v3/nps.pt-shaded-relief,nps.pt-urban-areas,nps.pt-river-lines,nps.pt-admin-lines,nps.pt-park-poly,nps.pt-mask,nps.pt-hydro-features,nps.pt-admin-labels,nps.pt-roads,nps.pt-road-shields,nps.pt-park-points,nps.pt-hydro-labels,nps.pt-city-labels,nps.pt-park-labels/{level}/{col}/{row}.png"
 			private static const ABCD:Array = [ "a", "b", "c", "d" ];
 
 			private var streamBufferTooltip:String = '<p>A buffer describes a narrow area of the landscape running adjacent to a stream on both banks.</p><br/><p>a. Local buffer:  A local buffer is the region of the landscape occurring out to 90 m on either side s reach.</p><br/><p>b. Network buffer:  A network buffer is the region of the landscape occurring out to 90 m on either side of a stream reach and including the regions for all of the reaches draining to it within the reach’s network catchment.  The network buffer for a particular stream reach includes that reach’s local buffer.</p>';
