@@ -100,6 +100,8 @@ import spark.events.IndexChangeEvent;
 			private var climateStreamflowLayerInfos:Array;
 			private var fishVisSearchLayerInfos:Array;
 
+			public var classDescriptions:Object = null;
+
 			public var layerDef:String;
 			public var currentResponseIndex:String;
 			
@@ -135,6 +137,7 @@ import spark.events.IndexChangeEvent;
 				
 				ToolTipManager.toolTipClass = HTMLToolTip;
 				ToolTipManager.hideDelay = Infinity;
+				
 			}
 
 			private function mapLoad():void {
@@ -159,6 +162,12 @@ import spark.events.IndexChangeEvent;
 				} else if (layer == streamTemp) {
 				//streamTempLegend.getLegends(evt)
 				}*/
+			}
+
+			private function classDescriptionResult(featureSet:FeatureSet, token:Object = null):void {
+				for each (var item:Object in featureSet.features) {
+					classDescriptions[item.attributes.Class] = item.attributes.Class_Description;
+				}
 			}
 
 			private function getScenarioLayerInfos(event:FlexEvent):void {
@@ -925,6 +934,7 @@ import spark.events.IndexChangeEvent;
 						}
 						scenariosCatchmentsLegend.aLegendService.send();
 						scenariosCatchmentsLegend.legendTitle = legendTitle;
+						scenariosCatchmentsSmallLegend.aLegendService.send();
 						scenariosCatchmentsSmallLegend.legendTitle = legendTitle;
 					}
 				}
@@ -1195,10 +1205,14 @@ import spark.events.IndexChangeEvent;
 	    			infoGraphicsLayer.clear();
 					PopUpManager.removePopUp(_queryWindow);
 	    			
-	    			var infoGraphicsSymbol:InfoSymbol = singleGraphicSym;	    							    	
-	    				
-	    			
-    				if ((scenarios.visibleLayers != null && scenarios.visibleLayers.length > 0) || (scenariosCatchments.visibleLayers != null && scenariosCatchments.visibleLayers.length > 0) || (scenariosCatchmentsSmall.visibleLayers != null && scenariosCatchmentsSmall.visibleLayers.length > 0)) {
+	    			var infoGraphicsSymbol:InfoSymbol = singleGraphicSym;	
+					
+					if (classDescriptions == null) {
+						classDescriptions = new Object();
+						classDescriptionTask.execute(classDescriptionQuery, new AsyncResponder(classDescriptionResult, infoFault, {type: 'classDescriptionTask'}));
+					}
+					
+	    			if ((scenarios.visibleLayers != null && scenarios.visibleLayers.length > 0) || (scenariosCatchments.visibleLayers != null && scenariosCatchments.visibleLayers.length > 0)) {
 					
 						//Create query object to for currently selected layer    			
 		    		
@@ -1218,12 +1232,6 @@ import spark.events.IndexChangeEvent;
 							identifyTask.execute( identifyParameters, new AsyncResponder(infoSingleResult, infoFault, new ArrayCollection([{eventX: event.stageX, eventY: event.stageY}])) );
 						} else if (scenariosCatchments.visibleLayers != null && scenariosCatchments.visibleLayers.length > 0) {
 							var identifyTask:IdentifyTask = new IdentifyTask(resourceManager.getString('urls', 'scenariosCatchmentsUrl'));
-							identifyParameters.layerOption = "top";
-							identifyParameters.layerIds = [0];
-							identifyTask.showBusyCursor = true;
-							identifyTask.execute( identifyParameters, new AsyncResponder(infoSingleResult, infoFault, new ArrayCollection([{eventX: event.stageX, eventY: event.stageY}])) );
-						} else if (scenariosCatchmentsSmall.visibleLayers != null && scenariosCatchmentsSmall.visibleLayers.length > 0) {
-							var identifyTask:IdentifyTask = new IdentifyTask(resourceManager.getString('urls', 'scenariosCatchmentsSmallUrl'));
 							identifyParameters.layerOption = "top";
 							identifyParameters.layerIds = [0];
 							identifyTask.showBusyCursor = true;

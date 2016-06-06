@@ -249,6 +249,14 @@
 			
 		</s:BorderContainer>
 		<!--End FishTail Link Box-->
+		
+		<esri:QueryTask id="classDescriptionTask" url="{resourceManager.getString('urls', 'supplementalLayersUrl')+'/8'}" useAMF="false" />
+		<esri:Query id="classDescriptionQuery" returnGeometry="false" where="1=1">
+			<esri:outFields>
+				<fx:String>Class</fx:String>
+				<fx:String>Class_Description</fx:String>
+			</esri:outFields>
+		</esri:Query>
 
 	</fx:Declarations>
 	
@@ -586,9 +594,10 @@
   	
   	<mx:Canvas>
 		<mx:HBox id="header" color="white" backgroundColor="black" borderStyle="solid" borderColor="black" cornerRadius="5" top="5" left="5" paddingTop="5" paddingBottom="5" paddingLeft="5" paddingRight="5"> 
-			<mx:Image id="headerLogo" source="{resourceManager.getString('ui.graphics', 'headerLogo')}" useHandCursor="true" buttonMode="true" mouseChildren="false" toolTip="{resourceManager.getString('ui.text', 'headerFooterLinks')}" click="showUSGSPopUpBox(event, 'headerFooterLinkBox')"/>
+			<mx:Image id="headerLogo" source="{resourceManager.getString('ui.graphics', 'headerLogo')}" click="navigateToURL(new URLRequest('http://www.usgs.gov'))" useHandCursor="true" buttonMode="true" mouseChildren="false" toolTip="U.S. Geological Survey" /><!--click="showUSGSPopUpBox(event, 'headerFooterLinkBox')"/>-->
 			<mx:HBox backgroundColor="black" width="100%" paddingLeft="5" paddingRight="10" paddingTop="5" verticalGap="0" fontFamily="Arial" >
 				<mx:Label text="{resourceManager.getString('ui.text', 'headerTitle')}" color="0x3f70b6" fontSize="28"/>
+				<mx:Image source="./assets/images/help_tip.png" toolTip="Climate Change Visualization and Integration of Ecological and Watershed Resources"></mx:Image>
 				<mx:Label text="{resourceManager.getString('ui.text', 'headerSubTitle')}" fontWeight="bold" color="white" fontSize="28" 
 						  buttonMode="true" click="navigateToURL(new URLRequest(FlexGlobals.topLevelApplication.url), '_self')"/>
 				<mx:Label text="beta" color="gray" fontSize="20"/>
@@ -601,7 +610,7 @@
 					height="35"
 					borderColor="1"
 					right="0"
-					toolTip="Click for more information about FishVis" 
+					toolTip="Click for more information about Fishtail" 
 					click="moreInfo.visible = true;">
 					<s:HGroup height="100%" paddingTop="5" paddingLeft="5" paddingRight="5" paddingBottom="5" fontWeight="bold" verticalAlign="middle">
 						<s:Label text="About" fontSize="14" color="white" />
@@ -841,8 +850,8 @@
 							<!-- Begin legends for browse tab results -->
 							<localControls:MapServiceLegend id="scenariosLegend" map="{map}" visible="{scenarios.visible &amp;&amp; (scenarios.visibleLayers != null &amp;&amp; scenarios.visibleLayers.length != 0)}" needsUpdates="true" includeInLayout="{scenarios.visible &amp;&amp; (scenarios.visibleLayers != null &amp;&amp; scenarios.visibleLayers.length != 0)}" serviceLayer="{scenarios}" legendWidth="245" />
 							<!--<localControls:MapServiceLegend id="scenariosSmallLegend" map="{map}" visible="{scenariosSmall.visible &amp;&amp; (scenariosSmall.visibleLayers != null &amp;&amp; scenariosSmall.visibleLayers.length != 0)}" needsUpdates="true" includeInLayout="{scenariosSmall.visible &amp;&amp; (scenariosSmall.visibleLayers != null &amp;&amp; scenariosSmall.visibleLayers.length != 0)}" serviceLayer="{scenariosSmall}" legendWidth="245" />
-							--><localControls:MapServiceLegend id="scenariosCatchmentsLegend" map="{map}" visible="{scenariosCatchments.visible &amp;&amp; (scenariosCatchments.visibleLayers != null &amp;&amp; scenariosCatchments.visibleLayers.length != 0)}" needsUpdates="true" includeInLayout="{scenariosCatchments.visible &amp;&amp; (scenariosCatchments.visibleLayers != null &amp;&amp; scenariosCatchments.visibleLayers.length != 0)}" serviceLayer="{scenariosCatchments}" legendWidth="245" />
-							<localControls:MapServiceLegend id="scenariosCatchmentsSmallLegend" map="{map}" visible="{scenariosCatchmentsSmall.visible &amp;&amp; (scenariosCatchmentsSmall.visibleLayers != null &amp;&amp; scenariosCatchmentsSmall.visibleLayers.length != 0)}" needsUpdates="true" includeInLayout="{scenariosCatchmentsSmall.visible &amp;&amp; (scenariosCatchmentsSmall.visibleLayers != null &amp;&amp; scenariosCatchmentsSmall.visibleLayers.length != 0)}" serviceLayer="{scenariosCatchmentsSmall}" legendWidth="245" />
+							--><localControls:MapServiceLegend id="scenariosCatchmentsLegend" map="{map}" visible="{scenariosCatchments.visible &amp;&amp; (scenariosCatchments.visibleLayers != null &amp;&amp; scenariosCatchments.visibleLayers.length != 0) &amp;&amp; map.scale &lt; 1000000}" needsUpdates="true" includeInLayout="{scenariosCatchments.visible &amp;&amp; (scenariosCatchments.visibleLayers != null &amp;&amp; scenariosCatchments.visibleLayers.length != 0) &amp;&amp; map.scale &lt; 1000000}" serviceLayer="{scenariosCatchments}" legendWidth="245" />
+							<localControls:MapServiceLegend id="scenariosCatchmentsSmallLegend" map="{map}" visible="{scenariosCatchmentsSmall.visible &amp;&amp; (scenariosCatchmentsSmall.visibleLayers != null &amp;&amp; scenariosCatchmentsSmall.visibleLayers.length != 0) &amp;&amp; map.scale &gt; 1000000}" needsUpdates="true" includeInLayout="{scenariosCatchmentsSmall.visible &amp;&amp; (scenariosCatchmentsSmall.visibleLayers != null &amp;&amp; scenariosCatchmentsSmall.visibleLayers.length != 0) &amp;&amp; map.scale &gt; 1000000}" serviceLayer="{scenariosCatchmentsSmall}" legendWidth="245" />
 							<localControls:MapServiceLegend id="scenariosHUC12Legend" map="{map}" visible="{scenariosHUC12.visible &amp;&amp; (scenariosHUC12.visibleLayers != null &amp;&amp; scenariosHUC12.visibleLayers.length != 0)}" needsUpdates="true" includeInLayout="{scenariosHUC12.visible &amp;&amp; (scenariosHUC12.visibleLayers != null &amp;&amp; scenariosHUC12.visibleLayers.length != 0)}" serviceLayer="{scenariosHUC12}" legendWidth="245" />
 							<!--<localControls:MapServiceLegend id="climateStreamflowLegend" map="{map}" visible="{climateStreamflow.visible &amp;&amp; (climateStreamflow.visibleLayers != null &amp;&amp; climateStreamflow.visibleLayers.length != 0)}" needsUpdates="true" includeInLayout="{climateStreamflowLegend.visible}" serviceLayer="{climateStreamflow}" legendWidth="245" />
 							<localControls:MapServiceLegend id="climateStreamflowSmallLegend" map="{map}" visible="{climateStreamflowSmall.visible &amp;&amp; (climateStreamflowSmall.visibleLayers != null &amp;&amp; climateStreamflowSmall.visibleLayers.length != 0)}" needsUpdates="true" includeInLayout="{climateStreamflowSmallLegend.visible}" serviceLayer="{climateStreamflowSmall}" legendWidth="245" />
@@ -912,7 +921,7 @@
 															 opacBoxBGColor="0x444444" openOpacityRight="true" opacityBoxAlpha="0.9"
 															 moreInfoToolTip="Drainage basins in the United States are divided and sub-divided into successively smaller hydrologic units (HUC), as defined by the USGS Watershed Boundary Dataset. A HUC12 refers to the sixth-level HUC with a 12-digit identification code."
 															 selected="{huc12s.visible}" creationComplete="{ huc12Toggle.selected=false; }" />
-									<wimControls:LayerToggle id="ecoregionsToggle" layerID="2" serviceLayerID="ecoregions" layerTitle="Ecoregions (EPA Wadable Streams Assessment)" 
+									<wimControls:LayerToggle id="ecoregionsToggle" layerID="2" serviceLayerID="ecoregions" layerTitle="Ecoregions (EPA Wadeable Streams Assessment)" 
 															 opacBoxBGColor="0x444444" openOpacityRight="true" opacityBoxAlpha="0.9"
 															 moreInfoToolTip="US Environmental Protection Agency’s (EPA) Wadeable Streams Assessment (WSA) ecoregions are aggregations of Omernik level III terrestrial ecoregions (Omernik 1987) and are defined as large regions of the landscape with broadly similar landform and climate characteristics (https://www.epa.gov/national-aquatic-resource-surveys/wadeable-streams-assessment)."
 															 selected="{ecoregions.visible}" creationComplete="{ ecoregionsToggle.selected=false; }"/>
@@ -1108,7 +1117,7 @@
 						<p><b><i>Additional information to support decision making</i></b></p><br/>
 						<p><ul><li>Locations of protected lands throughout the NECSC region</li>
 						<li>Fish habitat condition scores developed for streams of the conterminous United States in support of the National Fish Habitat Partnership 2015 Assessment</li><br/><br/>
-						<p><b><i>Acknowlegdements</i></b></p><br/>
+						<p><b><i>Acknowledgements</i></b></p><br/>
 						<p>The FishTail web-based decision support mapping application was developed by the USGS Wisconsin Internet Mapping (WiM) team. Support for this project was provided by the U.S. Department of Interior Northeast Climate Science Center (NECSC). The University of Missouri U.S. Geological Survey (USGS) Cooperative Fish and Wildlife (Coop) Unit, Michigan State University, USGS Wisconsin Water Science Center, and Pennsylvania State University Coop Unit collaborated on this project.</p>
 						<br/>
 						<br/>
