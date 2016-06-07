@@ -725,7 +725,8 @@
 										</s:HGroup>
 										<s:HGroup verticalAlign="middle">
 											<s:CheckBox id="river" 
-													   label="River" />
+													   label="River"
+													   selected="true" />
 											<mx:Image source="./assets/images/help_tip.png" toolTip="A stream reach with a network catchment area greater than 100 square kilometers." />
 										</s:HGroup>
 									</s:VGroup>
