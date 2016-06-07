@@ -248,13 +248,14 @@
 				</s:VGroup>
 				<mx:HRule width="100%"/>
 				<s:VGroup textAlign="center" gap="15">
-					<s:HGroup horizontalAlign="center" paddingTop="10" verticalAlign="bottom" fontWeight="bold" textAlign="center" height="100%" width="100%">
+					<s:HGroup horizontalAlign="center" paddingTop="10" verticalAlign="bottom" fontWeight="bold" textAlign="left" height="100%" width="100%">
 						<s:Label width="125" text="Stream class" textAlign="left"/>
-						<s:Label width="375" text="Stream class Description" textAlign="left"/>
+						<s:Label width="155" text="Stream class Description" textAlign="left"/>
+						<mx:Image width="220" source="./assets/images/help_tip.png" toolTip="Click a present or future stream class code in the table above to see a description for that class" />
 					</s:HGroup>
 					<s:HGroup width="100%" height="100%" horizontalAlign="center">
-						<s:Label width="125" id="classCode" text="Class" textAlign="left"/>
-						<s:Label width="375" id="classDescription" text="Class description" textAlign="left"/>
+						<s:Label width="125" id="classCode" text="" textAlign="left"/>
+						<s:Label width="375" id="classDescription" text="(Click a present or future stream class code in the table above to see a description for that class)" textAlign="left"/>
 					</s:HGroup>
 				</s:VGroup>
 			</s:VGroup>
