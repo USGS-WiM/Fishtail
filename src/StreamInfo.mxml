@@ -386,6 +386,56 @@
 				</s:VGroup>
 			</s:VGroup>
 		</mx:HBox>
+		<mx:HBox id="landUse" label="Land use" paddingBottom="10"
+				 paddingLeft="5" paddingRight="5" paddingTop="5">
+			<localControls:streamCatchInfoBar height="100%" dataObj="{data[0]}"/>
+			<s:VGroup id="luContent" width="100%" maxHeight="470"
+					  clipAndEnableScrolling="true" paddingBottom="10" paddingLeft="10"
+					  paddingRight="10" paddingTop="10">
+				<mx:HBox width="100%" backgroundColor="0xDDDDDD" paddingBottom="5" paddingLeft="5"
+						 paddingRight="5" paddingTop="5">
+					<s:Label text="Most limiting land use disturbance for the 4 spatial scales"/>
+					<mx:Image source="./assets/images/help_tip.png" width="100%" toolTip="{qwTooltip}" horizontalAlign="right" />
+				</mx:HBox>
+				<s:VGroup textAlign="center" paddingTop="10" paddingBottom="10">
+					<s:HGroup width="100%" height="100%" horizontalAlign="center">
+						<s:Label width="150" text="Local catchment" textAlign="left"/>
+						<s:Label width="350" text="{data[0].LCLU_LIMIT}" textAlign="left"/>
+					</s:HGroup>
+					<s:HGroup width="100%" height="100%" horizontalAlign="center">
+						<s:Label width="150" text="Network catchment" textAlign="left"/>
+						<s:Label width="350" text="{data[0].NCLU_LIMIT}" textAlign="left"/>
+					</s:HGroup>
+					<s:HGroup width="100%" height="100%" horizontalAlign="center">
+						<s:Label width="150" text="Local buffer" textAlign="left"/>
+						<s:Label width="350" text="{data[0].LBLU_LIMIT}" textAlign="left"/>
+					</s:HGroup>
+					<s:HGroup width="100%" height="100%" horizontalAlign="center">
+						<s:Label width="150" text="Network buffer" textAlign="left"/>
+						<s:Label width="350" text="{data[0].NBLU_LIMIT}" textAlign="left"/>
+					</s:HGroup>
+				</s:VGroup>
+			</s:VGroup>
+		</mx:HBox>
+		<mx:HBox id="fragmentation" label="Fragmentation" paddingBottom="10"
+				 paddingLeft="5" paddingRight="5" paddingTop="5">
+			<localControls:streamCatchInfoBar height="100%" dataObj="{data[0]}"/>
+			<s:VGroup id="fContent" width="100%" maxHeight="470"
+					  clipAndEnableScrolling="true" paddingBottom="10" paddingLeft="10"
+					  paddingRight="10" paddingTop="10">
+				<mx:HBox width="100%" backgroundColor="0xDDDDDD" paddingBottom="5" paddingLeft="5"
+						 paddingRight="5" paddingTop="5">
+					<s:Label text="Most limiting habitat fragmentation disturbance"/>
+					<mx:Image source="./assets/images/help_tip.png" width="100%" toolTip="{qwTooltip}" horizontalAlign="right" />
+				</mx:HBox>
+				<s:VGroup textAlign="center" paddingTop="10" paddingBottom="10">
+					<s:HGroup width="100%" height="100%" horizontalAlign="center">
+						<s:Label width="150" text="Network catchment" textAlign="left"/>
+						<s:Label width="350" text="{data[0].NCFR_LIMIT}" textAlign="left"/>
+					</s:HGroup>
+				</s:VGroup>
+			</s:VGroup>
+		</mx:HBox>
 		
 	</mx:TabNavigator>
 	
