@@ -92,14 +92,14 @@
 				
 				//logic to open the right tab for the mapped variable
 				var val:String = FlexGlobals.topLevelApplication.topicOpt.selectedValue;
-				if (val == "fish") {
-					infoTabs.selectedIndex = 1;
-				} else if (val == "streamtemp") {
-					infoTabs.selectedIndex = 0;
-				} else if (val == "streamflow") {
+				if (val == "LU") {
+					infoTabs.selectedIndex = 2;
+				} else if (val == "FR") {
 					infoTabs.selectedIndex = 3;
-				} else if (val == "climateproj" && currentState == "catchments") {
-					infoTabs.selectedIndex = 4;
+				} else if (val == "QW") {
+					infoTabs.selectedIndex = 1;
+				} else if (val == "CL") {
+					infoTabs.selectedIndex = 0;
 				}
 			}
 			
