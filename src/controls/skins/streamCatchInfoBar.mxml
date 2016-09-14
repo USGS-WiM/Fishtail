@@ -102,7 +102,7 @@
 				</s:VGroup>
 				<s:VGroup>
 					<s:Label width="150" text="Ecoregion: {hostComponent.dataObj.Ecoreg_Name}" />
-					<s:Label width="150" text="Ecoregion Code: {hostComponent.dataObj.Ecoreg_Code}" />
+					<s:Label width="150" text="Ecoregion Code: {hostComponent.dataObj.EcoregCode}" />
 				</s:VGroup>
 			</s:VGroup>
 		</mx:VBox>
