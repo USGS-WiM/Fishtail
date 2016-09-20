@@ -191,7 +191,7 @@
 				<mx:HBox width="100%" backgroundColor="0xDDDDDD" paddingBottom="5" paddingLeft="5"
 						 paddingRight="5" paddingTop="5">
 					<s:Label text="Summary response based on all climate models"/>
-					<mx:Image source="./assets/images/help_tip.png" width="100%" toolTip="{climateTooltip}" horizontalAlign="right" />
+					<!--<mx:Image source="./assets/images/help_tip.png" width="100%" toolTip="{climateTooltip}" horizontalAlign="right" />-->
 				</mx:HBox>
 				<s:VGroup textAlign="center" paddingTop="10" paddingBottom="10">
 					<s:HGroup width="100%" height="100%" horizontalAlign="center">
@@ -278,7 +278,7 @@
 				<mx:HBox width="100%" backgroundColor="0xDDDDDD" paddingBottom="5" paddingLeft="5"
 						 paddingRight="5" paddingTop="5">
 					<s:Label text="Risk of stream habitat degradation from water quality impairments"/>
-					<mx:Image source="./assets/images/help_tip.png" width="100%" toolTip="{qwTooltip}" horizontalAlign="right" />
+					<!--<mx:Image source="./assets/images/help_tip.png" width="100%" toolTip="{qwTooltip}" horizontalAlign="right" />-->
 				</mx:HBox>
 				<s:VGroup textAlign="center" paddingTop="10" paddingBottom="10">
 					<s:HGroup width="100%" height="100%" horizontalAlign="center">
@@ -406,7 +406,7 @@
 				<mx:HBox width="100%" backgroundColor="0xDDDDDD" paddingBottom="5" paddingLeft="5"
 						 paddingRight="5" paddingTop="5">
 					<s:Label text="Rick of stream habitat degradation from human land use"/>
-					<mx:Image source="./assets/images/help_tip.png" width="100%" toolTip="{luTooltip}" horizontalAlign="right" />
+					<!--<mx:Image source="./assets/images/help_tip.png" width="100%" toolTip="{luTooltip}" horizontalAlign="right" />-->
 				</mx:HBox>
 				<s:VGroup textAlign="center" paddingTop="10" paddingBottom="10">
 					<s:HGroup width="100%" height="100%" horizontalAlign="center">
@@ -433,7 +433,7 @@
 				<mx:HBox width="100%" backgroundColor="0xDDDDDD" paddingBottom="5" paddingLeft="5"
 						 paddingRight="5" paddingTop="5">
 					<s:Label text="Most limiting land use disturbance for the 4 spatial scales"/>
-					<mx:Image source="./assets/images/help_tip.png" width="100%" toolTip="{luTooltip}" horizontalAlign="right" />
+					<!--<mx:Image source="./assets/images/help_tip.png" width="100%" toolTip="{luTooltip}" horizontalAlign="right" />-->
 				</mx:HBox>
 				<s:VGroup textAlign="center" paddingTop="10" paddingBottom="10">
 					<s:HGroup width="100%" height="100%" horizontalAlign="center">
@@ -470,7 +470,7 @@
 				<mx:HBox width="100%" backgroundColor="0xDDDDDD" paddingBottom="5" paddingLeft="5"
 						 paddingRight="5" paddingTop="5">
 					<s:Label text="Most limiting habitat fragmentation disturbance"/>
-					<mx:Image source="./assets/images/help_tip.png" width="100%" toolTip="{qwTooltip}" horizontalAlign="right" />
+					<!--<mx:Image source="./assets/images/help_tip.png" width="100%" toolTip="{qwTooltip}" horizontalAlign="right" />-->
 				</mx:HBox>
 				<s:VGroup textAlign="center" paddingTop="10" paddingBottom="10">
 					<s:HGroup width="100%" height="100%" horizontalAlign="center">
