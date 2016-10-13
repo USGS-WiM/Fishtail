@@ -480,7 +480,11 @@ import spark.events.IndexChangeEvent;
 					}
 				}
 				
-				layerDef += " AND EcoregCode IN " + ecoSqlArr;
+				if (huc12.selected) {
+					layerDef += " AND Ecoreg_Code IN " + ecoSqlArr;
+				} else {
+					layerDef += " AND EcoregCode IN " + ecoSqlArr;
+				}
 				
 				var rivArr:Array = [];
 				
