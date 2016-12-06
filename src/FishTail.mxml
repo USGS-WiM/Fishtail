@@ -56,7 +56,7 @@
 		
 		<esri:NavigationTool id="navToolbar" map="{map}"/>
 		
-		<esri:Locator id="locator"  outSpatialReference="{map.spatialReference}" url="http://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer"/>
+		<esri:Locator id="locator"  outSpatialReference="{map.spatialReference}" url="https://geocode.arcgis.com/arcgis/rest/services/World/GeocodeServer"/>
 				
 		<esri:SimpleLineSymbol id="streamQuerySym" style="solid" color="0xFFFF00" width="2" />
 		
