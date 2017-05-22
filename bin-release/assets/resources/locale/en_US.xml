@@ -49,6 +49,7 @@
   	<!--  Application Titles -->
   	<resource name="headerTitle" value="CCVIEWeR"/>
     <resource name="headerSubTitle" value="FishTail"/>
+    <resource name="version" value="Version 1.0"/>
     <!-- Component Text -->
     <resource name="geocodeSearchButtonText" value="Find"/>
     <resource name="geocodeSearchHintText" value="Type Address, Landmark, etc..." />
