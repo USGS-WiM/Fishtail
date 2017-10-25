@@ -1,0 +1,44 @@
+[
+  {
+    "name": "Fishtail",
+    "organization": "U.S. Geological Survey",
+    "description": "A decision support mapper for conserving stream fish habitats of the Northeast Climate Science Center (NECSC) region",
+    "version": "v1.0",
+    "status": "Production",
+    "permissions": {
+      "usageType": "openSource",
+      "licenses": [
+        {
+          "name": "Public Domain, CC0-1.0",
+          "URL": "https://github.com/usgs-wim/Fishtail/blob/master/LICENSE.md"
+        }
+      ]
+    },
+
+    "homepageURL": "https://ccviewer.wim.usgs.gov/Fishtail",
+    "downloadURL": "https://github.com/USGS-WiM/Fishtail/archive/master.zip",
+    "disclaimerURL": "https://github.com/USGS-WiM/Fishtail/blob/master/LICENSE.md",
+    "repositoryUrl": "https://github.com/USGS-WiM/Fishtail",
+    "vcs": "git",
+
+    "laborHours": null,
+
+    "tags": [
+      "Fishtail",
+      "usgs"
+    ],
+
+    "languages": [
+      "Actionscript"
+    ],
+
+    "contact": {
+      "name": "Nicholas Estes",
+      "email": "njestes@usgs.gov"
+    },
+
+    "date": {
+      "metadataLastUpdated": "2017-10-25"
+    }
+  }
+]
