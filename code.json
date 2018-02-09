@@ -17,7 +17,7 @@
 
     "homepageURL": "https://ccviewer.wim.usgs.gov/Fishtail",
     "downloadURL": "https://github.com/USGS-WiM/Fishtail/archive/master.zip",
-    "disclaimerURL": "https://github.com/USGS-WiM/Fishtail/blob/master/LICENSE.md",
+    "disclaimerURL": "https://github.com/USGS-WiM/Fishtail/blob/master/DISCLAIMER.md",
     "repositoryUrl": "https://github.com/USGS-WiM/Fishtail",
     "vcs": "git",
 
